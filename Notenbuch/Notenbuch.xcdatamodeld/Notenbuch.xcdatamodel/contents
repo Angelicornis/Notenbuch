@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14E46" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Notenitem" representedClassName="Notenitem" syncable="YES">
+        <attribute name="extemporale" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="fachreferat" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="kurzarbeiten" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="mundlicheNote" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="schulaufgaben" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <relationship name="notenitem" maxCount="1" deletionRule="Deny" destinationEntity="Notensatz" inverseName="notensatz" inverseEntity="Notensatz" syncable="YES"/>
+    </entity>
+    <entity name="Notensatz" representedClassName="Notensatz" syncable="YES">
+        <attribute name="fachart" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="order" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="notensatz" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Notenitem" inverseName="notenitem" inverseEntity="Notenitem" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Notenitem" positionX="927" positionY="-639" width="128" height="135"/>
+        <element name="Notensatz" positionX="774" positionY="-639" width="128" height="105"/>
+    </elements>
 </model>

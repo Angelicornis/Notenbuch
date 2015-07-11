@@ -11,6 +11,7 @@ import UIKit
 class CalculateTVC: UIViewController {
     
     //MARK: Variablendeklaration
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var jahresfortgangsnoteTF: UITextField!
     @IBOutlet weak var schriftlichePrufungDerzeitTF: UITextField!
     @IBOutlet weak var mundlichePrufungDerzeitTF: UITextField!
@@ -34,31 +35,55 @@ class CalculateTVC: UIViewController {
     
     var daten:[calculateWithData] = []
     var dataFromHistory: calculateWithData!
-    var dataFromHistoryStatus = false
+    
+    
     var hinzugefugtUm: NSDate!
+    var delayIntervall: Double = 5
     
     
     //MARK: - Obligatorische Funktionen
     override func viewDidLoad() {
+        //        scrollView.contentSize.height = 600
+        //        scrollView.contentSize.width = 550
         pflichtMundlichePrufung.on = false
         if !pflichtMundlichePrufung.on {
             mundlichePrufungDerzeitTF.enabled = false
         }
-        //
+        
         //        jahresfortgangsnoteTF.text = "7.7"
         //        schriftlichePrufungDerzeitTF.text = "8"
         //        zeugnisspunkteDerzeitTF.text = "7.85"
         //        gerundeteZeugnisspunkteTF.text = zeugnisspunkteDerzeitTF.text.toDouble()!.toInt().toString()
         //        entsprichtDieNoteTF.text = "3"
         //        if !jahresfortgangsnoteTF.text.isEmpty && !mundlichePrufungDerzeitTF.text.isEmpty {
-        //            berechnung(false, mündlicheNote: nil)
+        //            berechnungDerZeugnisspunkte(false, mündlicheNote: nil)
         //            nachstBessereNote(7.85)
         //            zweitBessereNote(7.85)
         //        }
+        segueBTN1.enabled = true
+        segueBTN2.enabled = true
+//        addCurrentDataToHistory()
     }
     
     override func viewDidAppear(animated: Bool) {
-        if dataFromHistoryStatus {
+        berechneDataFromHistory()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "notenUbersichtNachstePunkte" || segue.identifier == "notenUbersichtUbernachstePunkte" {
+            (segue.destinationViewController as! notenUbersicht).jahresfortgangsnote = jahresfortgangsnoteTF.text.toDouble()! ?? 0
+            (segue.destinationViewController as! notenUbersicht).schriftlichePrufung = schriftlichePrufungDerzeitTF.text.toInt() ?? 0
+            (segue.destinationViewController as! notenUbersicht).pflichtMundlichePrufung = mundlichePrufungDerzeitTF.text.toInt() ?? 0
+            (segue.destinationViewController as! notenUbersicht).zeugnissnote = zeugnisspunkteDerzeitTF.text.toDouble() ?? 0
+        } else if segue.identifier == "historySegueCalculate" {
+            (segue.destinationViewController as! historyCalculateTVC).daten = daten.reverse()
+        }
+    }
+    func berechneDataFromHistory() {
+        println("berechnung")
+        if dataFromHistory != nil {
+            println(dataFromHistory.jahresfortgangsnote)
+            println(dataFromHistory.nachstbessereNote)
             jahresfortgangsnoteTF.text = dataFromHistory.jahresfortgangsnote
             schriftlichePrufungDerzeitTF.text = dataFromHistory.schriftlichePrufung
             zeugnisspunkteDerzeitTF.text = dataFromHistory.zeugnisspunkte
@@ -73,34 +98,19 @@ class CalculateTVC: UIViewController {
             } else {
                 ubernachstePunkteView.hidden = true
             }
-            dataFromHistoryStatus = false
-            
+            dataFromHistory = nil
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "notenUbersichtNachstePunkte" || segue.identifier == "notenUbersichtUbernachstePunkte" {
-            addCurrentDataToHistory()
-            (segue.destinationViewController as! notenUbersicht).jahresfortgangsnote = jahresfortgangsnoteTF.text.toDouble()! ?? 0
-            (segue.destinationViewController as! notenUbersicht).schriftlichePrufung = schriftlichePrufungDerzeitTF.text.toInt() ?? 0
-            (segue.destinationViewController as! notenUbersicht).pflichtMundlichePrufung = mundlichePrufungDerzeitTF.text.toInt() ?? 0
-            (segue.destinationViewController as! notenUbersicht).zeugnissnote = zeugnisspunkteDerzeitTF.text.toDouble() ?? 0
-        } else if segue.identifier == "historySegueCalculate" {
-            (segue.destinationViewController as! historyCalculateTVC).daten = daten.reverse()
-        }
-    }
-    
-    //MARK: Funktioen
+    //MARK: Funktionen
     func addCurrentDataToHistory() {
-        println(daten.count)
         var vorhanden = false
         var newHistory = calculateWithData(name: "", jahresfortgangsnote: jahresfortgangsnoteTF.text, mitMundlicherPrufung: pflichtMundlichePrufung.on, schriftlichePrufung: schriftlichePrufungDerzeitTF.text, mundlichePrufung: mundlichePrufungDerzeitTF.text, zeugnisspunkte: zeugnisspunkteDerzeitTF.text, gerundeteZeugnisspunkte: gerundeteZeugnisspunkteTF.text, entsprichtNote: entsprichtDieNoteTF.text, nachstbessereNote: nachstbesserePunkteTF.text, erreichbarMit: erreichbarMitTF.text, ubernachstbessereNote: ubernachstePunkteTF.text, ubernachstbessereNoteErreichbarMit: ubernachstePunkteErreichbarMitTF.text)
         if daten.count == 0 { daten.append(newHistory); hinzugefugtUm = NSDate() }
         if !contains(daten, newHistory) {
             var current = NSDate()
             var intervall = current.timeIntervalSinceDate(hinzugefugtUm)
-            println(intervall)
-            if intervall.toString().toDouble()?.absolute < 30 {
+            if intervall.toString().toDouble()?.absolute < delayIntervall {
                 daten.removeLast()
             }
             
@@ -114,14 +124,14 @@ class CalculateTVC: UIViewController {
         mundlichePrufungDerzeitLabel.hidden = !enabled
         if enabled {
             println("an")
-            UIView.animateWithDuration(0.5) {
-                self.ubernachstePunkteView.frame = CGRectMake(0, self.ubernachstePunkteView.bounds.origin.y, self.ubernachstePunkteView.frame.width, self.ubernachstePunkteView.frame.height)
-            }
+            //            UIView.animateWithDuration(0.5) {
+            //                self.ubernachstePunkteView.frame = CGRectMake(0, self.ubernachstePunkteView.bounds.origin.y, self.ubernachstePunkteView.frame.width, self.ubernachstePunkteView.frame.height)
+            //            }
         } else {
             println("aus")
-            UIView.animateWithDuration(0.5) {
-                self.ubernachstePunkteView.bounds = CGRectMake(0, self.ubernachstePunkteView.bounds.origin.y + 30, self.ubernachstePunkteView.frame.width, self.ubernachstePunkteView.frame.height)
-            }
+            //            UIView.animateWithDuration(0.5) {
+            //                self.ubernachstePunkteView.bounds = CGRectMake(0, self.ubernachstePunkteView.bounds.origin.y + 30, self.ubernachstePunkteView.frame.width, self.ubernachstePunkteView.frame.height)
+            //            }
         }
         
         //        prufungsView.frame = CGRectMake(CGFloat(0), CGFloat(126), prufungsView.frame.width, CGFloat(97))

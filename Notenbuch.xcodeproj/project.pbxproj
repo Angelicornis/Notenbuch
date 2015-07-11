@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E29360891B511EA7009077D2 /* CustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29360881B511EA7009077D2 /* CustomSegue.swift */; };
 		E2A6A6BE1B4481EB00F3BEA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6A6BD1B4481EB00F3BEA8 /* AppDelegate.swift */; };
 		E2A6A6C11B4481EB00F3BEA8 /* Notenbuch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E2A6A6BF1B4481EB00F3BEA8 /* Notenbuch.xcdatamodeld */; };
 		E2A6A6C31B4481EB00F3BEA8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6A6C21B4481EB00F3BEA8 /* ViewController.swift */; };
@@ -19,6 +20,12 @@
 		E2A6A6F51B46E8A600F3BEA8 /* notenUbersicht.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6A6F41B46E8A600F3BEA8 /* notenUbersicht.swift */; };
 		E2A6A6F81B480C0100F3BEA8 /* historyCalculateTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6A6F71B480C0100F3BEA8 /* historyCalculateTVC.swift */; };
 		E2A6A6FA1B480CEB00F3BEA8 /* KleineFunktionen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6A6F91B480CEB00F3BEA8 /* KleineFunktionen.swift */; };
+		E2AC786A1B4C2AF500CC0406 /* notenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AC78691B4C2AF500CC0406 /* notenCell.swift */; };
+		E2AC786C1B4C377300CC0406 /* Notenitem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AC786B1B4C377300CC0406 /* Notenitem.swift */; };
+		E2AC786E1B4C377400CC0406 /* Notensatz.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AC786D1B4C377400CC0406 /* Notensatz.swift */; };
+		E2AC78711B4C37EB00CC0406 /* Notensatz Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AC78701B4C37EB00CC0406 /* Notensatz Extension.swift */; };
+		E2AC78731B4C3ABF00CC0406 /* Konstanten.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AC78721B4C3ABF00CC0406 /* Konstanten.swift */; };
+		E2DDA01B1B49DAC4008839E3 /* AddNewFach.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DDA01A1B49DAC4008839E3 /* AddNewFach.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E29360881B511EA7009077D2 /* CustomSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSegue.swift; sourceTree = "<group>"; };
+		E293608A1B511FA3009077D2 /* Notenbuch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Notenbuch-Bridging-Header.h"; sourceTree = "<group>"; };
 		E2A6A6B81B4481EB00F3BEA8 /* Notenbuch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notenbuch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2A6A6BC1B4481EB00F3BEA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E2A6A6BD1B4481EB00F3BEA8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +58,12 @@
 		E2A6A6F61B4701B700F3BEA8 /* Versuche.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Versuche.playground; sourceTree = "<group>"; };
 		E2A6A6F71B480C0100F3BEA8 /* historyCalculateTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = historyCalculateTVC.swift; sourceTree = "<group>"; };
 		E2A6A6F91B480CEB00F3BEA8 /* KleineFunktionen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KleineFunktionen.swift; sourceTree = "<group>"; };
+		E2AC78691B4C2AF500CC0406 /* notenCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = notenCell.swift; sourceTree = "<group>"; };
+		E2AC786B1B4C377300CC0406 /* Notenitem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notenitem.swift; sourceTree = "<group>"; };
+		E2AC786D1B4C377400CC0406 /* Notensatz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notensatz.swift; sourceTree = "<group>"; };
+		E2AC78701B4C37EB00CC0406 /* Notensatz Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Notensatz Extension.swift"; sourceTree = "<group>"; };
+		E2AC78721B4C3ABF00CC0406 /* Konstanten.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Konstanten.swift; sourceTree = "<group>"; };
+		E2DDA01A1B49DAC4008839E3 /* AddNewFach.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewFach.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,18 +105,14 @@
 		E2A6A6BA1B4481EB00F3BEA8 /* Notenbuch */ = {
 			isa = PBXGroup;
 			children = (
-				E2A6A6BD1B4481EB00F3BEA8 /* AppDelegate.swift */,
 				E2A6A6F21B46E87200F3BEA8 /* Main.storyboard */,
 				E2A6A6C21B4481EB00F3BEA8 /* ViewController.swift */,
-				E2A6A6E61B46ABF200F3BEA8 /* CalculateTVC.swift */,
-				E2A6A6F91B480CEB00F3BEA8 /* KleineFunktionen.swift */,
-				E2A6A6F41B46E8A600F3BEA8 /* notenUbersicht.swift */,
-				E2A6A6F71B480C0100F3BEA8 /* historyCalculateTVC.swift */,
+				E2AC78691B4C2AF500CC0406 /* notenCell.swift */,
+				E2DDA01A1B49DAC4008839E3 /* AddNewFach.swift */,
+				E2AC786F1B4C37DC00CC0406 /* CoreData */,
+				E2AC78681B4C29D300CC0406 /* Calculate */,
 				E2A6A6E41B455AB700F3BEA8 /* Extension.swift */,
 				E2A6A6F61B4701B700F3BEA8 /* Versuche.playground */,
-				E2A6A6C71B4481EB00F3BEA8 /* Images.xcassets */,
-				E2A6A6C91B4481EB00F3BEA8 /* LaunchScreen.xib */,
-				E2A6A6BF1B4481EB00F3BEA8 /* Notenbuch.xcdatamodeld */,
 				E2A6A6BB1B4481EB00F3BEA8 /* Supporting Files */,
 			);
 			path = Notenbuch;
@@ -110,7 +121,14 @@
 		E2A6A6BB1B4481EB00F3BEA8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E2A6A6F91B480CEB00F3BEA8 /* KleineFunktionen.swift */,
+				E293608A1B511FA3009077D2 /* Notenbuch-Bridging-Header.h */,
+				E2A6A6BD1B4481EB00F3BEA8 /* AppDelegate.swift */,
+				E2A6A6C71B4481EB00F3BEA8 /* Images.xcassets */,
+				E2A6A6C91B4481EB00F3BEA8 /* LaunchScreen.xib */,
+				E2A6A6BF1B4481EB00F3BEA8 /* Notenbuch.xcdatamodeld */,
 				E2A6A6BC1B4481EB00F3BEA8 /* Info.plist */,
+				E29360881B511EA7009077D2 /* CustomSegue.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -130,6 +148,27 @@
 				E2A6A6D51B4481EB00F3BEA8 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E2AC78681B4C29D300CC0406 /* Calculate */ = {
+			isa = PBXGroup;
+			children = (
+				E2A6A6E61B46ABF200F3BEA8 /* CalculateTVC.swift */,
+				E2A6A6F41B46E8A600F3BEA8 /* notenUbersicht.swift */,
+				E2A6A6F71B480C0100F3BEA8 /* historyCalculateTVC.swift */,
+			);
+			name = Calculate;
+			sourceTree = "<group>";
+		};
+		E2AC786F1B4C37DC00CC0406 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				E2AC786D1B4C377400CC0406 /* Notensatz.swift */,
+				E2AC78701B4C37EB00CC0406 /* Notensatz Extension.swift */,
+				E2AC78721B4C3ABF00CC0406 /* Konstanten.swift */,
+				E2AC786B1B4C377300CC0406 /* Notenitem.swift */,
+			);
+			name = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,6 +215,7 @@
 		E2A6A6B01B4481EB00F3BEA8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = "Tom Kumschier";
 				TargetAttributes = {
@@ -232,13 +272,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2AC78711B4C37EB00CC0406 /* Notensatz Extension.swift in Sources */,
+				E2AC786A1B4C2AF500CC0406 /* notenCell.swift in Sources */,
 				E2A6A6F51B46E8A600F3BEA8 /* notenUbersicht.swift in Sources */,
+				E2DDA01B1B49DAC4008839E3 /* AddNewFach.swift in Sources */,
+				E2AC78731B4C3ABF00CC0406 /* Konstanten.swift in Sources */,
 				E2A6A6E71B46ABF200F3BEA8 /* CalculateTVC.swift in Sources */,
+				E2AC786C1B4C377300CC0406 /* Notenitem.swift in Sources */,
 				E2A6A6FA1B480CEB00F3BEA8 /* KleineFunktionen.swift in Sources */,
 				E2A6A6C31B4481EB00F3BEA8 /* ViewController.swift in Sources */,
 				E2A6A6C11B4481EB00F3BEA8 /* Notenbuch.xcdatamodeld in Sources */,
+				E2AC786E1B4C377400CC0406 /* Notensatz.swift in Sources */,
 				E2A6A6BE1B4481EB00F3BEA8 /* AppDelegate.swift in Sources */,
 				E2A6A6F81B480C0100F3BEA8 /* historyCalculateTVC.swift in Sources */,
+				E29360891B511EA7009077D2 /* CustomSegue.swift in Sources */,
 				E2A6A6E51B455AB700F3BEA8 /* Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -358,9 +405,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Notenbuch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Notenbuch/Notenbuch-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -368,9 +418,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Notenbuch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Notenbuch/Notenbuch-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -427,6 +479,7 @@
 				E2A6A6DC1B4481EB00F3BEA8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E2A6A6DD1B4481EB00F3BEA8 /* Build configuration list for PBXNativeTarget "NotenbuchTests" */ = {
 			isa = XCConfigurationList;
@@ -435,6 +488,7 @@
 				E2A6A6DF1B4481EB00F3BEA8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

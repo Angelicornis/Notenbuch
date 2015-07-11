@@ -106,6 +106,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    static func minMaxIntegerValueForEntitiy(entityName: String, attributeName: String, minimum: Bool, predicate: NSPredicate = NSPredicate(value: true)) ->Int {
+        let request = NSFetchRequest(entityName: entityName)
+        request.sortDescriptors = [NSSortDescriptor(key: attributeName, ascending: minimum)]
+        request.fetchLimit = 1
+        if let object = context.executeFetchRequest(request, error: nil)?.first as? NSManagedObject {
+            return object.valueForKey(attributeName)?.integerValue ?? 0
+        }
+        return 0
+    }
 
+    static func minIntegerValueForEntitiy(entityName: String, attributeName: String, predicate: NSPredicate = NSPredicate(value: true)) ->Int {
+        return minMaxIntegerValueForEntitiy(entityName, attributeName: attributeName, minimum: true, predicate: predicate)
+    }
+    static func maxIntegerValueForEntitiy(entityName: String, attributeName: String, predicate: NSPredicate = NSPredicate(value: true)) ->Int {
+        return minMaxIntegerValueForEntitiy(entityName, attributeName: attributeName, minimum: false, predicate: predicate)
+    }
 }
 
