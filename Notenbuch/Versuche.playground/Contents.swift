@@ -1,8 +1,9 @@
-import UIKit
+
+import Foundation
 
 
-var view: UIView = UIView()
-view.frame = CGRect(x: 0, y: 0, width: 30, height: 50)
-view.backgroundColor = UIColor.redColor()
 
+for i in 0...1 {
+    print("1")
+}
 

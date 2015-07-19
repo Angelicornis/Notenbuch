@@ -43,47 +43,30 @@ class CalculateTVC: UIViewController {
     
     //MARK: - Obligatorische Funktionen
     override func viewDidLoad() {
-        //        scrollView.contentSize.height = 600
-        //        scrollView.contentSize.width = 550
         pflichtMundlichePrufung.on = false
-        if !pflichtMundlichePrufung.on {
-            mundlichePrufungDerzeitTF.enabled = false
-        }
-        
-        //        jahresfortgangsnoteTF.text = "7.7"
-        //        schriftlichePrufungDerzeitTF.text = "8"
-        //        zeugnisspunkteDerzeitTF.text = "7.85"
-        //        gerundeteZeugnisspunkteTF.text = zeugnisspunkteDerzeitTF.text.toDouble()!.toInt().toString()
-        //        entsprichtDieNoteTF.text = "3"
-        //        if !jahresfortgangsnoteTF.text.isEmpty && !mundlichePrufungDerzeitTF.text.isEmpty {
-        //            berechnungDerZeugnisspunkte(false, mündlicheNote: nil)
-        //            nachstBessereNote(7.85)
-        //            zweitBessereNote(7.85)
-        //        }
-        segueBTN1.enabled = true
-        segueBTN2.enabled = true
-//        addCurrentDataToHistory()
+        segueBTN1.enabled = false
+        segueBTN2.enabled = false
     }
     
     override func viewDidAppear(animated: Bool) {
         berechneDataFromHistory()
+        mundlichePrufungEnabled(false)
     }
     
+    
+    //MARK: - Segues
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "notenUbersichtNachstePunkte" || segue.identifier == "notenUbersichtUbernachstePunkte" {
-            (segue.destinationViewController as! notenUbersicht).jahresfortgangsnote = jahresfortgangsnoteTF.text.toDouble()! ?? 0
-            (segue.destinationViewController as! notenUbersicht).schriftlichePrufung = schriftlichePrufungDerzeitTF.text.toInt() ?? 0
-            (segue.destinationViewController as! notenUbersicht).pflichtMundlichePrufung = mundlichePrufungDerzeitTF.text.toInt() ?? 0
-            (segue.destinationViewController as! notenUbersicht).zeugnissnote = zeugnisspunkteDerzeitTF.text.toDouble() ?? 0
+            (segue.destinationViewController as! notenUbersicht).jahresfortgangsnote = jahresfortgangsnoteTF.text!.toDouble()! ?? 0
+            (segue.destinationViewController as! notenUbersicht).schriftlichePrufung = schriftlichePrufungDerzeitTF.text!.toInt() ?? 0
+            (segue.destinationViewController as! notenUbersicht).pflichtMundlichePrufung = mundlichePrufungDerzeitTF.text!.toInt() ?? 0
+            (segue.destinationViewController as! notenUbersicht).zeugnissnote = zeugnisspunkteDerzeitTF.text!.toDouble() ?? 0
         } else if segue.identifier == "historySegueCalculate" {
             (segue.destinationViewController as! historyCalculateTVC).daten = daten.reverse()
         }
     }
     func berechneDataFromHistory() {
-        println("berechnung")
         if dataFromHistory != nil {
-            println(dataFromHistory.jahresfortgangsnote)
-            println(dataFromHistory.nachstbessereNote)
             jahresfortgangsnoteTF.text = dataFromHistory.jahresfortgangsnote
             schriftlichePrufungDerzeitTF.text = dataFromHistory.schriftlichePrufung
             zeugnisspunkteDerzeitTF.text = dataFromHistory.zeugnisspunkte
@@ -101,15 +84,12 @@ class CalculateTVC: UIViewController {
             dataFromHistory = nil
         }
     }
-    
-    //MARK: Funktionen
     func addCurrentDataToHistory() {
-        var vorhanden = false
-        var newHistory = calculateWithData(name: "", jahresfortgangsnote: jahresfortgangsnoteTF.text, mitMundlicherPrufung: pflichtMundlichePrufung.on, schriftlichePrufung: schriftlichePrufungDerzeitTF.text, mundlichePrufung: mundlichePrufungDerzeitTF.text, zeugnisspunkte: zeugnisspunkteDerzeitTF.text, gerundeteZeugnisspunkte: gerundeteZeugnisspunkteTF.text, entsprichtNote: entsprichtDieNoteTF.text, nachstbessereNote: nachstbesserePunkteTF.text, erreichbarMit: erreichbarMitTF.text, ubernachstbessereNote: ubernachstePunkteTF.text, ubernachstbessereNoteErreichbarMit: ubernachstePunkteErreichbarMitTF.text)
+        let newHistory = calculateWithData(name: "", jahresfortgangsnote: jahresfortgangsnoteTF.text!, mitMundlicherPrufung: pflichtMundlichePrufung.on, schriftlichePrufung: schriftlichePrufungDerzeitTF.text!, mundlichePrufung: mundlichePrufungDerzeitTF.text, zeugnisspunkte: zeugnisspunkteDerzeitTF.text!, gerundeteZeugnisspunkte: gerundeteZeugnisspunkteTF.text!, entsprichtNote: entsprichtDieNoteTF.text!, nachstbessereNote: nachstbesserePunkteTF.text!, erreichbarMit: erreichbarMitTF.text!, ubernachstbessereNote: ubernachstePunkteTF.text, ubernachstbessereNoteErreichbarMit: ubernachstePunkteErreichbarMitTF.text)
         if daten.count == 0 { daten.append(newHistory); hinzugefugtUm = NSDate() }
-        if !contains(daten, newHistory) {
-            var current = NSDate()
-            var intervall = current.timeIntervalSinceDate(hinzugefugtUm)
+        if !contains(daten, this: newHistory) {
+            let current = NSDate()
+            let intervall = current.timeIntervalSinceDate(hinzugefugtUm)
             if intervall.toString().toDouble()?.absolute < delayIntervall {
                 daten.removeLast()
             }
@@ -119,16 +99,21 @@ class CalculateTVC: UIViewController {
         }
     }
     
+    @IBAction func backTo_CalculateTVC_From_HistoryCalculateTVC(segue: UIStoryboardSegue) {
+        segue.sourceViewController as! historyCalculateTVC
+    }
+    
+    //MARK: Funktionen
     func mundlichePrufungEnabled(enabled: Bool) {
         mundlichePrufungDerzeitTF.hidden = !enabled
         mundlichePrufungDerzeitLabel.hidden = !enabled
         if enabled {
-            println("an")
+//            print("an")
             //            UIView.animateWithDuration(0.5) {
             //                self.ubernachstePunkteView.frame = CGRectMake(0, self.ubernachstePunkteView.bounds.origin.y, self.ubernachstePunkteView.frame.width, self.ubernachstePunkteView.frame.height)
             //            }
         } else {
-            println("aus")
+//            print("aus")
             //            UIView.animateWithDuration(0.5) {
             //                self.ubernachstePunkteView.bounds = CGRectMake(0, self.ubernachstePunkteView.bounds.origin.y + 30, self.ubernachstePunkteView.frame.width, self.ubernachstePunkteView.frame.height)
             //            }
@@ -139,27 +124,16 @@ class CalculateTVC: UIViewController {
         //        else { prufungsView.frame = CGRectMake(CGFloat(0), CGFloat(126), prufungsView.frame.width, CGFloat(135)) }
     }
     
-    func umrechnenInNote(vonPunktanzahl: Double) ->Int {
-        if vonPunktanzahl < 0.5 { return 6 }
-        else if vonPunktanzahl < 3.5 { return 5 }
-        else if vonPunktanzahl < 6.5 { return 4 }
-        else if vonPunktanzahl < 9.5 { return 3 }
-        else if vonPunktanzahl < 12.5 { return 2 }
-        else if vonPunktanzahl < 15 { return 1 }
-        else { return 0 }
-    }
-    
-    
     func berechnung() {
-        if !jahresfortgangsnoteTF.text.isEmpty && !schriftlichePrufungDerzeitTF.text.isEmpty && (!mundlichePrufungDerzeitTF.text.isEmpty || !pflichtMundlichePrufung.on) {
-            var zeugnisspunkteDerzeit = berechnungDerZeugnisspunkte(pflichtMundlichePrufung.on, mündlicheNote: mundlichePrufungDerzeitTF.text.toInt())
+        if !jahresfortgangsnoteTF.text!.isEmpty && !schriftlichePrufungDerzeitTF.text!.isEmpty && (!mundlichePrufungDerzeitTF.text!.isEmpty || !pflichtMundlichePrufung.on) {
+            let zeugnisspunkteDerzeit = berechnungDerZeugnisspunkte(pflichtMundlichePrufung.on, mündlicheNote: mundlichePrufungDerzeitTF.text!.toInt())
             zeugnisspunkteDerzeitTF.text = zeugnisspunkteDerzeit.toString()
             gerundeteZeugnisspunkteTF.text = zeugnisspunkteDerzeit.toInt().toString()
             entsprichtDieNoteTF.text = umrechnenInNote(zeugnisspunkteDerzeit).toString()
-            var besserePunkte = nachstBessereNote(zeugnisspunkteDerzeit)
+            let besserePunkte = nachstBessereNote(zeugnisspunkteDerzeit)
             erreichbarMitTF.text = besserePunkte.erreichbarMit.toString()
             nachstbesserePunkteTF.text = besserePunkte.nachstbesserePunkte.toString()
-            var zweitBesserePunkte = zweitBessereNote(zeugnisspunkteDerzeit)
+            let zweitBesserePunkte = zweitBessereNote(zeugnisspunkteDerzeit)
             ubernachstePunkteErreichbarMitTF.text = zweitBesserePunkte.erreichbarMit.toString()
             ubernachstePunkteTF.text = zweitBesserePunkte.nachstbesserePunkte.toString()
             segueBTN1.enabled = true
@@ -171,24 +145,20 @@ class CalculateTVC: UIViewController {
         }
     }
     
-    
-    
-    
     func berechnungDerZeugnisspunkte(mitMündlich: Bool, mündlicheNote: Int?) ->Double {
         var prufungsergebnis: Double!
         
         if mitMündlich {
-            prufungsergebnis = ((schriftlichePrufungDerzeitTF.text.toDouble()! * 2) + mündlicheNote!.toDouble()) / 3
+            prufungsergebnis = ((schriftlichePrufungDerzeitTF.text!.toDouble()! * 2) + mündlicheNote!.toDouble()) / 3
         } else {
-            prufungsergebnis = schriftlichePrufungDerzeitTF.text.toDouble()!
+            prufungsergebnis = schriftlichePrufungDerzeitTF.text!.toDouble()!
         }
-        
-        return ((jahresfortgangsnoteTF.text.toDouble()! + prufungsergebnis) / 2).setLenghtOfTheNumberAfterPointTo(2)!
+        return ((jahresfortgangsnoteTF.text!.toDouble()! + prufungsergebnis) / 2).setLenghtOfTheNumberAfterPointTo(2)!
     }
     func nachstBessereNote(vonPunktanzahl: Double) ->(nachstbesserePunkte: Int, erreichbarMit: Int) {
-        var nachsteNotenpunkte = vonPunktanzahl.toInt() + 1
+        let nachsteNotenpunkte = vonPunktanzahl.toInt() + 1
         for i in 0...15 {
-            var aktuellesErgebnis = berechnungDerZeugnisspunkte(true, mündlicheNote: i).toInt()
+            let aktuellesErgebnis = berechnungDerZeugnisspunkte(true, mündlicheNote: i).toInt()
             if aktuellesErgebnis == nachsteNotenpunkte {
                 return (nachsteNotenpunkte, i)
             }
@@ -196,9 +166,9 @@ class CalculateTVC: UIViewController {
         return (0, 0)
     }
     func zweitBessereNote(vonPunktanzahl: Double) ->(nachstbesserePunkte: Int, erreichbarMit: Int) {
-        var nachsteNotenpunkte = vonPunktanzahl.toInt() + 2
+        let nachsteNotenpunkte = vonPunktanzahl.toInt() + 2
         for i in 0...15 {
-            var aktuellesErgebnis = berechnungDerZeugnisspunkte(true, mündlicheNote: i).toInt()
+            let aktuellesErgebnis = berechnungDerZeugnisspunkte(true, mündlicheNote: i).toInt()
             if aktuellesErgebnis == nachsteNotenpunkte {
                 return (nachsteNotenpunkte, i)
             }
@@ -206,28 +176,41 @@ class CalculateTVC: UIViewController {
         //        ubernachstePunkteView.hidden = true
         return (0, 0)
     }
+    func umrechnenInNote(vonPunktanzahl: Double) ->Int {
+        if vonPunktanzahl < 0.5 { return 6 }
+        else if vonPunktanzahl < 3.5 { return 5 }
+        else if vonPunktanzahl < 6.5 { return 4 }
+        else if vonPunktanzahl < 9.5 { return 3 }
+        else if vonPunktanzahl < 12.5 { return 2 }
+        else if vonPunktanzahl < 15 { return 1 }
+        else { return 0 }
+    }
     
-    
-    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        berechnung()
+        self.view.endEditing(true)
+    }
     
     
     //MARK: - Actions
+    
     @IBAction func pflichtMundlichePrufung(sender: UISwitch) {
         mundlichePrufungEnabled(pflichtMundlichePrufung.on)
-        berechnung()
     }
     @IBAction func jahresfortgangsnoteTF(sender: UITextField) {
-        berechnung()
+        jahresfortgangsnoteTF.text = jahresfortgangsnoteTF.text!.replace(",", with: ".")
     }
     
     @IBAction func schriftlichePrufungDerzeitTF(sender: UITextField) {
-        berechnung()
+        schriftlichePrufungDerzeitTF.text = schriftlichePrufungDerzeitTF.text?.replace(",", with: ".")
     }
     
     @IBAction func mundlichePrufungDerzeitTF(sender: UITextField) {
-        berechnung()
+        mundlichePrufungDerzeitTF.text = mundlichePrufungDerzeitTF.text?.replace(",", with: ".")
     }
 }
+
+
 struct calculateWithData {
     var name: String
     var jahresfortgangsnote: String

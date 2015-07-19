@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14E46" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8118.17" systemVersion="14E46" minimumToolsVersion="Automatic">
     <entity name="Notenitem" representedClassName="Notenitem" syncable="YES">
         <attribute name="extemporale" optional="YES" attributeType="Integer 16" syncable="YES"/>
         <attribute name="fachreferat" optional="YES" attributeType="Integer 16" syncable="YES"/>
         <attribute name="kurzarbeiten" optional="YES" attributeType="Integer 16" syncable="YES"/>
         <attribute name="mundlicheNote" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="order" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="schulaufgaben" optional="YES" attributeType="Integer 16" syncable="YES"/>
-        <relationship name="notenitem" maxCount="1" deletionRule="Deny" destinationEntity="Notensatz" inverseName="notensatz" inverseEntity="Notensatz" syncable="YES"/>
+        <relationship name="notensatz" maxCount="1" deletionRule="Nullify" destinationEntity="Notensatz" inverseName="notenitem" inverseEntity="Notensatz" syncable="YES"/>
     </entity>
     <entity name="Notensatz" representedClassName="Notensatz" syncable="YES">
-        <attribute name="fachart" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="order" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <relationship name="notensatz" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Notenitem" inverseName="notenitem" inverseEntity="Notenitem" syncable="YES"/>
+        <attribute name="extemporaleEnabeld" attributeType="Boolean" syncable="YES"/>
+        <attribute name="fachart" attributeType="String" syncable="YES"/>
+        <attribute name="fachreferatEnabeld" attributeType="Boolean" syncable="YES"/>
+        <attribute name="kurzabeitenEnabeld" attributeType="Boolean" syncable="YES"/>
+        <attribute name="mundlicheNotenEnabeld" attributeType="Boolean" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="order" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="schulaufgabeEnabeld" attributeType="Boolean" syncable="YES"/>
+        <relationship name="notenitem" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Notenitem" inverseName="notensatz" inverseEntity="Notenitem" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Notenitem" positionX="927" positionY="-639" width="128" height="135"/>
-        <element name="Notensatz" positionX="774" positionY="-639" width="128" height="105"/>
+        <element name="Notenitem" positionX="927" positionY="-639" width="128" height="148"/>
+        <element name="Notensatz" positionX="774" positionY="-639" width="128" height="178"/>
     </elements>
 </model>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>notenCell</key>
+	<string>Allgemein Bearbeiten</string>
+	<key>ViewController</key>
+	<string>swipe to delete</string>
+</dict>
+</plist>

@@ -11,58 +11,59 @@ import UIKit
 class notenUbersicht: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     
-    @IBOutlet weak var ungerundet15TV: UILabel!
-    @IBOutlet weak var ungerundet14TV: UILabel!
-    @IBOutlet weak var ungerundet13TV: UILabel!
-    @IBOutlet weak var ungerundet12TV: UILabel!
-    @IBOutlet weak var ungerundet11TV: UILabel!
-    @IBOutlet weak var ungerundet10TV: UILabel!
-    @IBOutlet weak var ungerundet9TV: UILabel!
-    @IBOutlet weak var ungerundet8TV: UILabel!
-    @IBOutlet weak var ungerundet7TV: UILabel!
-    @IBOutlet weak var ungerundet6TV: UILabel!
-    @IBOutlet weak var ungerundet5TV: UILabel!
-    @IBOutlet weak var ungerundet4TV: UILabel!
-    @IBOutlet weak var ungerundet3TV: UILabel!
-    @IBOutlet weak var ungerundet2TV: UILabel!
-    @IBOutlet weak var ungerundet1TV: UILabel!
-    @IBOutlet weak var ungerundet0TV: UILabel!
+    @IBOutlet weak var mundlichePunkte15: UITextField!
+    @IBOutlet weak var mundlichePunkte14: UITextField!
+    @IBOutlet weak var mundlichePunkte13: UITextField!
+    @IBOutlet weak var mundlichePunkte12: UITextField!
+    @IBOutlet weak var mundlichePunkte11: UITextField!
+    @IBOutlet weak var mundlichePunkte10: UITextField!
+    @IBOutlet weak var mundlichePunkte9: UITextField!
+    @IBOutlet weak var mundlichePunkte8: UITextField!
+    @IBOutlet weak var mundlichePunkte7: UITextField!
+    @IBOutlet weak var mundlichePunkte6: UITextField!
+    @IBOutlet weak var mundlichePunkte5: UITextField!
+    @IBOutlet weak var mundlichePunkte4: UITextField!
+    @IBOutlet weak var mundlichePunkte3: UITextField!
+    @IBOutlet weak var mundlichePunkte2: UITextField!
+    @IBOutlet weak var mundlichePunkte1: UITextField!
+    @IBOutlet weak var mundlichePunkte0: UITextField!
     
     
-    @IBOutlet weak var gerundet15TV: UILabel!
-    @IBOutlet weak var gerundet14TV: UILabel!
-    @IBOutlet weak var gerundet13TV: UILabel!
-    @IBOutlet weak var gerundet12TV: UILabel!
-    @IBOutlet weak var gerundet11TV: UILabel!
-    @IBOutlet weak var gerundet10TV: UILabel!
-    @IBOutlet weak var gerundet9TV: UILabel!
-    @IBOutlet weak var gerundet8TV: UILabel!
-    @IBOutlet weak var gerundet7TV: UILabel!
-    @IBOutlet weak var gerundet6TV: UILabel!
-    @IBOutlet weak var gerundet5TV: UILabel!
-    @IBOutlet weak var gerundet4TV: UILabel!
-    @IBOutlet weak var gerundet3TV: UILabel!
-    @IBOutlet weak var gerundet2TV: UILabel!
-    @IBOutlet weak var gerundet1TV: UILabel!
-    @IBOutlet weak var gerundet0TV: UILabel!
+    @IBOutlet weak var ungerundet15TV: UITextField!
+    @IBOutlet weak var ungerundet14TV: UITextField!
+    @IBOutlet weak var ungerundet13TV: UITextField!
+    @IBOutlet weak var ungerundet12TV: UITextField!
+    @IBOutlet weak var ungerundet11TV: UITextField!
+    @IBOutlet weak var ungerundet10TV: UITextField!
+    @IBOutlet weak var ungerundet9TV: UITextField!
+    @IBOutlet weak var ungerundet8TV: UITextField!
+    @IBOutlet weak var ungerundet7TV: UITextField!
+    @IBOutlet weak var ungerundet6TV: UITextField!
+    @IBOutlet weak var ungerundet5TV: UITextField!
+    @IBOutlet weak var ungerundet4TV: UITextField!
+    @IBOutlet weak var ungerundet3TV: UITextField!
+    @IBOutlet weak var ungerundet2TV: UITextField!
+    @IBOutlet weak var ungerundet1TV: UITextField!
+    @IBOutlet weak var ungerundet0TV: UITextField!
     
-    @IBOutlet weak var mundlichePunkte15: UILabel!
-    @IBOutlet weak var mundlichePunkte14: UILabel!
-    @IBOutlet weak var mundlichePunkte13: UILabel!
-    @IBOutlet weak var mundlichePunkte12: UILabel!
-    @IBOutlet weak var mundlichePunkte11: UILabel!
-    @IBOutlet weak var mundlichePunkte10: UILabel!
-    @IBOutlet weak var mundlichePunkte9: UILabel!
-    @IBOutlet weak var mundlichePunkte8: UILabel!
-    @IBOutlet weak var mundlichePunkte7: UILabel!
-    @IBOutlet weak var mundlichePunkte6: UILabel!
-    @IBOutlet weak var mundlichePunkte5: UILabel!
-    @IBOutlet weak var mundlichePunkte4: UILabel!
-    @IBOutlet weak var mundlichePunkte3: UILabel!
-    @IBOutlet weak var mundlichePunkte2: UILabel!
-    @IBOutlet weak var mundlichePunkte1: UILabel!
-    @IBOutlet weak var mundlichePunkte0: UILabel!
     
+    @IBOutlet weak var gerundet15TV: UITextField!
+    @IBOutlet weak var gerundet14TV: UITextField!
+    @IBOutlet weak var gerundet13TV: UITextField!
+    @IBOutlet weak var gerundet12TV: UITextField!
+    @IBOutlet weak var gerundet11TV: UITextField!
+    @IBOutlet weak var gerundet10TV: UITextField!
+    @IBOutlet weak var gerundet9TV: UITextField!
+    @IBOutlet weak var gerundet8TV: UITextField!
+    @IBOutlet weak var gerundet7TV: UITextField!
+    @IBOutlet weak var gerundet6TV: UITextField!
+    @IBOutlet weak var gerundet5TV: UITextField!
+    @IBOutlet weak var gerundet4TV: UITextField!
+    @IBOutlet weak var gerundet3TV: UITextField!
+    @IBOutlet weak var gerundet2TV: UITextField!
+    @IBOutlet weak var gerundet1TV: UITextField!
+    @IBOutlet weak var gerundet0TV: UITextField!
+
     
     
     var jahresfortgangsnote: Double!
@@ -74,18 +75,18 @@ class notenUbersicht: UIViewController {
         super.viewDidLoad()
         title = "aktuelle Notepunkte \(zeugnissnote)"
         
-        scrollView.contentSize.height = 591
+//        scrollView.contentSize.height = 591
         setzeLabel(berechnung(15), ungerundet14: berechnung(14), ungerundet13: berechnung(13), ungerundet12: berechnung(12), ungerundet11: berechnung(11), ungerundet10: berechnung(10), ungerundet9: berechnung(9), ungerundet8: berechnung(8), ungerundet7: berechnung(7), ungerundet6: berechnung(6), ungerundet5: berechnung(5), ungerundet4: berechnung(4), ungerundet3: berechnung(3), ungerundet2: berechnung(2), ungerundet1: berechnung(1), ungerundet0: berechnung(0))
     }
     
     func berechnung(mündlicheNote: Int) ->Double {
         var prufungsergebnis: Double!
         prufungsergebnis = ((schriftlichePrufung.toDouble() * 2) + mündlicheNote.toDouble()) / 3
-        var ergebnis = ((jahresfortgangsnote + prufungsergebnis) / 2).setLenghtOfTheNumberAfterPointTo(2)!
+        let ergebnis = ((jahresfortgangsnote + prufungsergebnis) / 2).setLenghtOfTheNumberAfterPointTo(2)!
         if ergebnis.toInt() == zeugnissnote.toInt() {
             dunkleEin(mündlicheNote, inColor: UIColor.lightGrayColor())
         } else if ergebnis.toInt() < zeugnissnote.toInt() {
-            dunkleEin(mündlicheNote, inColor: UIColor.redColor(), alpha: 0.4)
+            dunkleEin(mündlicheNote, inColor: UIColor.redColorWithAlpha(0.4))
         }
         return ergebnis
     }
@@ -134,7 +135,7 @@ class notenUbersicht: UIViewController {
             ungerundet12TV.alpha = CGFloat(alpha); gerundet12TV.alpha = CGFloat(alpha); mundlichePunkte12.alpha = CGFloat(alpha)
         case 13:
             ungerundet13TV.textColor = inColor; gerundet13TV.textColor = inColor; mundlichePunkte13.textColor = inColor
-            ungerundet14TV.alpha = CGFloat(alpha); gerundet14TV.alpha = CGFloat(alpha); mundlichePunkte14.alpha = CGFloat(alpha)
+            ungerundet13TV.alpha = CGFloat(alpha); gerundet13TV.alpha = CGFloat(alpha); mundlichePunkte13.alpha = CGFloat(alpha)
         case 14:
             ungerundet14TV.textColor = inColor; gerundet14TV.textColor = inColor; mundlichePunkte14.textColor = inColor
             ungerundet14TV.alpha = CGFloat(alpha); gerundet14TV.alpha = CGFloat(alpha); mundlichePunkte14.alpha = CGFloat(alpha)
@@ -180,6 +181,13 @@ class notenUbersicht: UIViewController {
         gerundet2TV.text = ungerundet2.toInt().toString()
         gerundet1TV.text = ungerundet1.toInt().toString()
         gerundet0TV.text = ungerundet0.toInt().toString()
+    }
+}
+
+
+extension UIColor {
+    static func redColorWithAlpha(alpha: Double) -> UIColor {
+        return UIColor(red: CGFloat(1), green: CGFloat(0), blue: CGFloat(0), alpha: CGFloat(alpha))
     }
 }
 

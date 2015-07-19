@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E243A12B1B5957A5001ABF54 /* DetailTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E243A12A1B5957A5001ABF54 /* DetailTV.swift */; };
+		E24A7D971B58348900473AD9 /* ToDo.plist in Resources */ = {isa = PBXBuildFile; fileRef = E24A7D961B58348900473AD9 /* ToDo.plist */; };
+		E27957351B58F68600EB330F /* Notenitem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27957331B58F68600EB330F /* Notenitem+CoreDataProperties.swift */; };
+		E27957361B58F68600EB330F /* Notenitem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27957341B58F68600EB330F /* Notenitem.swift */; };
+		E27957391B58F68700EB330F /* Notensatz+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27957371B58F68700EB330F /* Notensatz+CoreDataProperties.swift */; };
+		E279573A1B58F68700EB330F /* Notensatz.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27957381B58F68700EB330F /* Notensatz.swift */; };
 		E29360891B511EA7009077D2 /* CustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29360881B511EA7009077D2 /* CustomSegue.swift */; };
 		E2A6A6BE1B4481EB00F3BEA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6A6BD1B4481EB00F3BEA8 /* AppDelegate.swift */; };
 		E2A6A6C11B4481EB00F3BEA8 /* Notenbuch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E2A6A6BF1B4481EB00F3BEA8 /* Notenbuch.xcdatamodeld */; };
@@ -21,9 +27,6 @@
 		E2A6A6F81B480C0100F3BEA8 /* historyCalculateTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6A6F71B480C0100F3BEA8 /* historyCalculateTVC.swift */; };
 		E2A6A6FA1B480CEB00F3BEA8 /* KleineFunktionen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6A6F91B480CEB00F3BEA8 /* KleineFunktionen.swift */; };
 		E2AC786A1B4C2AF500CC0406 /* notenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AC78691B4C2AF500CC0406 /* notenCell.swift */; };
-		E2AC786C1B4C377300CC0406 /* Notenitem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AC786B1B4C377300CC0406 /* Notenitem.swift */; };
-		E2AC786E1B4C377400CC0406 /* Notensatz.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AC786D1B4C377400CC0406 /* Notensatz.swift */; };
-		E2AC78711B4C37EB00CC0406 /* Notensatz Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AC78701B4C37EB00CC0406 /* Notensatz Extension.swift */; };
 		E2AC78731B4C3ABF00CC0406 /* Konstanten.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AC78721B4C3ABF00CC0406 /* Konstanten.swift */; };
 		E2DDA01B1B49DAC4008839E3 /* AddNewFach.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DDA01A1B49DAC4008839E3 /* AddNewFach.swift */; };
 /* End PBXBuildFile section */
@@ -39,6 +42,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E243A12A1B5957A5001ABF54 /* DetailTV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTV.swift; sourceTree = "<group>"; };
+		E24A7D961B58348900473AD9 /* ToDo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ToDo.plist; sourceTree = "<group>"; };
+		E27957331B58F68600EB330F /* Notenitem+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Notenitem+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E27957341B58F68600EB330F /* Notenitem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notenitem.swift; sourceTree = "<group>"; };
+		E27957371B58F68700EB330F /* Notensatz+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Notensatz+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E27957381B58F68700EB330F /* Notensatz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notensatz.swift; sourceTree = "<group>"; };
 		E29360881B511EA7009077D2 /* CustomSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSegue.swift; sourceTree = "<group>"; };
 		E293608A1B511FA3009077D2 /* Notenbuch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Notenbuch-Bridging-Header.h"; sourceTree = "<group>"; };
 		E2A6A6B81B4481EB00F3BEA8 /* Notenbuch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notenbuch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,9 +68,6 @@
 		E2A6A6F71B480C0100F3BEA8 /* historyCalculateTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = historyCalculateTVC.swift; sourceTree = "<group>"; };
 		E2A6A6F91B480CEB00F3BEA8 /* KleineFunktionen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KleineFunktionen.swift; sourceTree = "<group>"; };
 		E2AC78691B4C2AF500CC0406 /* notenCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = notenCell.swift; sourceTree = "<group>"; };
-		E2AC786B1B4C377300CC0406 /* Notenitem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notenitem.swift; sourceTree = "<group>"; };
-		E2AC786D1B4C377400CC0406 /* Notensatz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notensatz.swift; sourceTree = "<group>"; };
-		E2AC78701B4C37EB00CC0406 /* Notensatz Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Notensatz Extension.swift"; sourceTree = "<group>"; };
 		E2AC78721B4C3ABF00CC0406 /* Konstanten.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Konstanten.swift; sourceTree = "<group>"; };
 		E2DDA01A1B49DAC4008839E3 /* AddNewFach.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewFach.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,10 +111,10 @@
 		E2A6A6BA1B4481EB00F3BEA8 /* Notenbuch */ = {
 			isa = PBXGroup;
 			children = (
+				E24A7D961B58348900473AD9 /* ToDo.plist */,
 				E2A6A6F21B46E87200F3BEA8 /* Main.storyboard */,
 				E2A6A6C21B4481EB00F3BEA8 /* ViewController.swift */,
-				E2AC78691B4C2AF500CC0406 /* notenCell.swift */,
-				E2DDA01A1B49DAC4008839E3 /* AddNewFach.swift */,
+				E2B8548A1B59591900FF8085 /* Aktuelle Noten */,
 				E2AC786F1B4C37DC00CC0406 /* CoreData */,
 				E2AC78681B4C29D300CC0406 /* Calculate */,
 				E2A6A6E41B455AB700F3BEA8 /* Extension.swift */,
@@ -163,12 +169,23 @@
 		E2AC786F1B4C37DC00CC0406 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				E2AC786D1B4C377400CC0406 /* Notensatz.swift */,
-				E2AC78701B4C37EB00CC0406 /* Notensatz Extension.swift */,
+				E27957371B58F68700EB330F /* Notensatz+CoreDataProperties.swift */,
+				E27957381B58F68700EB330F /* Notensatz.swift */,
+				E27957331B58F68600EB330F /* Notenitem+CoreDataProperties.swift */,
+				E27957341B58F68600EB330F /* Notenitem.swift */,
 				E2AC78721B4C3ABF00CC0406 /* Konstanten.swift */,
-				E2AC786B1B4C377300CC0406 /* Notenitem.swift */,
 			);
 			name = CoreData;
+			sourceTree = "<group>";
+		};
+		E2B8548A1B59591900FF8085 /* Aktuelle Noten */ = {
+			isa = PBXGroup;
+			children = (
+				E2AC78691B4C2AF500CC0406 /* notenCell.swift */,
+				E2DDA01A1B49DAC4008839E3 /* AddNewFach.swift */,
+				E243A12A1B5957A5001ABF54 /* DetailTV.swift */,
+			);
+			name = "Aktuelle Noten";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,11 +233,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Tom Kumschier";
 				TargetAttributes = {
 					E2A6A6B71B4481EB00F3BEA8 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 8P6KQLE9GC;
 					};
 					E2A6A6CF1B4481EB00F3BEA8 = {
 						CreatedOnToolsVersion = 6.4;
@@ -254,6 +272,7 @@
 			files = (
 				E2A6A6CB1B4481EB00F3BEA8 /* LaunchScreen.xib in Resources */,
 				E2A6A6C81B4481EB00F3BEA8 /* Images.xcassets in Resources */,
+				E24A7D971B58348900473AD9 /* ToDo.plist in Resources */,
 				E2A6A6F31B46E87200F3BEA8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -272,18 +291,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2AC78711B4C37EB00CC0406 /* Notensatz Extension.swift in Sources */,
+				E27957391B58F68700EB330F /* Notensatz+CoreDataProperties.swift in Sources */,
 				E2AC786A1B4C2AF500CC0406 /* notenCell.swift in Sources */,
 				E2A6A6F51B46E8A600F3BEA8 /* notenUbersicht.swift in Sources */,
 				E2DDA01B1B49DAC4008839E3 /* AddNewFach.swift in Sources */,
 				E2AC78731B4C3ABF00CC0406 /* Konstanten.swift in Sources */,
 				E2A6A6E71B46ABF200F3BEA8 /* CalculateTVC.swift in Sources */,
-				E2AC786C1B4C377300CC0406 /* Notenitem.swift in Sources */,
 				E2A6A6FA1B480CEB00F3BEA8 /* KleineFunktionen.swift in Sources */,
+				E243A12B1B5957A5001ABF54 /* DetailTV.swift in Sources */,
 				E2A6A6C31B4481EB00F3BEA8 /* ViewController.swift in Sources */,
+				E27957351B58F68600EB330F /* Notenitem+CoreDataProperties.swift in Sources */,
+				E27957361B58F68600EB330F /* Notenitem.swift in Sources */,
 				E2A6A6C11B4481EB00F3BEA8 /* Notenbuch.xcdatamodeld in Sources */,
-				E2AC786E1B4C377400CC0406 /* Notensatz.swift in Sources */,
 				E2A6A6BE1B4481EB00F3BEA8 /* AppDelegate.swift in Sources */,
+				E279573A1B58F68700EB330F /* Notensatz.swift in Sources */,
 				E2A6A6F81B480C0100F3BEA8 /* historyCalculateTVC.swift in Sources */,
 				E29360891B511EA7009077D2 /* CustomSegue.swift in Sources */,
 				E2A6A6E51B455AB700F3BEA8 /* Extension.swift in Sources */,
@@ -341,6 +362,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -406,9 +428,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Notenbuch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.angelicornis.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Notenbuch/Notenbuch-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -419,9 +445,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Notenbuch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.angelicornis.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Notenbuch/Notenbuch-Bridging-Header.h";
 			};
 			name = Release;
@@ -440,6 +470,7 @@
 				);
 				INFOPLIST_FILE = NotenbuchTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.angelicornis.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Notenbuch.app/Notenbuch";
 			};
@@ -455,6 +486,7 @@
 				);
 				INFOPLIST_FILE = NotenbuchTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.angelicornis.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Notenbuch.app/Notenbuch";
 			};

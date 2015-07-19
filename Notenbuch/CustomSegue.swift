@@ -12,13 +12,7 @@ import UIKit
 @objc(dismissSegue)
 class dismissSegue: UIStoryboardSegue {
     override func perform() {
-        
-        var sourceViewController = self.sourceViewController as! UIViewController
-        var destinationViewController = self.destinationViewController as! UIViewController
-        
+        let sourceViewController = self.sourceViewController as UIViewController
         sourceViewController.navigationController?.popViewControllerAnimated(true)
-//        navigationController.popViewControllerAnimated(true)
     }
-    
-    
 }
