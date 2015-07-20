@@ -59,7 +59,34 @@ class Notensatz: NSManagedObject {
         }
         
         switch zeile {
-        case 1: return  87
+        case 1: return 70
+        case 2: return 99
+        case 3: return 128
+        case 4: return 157
+        case 5: return 186
+        default: return CGFloat(37)
+        }
+    }
+    func getHightWithNameLabel() -> CGFloat {
+        var zeile = 0
+        if self.schulaufgabeEnabeld == true {
+            ++zeile
+        }
+        if self.kurzabeitenEnabeld == true {
+            ++zeile
+        }
+        if self.extemporaleEnabeld == true {
+            ++zeile
+        }
+        if self.mundlicheNotenEnabeld == true {
+            ++zeile
+        }
+        if self.fachreferatEnabeld == true {
+            ++zeile
+        }
+        
+        switch zeile {
+        case 1: return 87
         case 2: return 116
         case 3: return 145
         case 4: return 174

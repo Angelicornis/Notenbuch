@@ -1057,9 +1057,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="wqQ-wB-hYj">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="2xC-R9-IyC"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="wqQ-wB-hYj"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vll-F7-evx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1079,7 +1077,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="OtB-ue-foU">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="notenubersichtCell" rowHeight="220" id="0te-xN-LlA" customClass="notenCell" customModule="Notenbuch" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="113.5" width="600" height="220"/>

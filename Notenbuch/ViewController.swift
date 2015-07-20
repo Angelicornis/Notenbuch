@@ -61,7 +61,7 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 //        print(sender)
 //        let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
-
+        visible = false
         if segue.identifier == "calculate" {
             delayOnMainQueue(1) { Void in
                 self.moveMenu()
@@ -116,7 +116,7 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let currentNotensatz = fetchedResultsController.objectAtIndexPath(indexPath) as! Notensatz
-        return currentNotensatz.getHight()
+        return currentNotensatz.getHightWithNameLabel()
     }
     func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true

@@ -19,19 +19,23 @@ class DetailTV: UIViewController {
     
     
     var currentNotensatz: Notensatz!
-    let scrollView = UIScrollView()
+    var scrollView = UIScrollView()
     var einstellungenView = UIView()
     var einstellungSwitchEnabeld = false
     var navigationBar = UINavigationBar()
     var currentNotenitem: Notenitem!
     var nameLabelView: UILabel!
+    var arrays:(schulaufgaben: [Int], kurzarbeiten: [Int], extemporalen: [Int], mundlicheNoten: [Int], fachreferat: [Int])! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.title = currentNotensatz.name
+
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: "goBack")
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "save")
+        //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "save")
         
+        
+        arrays = Notenitem.makeArrays(fetchedResultsController)
         start()
         UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "orientationChanged:", name: "UIDeviceOrientationDidChangeNotification", object: nil)
@@ -39,13 +43,14 @@ class DetailTV: UIViewController {
     }
     func orientationChanged(sender: NSNotification)
     {
-        self.view.removeAllSubviews()
         self.scrollView.removeAllSubviews()
         self.einstellungenView.removeAllSubviews()
-        self.setzeScrollView()
-        self.setzeNameLabel()
-        self.setzeNotenLabel(self.currentNotensatz)
-        self.setzeEinstellungen()
+        self.view.removeAllSubviews()
+        
+        scrollView = UIScrollView()
+        einstellungenView = UIView()
+
+        start()
     }
     
     
@@ -93,8 +98,7 @@ extension DetailTV {
     private func start() {
         
         setzeScrollView()
-        setzeNameLabel()
-        setzeNotenLabel(currentNotensatz)
+        setzeNotenLabel()
         
         setzeEinstellungen()
     }
@@ -102,23 +106,19 @@ extension DetailTV {
     
     private func setzeScrollView(animationDuration: NSTimeInterval = 0) {
         UIView.animateWithDuration(animationDuration) {
-            self.scrollView.frame = CGRectMake(CGFloat(0), CGFloat(72), UIScreen.mainScreen().bounds.width, self.currentNotensatz.getHight())
+
+            self.scrollView.frame = CGRectMake(CGFloat(0), CGFloat(72), UIScreen.mainScreen().bounds.width, self.currentNotensatz.getHight() + 30 )
             self.scrollView.backgroundColor = UIColor.lightGrayColor()
             
-//            let arrays = Notenitem.makeArrays(self.fetchedResultsController)
-//            let maxValue = max([arrays.schulaufgaben.count, arrays.kurzarbeiten.count, arrays.extemporalen.count, arrays.mundlicheNoten.count, arrays.fachreferat.count])
+            
             self.scrollView.contentSize.width = CGFloat(1000)
             self.view.addSubview(self.scrollView)
         }
     }
     
-    private func setzeNameLabel () {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 800, height: 21))
-        label.text = currentNotensatz.name!
-        self.scrollView.addSubview(label)
-    }
     
-    private func setzeNotenLabel(currentNotensatz: Notensatz, animationDuration: NSTimeInterval = 0) {
+    
+    private func setzeNotenLabel(animationDuration: NSTimeInterval = 0) {
         func plaziereNotenLabelPlaziere(TFName: String, zeile: Int) {
             struct nameTF {
                 var name: String!
@@ -126,36 +126,40 @@ extension DetailTV {
                 var y: CGFloat!
             }
             
-            
             var nameTFInstanz = nameTF(name: TFName, x: 8.toCGFloat(), y: nil)
             switch zeile {
-            case 1: nameTFInstanz.y = 40.toCGFloat()
-            case 2: nameTFInstanz.y = 69.toCGFloat()
-            case 3: nameTFInstanz.y = 98.toCGFloat()
-            case 4: nameTFInstanz.y = 127.toCGFloat()
-            case 5: nameTFInstanz.y = 156.toCGFloat()
+            case 1: nameTFInstanz.y = 20.toCGFloat()
+            case 2: nameTFInstanz.y = 49.toCGFloat()
+            case 3: nameTFInstanz.y = 78.toCGFloat()
+            case 4: nameTFInstanz.y = 107.toCGFloat()
+            case 5: nameTFInstanz.y = 136.toCGFloat()
+            case 6: nameTFInstanz.y = 165.toCGFloat()
             default: return
             }
-            
             nameLabelView = UILabel()
-            nameLabelView.frame = CGRect(x: nameTFInstanz.x, y: nameTFInstanz.y, width: 145.toCGFloat(), height: 30.toCGFloat())
             nameLabelView.text = nameTFInstanz.name
             nameLabelView.layer.borderColor = UIColor.blackColor().CGColor
             nameLabelView.layer.borderWidth = CGFloat(1)
+            
+            if TFName == "∅" {
+                nameLabelView.frame = CGRect(x: self.scrollView.contentSize.width - 124, y: nameTFInstanz.y + 1, width: 50.toCGFloat(), height: 30.toCGFloat())
+                self.nameLabelView.textAlignment = .Center
+                self.scrollView.addSubview(nameLabelView)
+                setzteUbersichtCellen(nameLabelView)
+                return
+            }
+            nameLabelView.frame = CGRect(x: nameTFInstanz.x, y: nameTFInstanz.y, width: 145.toCGFloat(), height: 30.toCGFloat())
             self.scrollView.addSubview(nameLabelView)
             
             setzeNotenCellen(nameLabelView)
             setzteUbersichtCellen(nameLabelView)
         }
         func setzeNotenCellen(firstNameCell: UILabel) {
-//            let allNumberOfObjets = ((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).numberOfObjects
-            let arrays = Notenitem.makeArrays(fetchedResultsController)
+            //            let allNumberOfObjets = ((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).numberOfObjects
             var allNumberOfObjets = 0
             if max([arrays.schulaufgaben.count, arrays.kurzarbeiten.count, arrays.extemporalen.count, arrays.mundlicheNoten.count, arrays.fachreferat.count]) != 0 {
                 allNumberOfObjets = max([arrays.schulaufgaben.count, arrays.kurzarbeiten.count, arrays.extemporalen.count, arrays.mundlicheNoten.count, arrays.fachreferat.count])
             }
-            print(allNumberOfObjets)
-            print(max([arrays.schulaufgaben.count, arrays.kurzarbeiten.count, arrays.extemporalen.count, arrays.mundlicheNoten.count, arrays.fachreferat.count]))
             
             var nameTFViewX = CGFloat(0)
             for i in 0...allNumberOfObjets {
@@ -163,14 +167,13 @@ extension DetailTV {
                 let cellTFView = UITextField()
                 
                 switch firstNameCell.text! {
-                case " Schulaufgabe": if i < arrays.schulaufgaben.count { cellTFView.text = arrays.schulaufgaben[i].toString() ; cellTFView.tag = i}
-                case " Kurzarbeiten": if i < arrays.kurzarbeiten.count { cellTFView.text = arrays.kurzarbeiten[i].toString() ; cellTFView.tag = 100 + i }
-                case " Extemporalen": if i < arrays.extemporalen.count { cellTFView.text = arrays.extemporalen[i].toString() ; cellTFView.tag = 200 + i }
-                case " Mündliche Noten": if i < arrays.mundlicheNoten.count { cellTFView.text = arrays.mundlicheNoten[i].toString() ; cellTFView.tag = 300 + i }
-                case " Fachreferat": if i < arrays.fachreferat.count { cellTFView.text = arrays.fachreferat[i].toString() ; cellTFView.tag = 400 + i }
+                case " Schulaufgabe": cellTFView.tag = i;          if i < arrays.schulaufgaben.count { cellTFView.text = arrays.schulaufgaben[i].toString()}
+                case " Kurzarbeiten": cellTFView.tag = 100 + i;    if i < arrays.kurzarbeiten.count { cellTFView.text = arrays.kurzarbeiten[i].toString()}
+                case " Extemporalen": cellTFView.tag = 200 + i ;   if i < arrays.extemporalen.count { cellTFView.text = arrays.extemporalen[i].toString()}
+                case " Mündliche Noten": cellTFView.tag = 300 + i; if i < arrays.mundlicheNoten.count { cellTFView.text = arrays.mundlicheNoten[i].toString()}
+                case " Fachreferat": cellTFView.tag = 400 + i;     if i < arrays.fachreferat.count { cellTFView.text = arrays.fachreferat[i].toString()}
                 default: break
                 }
-                
                 
                 cellTFView.frame = CGRect(x: nameTFViewX , y: firstNameCell.frame.minY, width: 50.toCGFloat(), height: 30.toCGFloat())
                 cellTFView.addTarget(self, action: Selector("changeNote:"), forControlEvents: UIControlEvents.EditingDidEnd)
@@ -184,6 +187,30 @@ extension DetailTV {
         func setzteUbersichtCellen(firstNameCell: UILabel) {
             let celle = UILabel(frame: CGRect(x: self.scrollView.contentSize.width - 66, y: firstNameCell.frame.minY, width: 50, height: 30))
             celle.layer.borderColor = UIColor.blackColor().CGColor
+            switch firstNameCell.text! {
+            case " Schulaufgabe": celle.text = average(arrays.schulaufgaben).setLenghtOfTheNumberAfterPointTo(1)!.toString()
+            case " Kurzarbeiten": celle.text = average(arrays.kurzarbeiten).setLenghtOfTheNumberAfterPointTo(1)!.toString()
+            case " Extemporalen": celle.text = average(arrays.extemporalen).setLenghtOfTheNumberAfterPointTo(1)!.toString()
+            case " Mündliche Noten": celle.text = average(arrays.mundlicheNoten).setLenghtOfTheNumberAfterPointTo(1)!.toString()
+            case " Fachreferat": celle.text = average(arrays.fachreferat).setLenghtOfTheNumberAfterPointTo(1)!.toString()
+            case "∅" :
+                var durchschnittMundliche = average([average(arrays.kurzarbeiten), average(arrays.extemporalen), average(arrays.mundlicheNoten)])
+                if arrays.fachreferat.count != 0 {
+                    durchschnittMundliche = durchschnittMundliche * 2 + Double(arrays.fachreferat[0]) / 3
+                }
+            
+                if arrays.schulaufgaben.count == 1 {
+                    celle.text = average([average(arrays.schulaufgaben), durchschnittMundliche]).setLenghtOfTheNumberAfterPointTo(2)!.toString()
+                } else if arrays.schulaufgaben.count > 1 {
+                    celle.text = ((average(arrays.schulaufgaben) * 2 + durchschnittMundliche) / 3).setLenghtOfTheNumberAfterPointTo(2)!.toString()
+                }
+                else if arrays.schulaufgaben.count < 1 {
+                    celle.text = durchschnittMundliche.toString()
+                }
+                
+            default: break
+            }
+            celle.textAlignment = .Center
             celle.layer.borderWidth = CGFloat(1)
             self.scrollView.addSubview(celle)
         }
@@ -210,90 +237,93 @@ extension DetailTV {
             ++zeile
             plaziereNotenLabelPlaziere(" Fachreferat", zeile: zeile)
         }
+        plaziereNotenLabelPlaziere("∅", zeile: zeile + 1)
     }
     
     func changeNote(sender: UITextField) {
         
         
-        if !sender.text!.isEmpty {
-            var platzX = 0.toCGFloat()
-            let allNumberOfObjets = ((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).numberOfObjects
-            platzX = sender.frame.minX - (nameLabelView.frame.minX + nameLabelView.frame.width) + 1
+        if sender.text!.isNotEmpty {
+            if sender.tag<100 { Notenitem.addNotenitemSchulaufgabe(currentNotensatz, schulaufgabe: sender.text!.toInt()!) }
+            else if sender.tag<200 { Notenitem.addNotenitemKurzarbeit(currentNotensatz, kurzarbeit: sender.text!.toInt()!) }
+            else if sender.tag<300 { Notenitem.addNotenitemExtemporale(currentNotensatz, extemporale: sender.text!.toInt()!) }
+            else if sender.tag<400 { Notenitem.addNotenitemMundlicheNote(currentNotensatz, mundlicheNote: sender.text!.toInt()!) }
+            else if sender.tag<500 { Notenitem.addNotenitemFachreferat(currentNotensatz, fachreferat: sender.text!.toInt()!) }
             
             
-            for i in 0...100 {
-                if platzX == 0 {
+        }
+        else {
+            
+            
+            
+            let notenitems = ((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).objects
+            
+            if sender.tag<100 {
+                if arrays.schulaufgaben.count - 1 >= sender.tag {
+                    var schulaufgabe: [Notenitem] = []
+                    guard let notenitemsUnwrepped = notenitems else {return}
                     
-                    
-                    
-                    break
-                }
-                platzX -= 49
-            }
-            switch sender.tag {
-            case 0: Notenitem.addNotenitemSchulaufgabe(currentNotensatz, schulaufgabe: sender.text!.toInt()!)
-            case 1: Notenitem.addNotenitemKurzarbeit(currentNotensatz, kurzarbeit: sender.text!.toInt()!)
-            case 2: Notenitem.addNotenitemExtemporale(currentNotensatz, extemporale: sender.text!.toInt()!)
-            case 3: Notenitem.addNotenitemMundlicheNote(currentNotensatz, mundlicheNote: sender.text!.toInt()!)
-            case 4: Notenitem.addNotenitemFachreferat(currentNotensatz, fachreferat: sender.text!.toInt()!)
-            default: break
-            }
-            
-            let aaa = fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! Notenitem
-            
-        } else {
-            var platzX = 0.toCGFloat()
-//            let allNumberOfObjets = ((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).numberOfObjects
-            platzX = sender.frame.minX - (nameLabelView.frame.minX + nameLabelView.frame.width) + 1
-            
-            let arrays = Notenitem.makeArrays(fetchedResultsController)
-            
-//            var schulaufgaben: [Int] = []
-//            var kurzarbeiten: [Int] = []
-//            var extemporalen: [Int] = []
-//            var mundlicheNoten: [Int] = []
-//            var fachreferat: [Int] = []
-//            
-//            (((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).objects as! [Notenitem]).each { element -> () in
-//                if element.schulaufgaben != nil { schulaufgaben.append(element.schulaufgaben! as Int) }
-//                if element.kurzarbeiten != nil { kurzarbeiten.append(element.kurzarbeiten! as Int) }
-//                if element.extemporale != nil { extemporalen.append(element.extemporale! as Int) }
-//                if element.mundlicheNote != nil { mundlicheNoten.append(element.mundlicheNote! as Int) }
-//                if element.fachreferat != nil { fachreferat.append(element.fachreferat! as Int) }
-//            }
-
-            for i in 0...100 {
-                if platzX == 0 {
-
-                    switch sender.tag {
-                    case 0: if arrays.schulaufgaben.count <= i  {
-                        let deleteNotenitem = fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: i, inSection: 0)) as! Notenitem
-                        deleteNotenitem.delete()
+                    for i in notenitemsUnwrepped {
+                        if (i as! Notenitem).schulaufgaben != nil {
+                            schulaufgabe.append(i as! Notenitem)
                         }
-                    case 1:  if arrays.kurzarbeiten.count <= i + 1 {
-                        let deleteNotenitem = fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: i, inSection: 0)) as! Notenitem
-                        deleteNotenitem.delete()
-                        }
-                    case 2:  if arrays.extemporalen.count <= i + 1 {
-                        let deleteNotenitem = fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: i, inSection: 0)) as! Notenitem
-                        deleteNotenitem.delete()
-                        }
-                    case 3:  if arrays.mundlicheNoten.count <= i + 1 {
-                        let deleteNotenitem = fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: i, inSection: 0)) as! Notenitem
-                        deleteNotenitem.delete()
-                        }
-                    case 4:  if arrays.fachreferat.count <= i + 1 {
-                        let deleteNotenitem = fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: i, inSection: 0)) as! Notenitem
-                        deleteNotenitem.delete()
-                        }
-                    default: break
                     }
                     
-                    
-                    break
+                    schulaufgabe[sender.tag].delete()
                 }
-                platzX -= 49
+            } else if sender.tag<200 {
+                if arrays.kurzarbeiten.count - 1 >= sender.tag - 100 {
+                    
+                    var kurzarbeiten: [Notenitem] = []
+                    guard let notenitemsUnwrepped = notenitems else {return}
+                    
+                    for i in notenitemsUnwrepped {
+                        if (i as! Notenitem).kurzarbeiten != nil {
+                            kurzarbeiten.append(i as! Notenitem)
+                        }
+                    }
+                    kurzarbeiten[sender.tag - 100].delete()
+                    
+                }
+            } else if sender.tag<300 {
+                
+                if arrays.extemporalen.count - 1 >= sender.tag - 200 {
+                    var extemporalen: [Notenitem] = []
+                    guard let notenitemsUnwrepped = notenitems else {return}
+                    
+                    for i in notenitemsUnwrepped {
+                        if (i as! Notenitem).extemporale != nil {
+                            extemporalen.append(i as! Notenitem)
+                        }
+                    }
+                    extemporalen[sender.tag - 200].delete()
+                }
+            } else if sender.tag<400 {
+                if arrays.mundlicheNoten.count - 1 >= sender.tag - 300 {
+                    var mundlicheNoten: [Notenitem] = []
+                    guard let notenitemsUnwrepped = notenitems else {return}
+                    
+                    for i in notenitemsUnwrepped {
+                        if (i as! Notenitem).mundlicheNote != nil {
+                            mundlicheNoten.append(i as! Notenitem)
+                        }
+                    }
+                    mundlicheNoten[sender.tag - 300].delete()
+                }
+            } else if sender.tag<500 {
+                if arrays.fachreferat.count - 1 >= sender.tag - 400 {
+                    var fachreferat: [Notenitem] = []
+                    guard let notenitemsUnwrepped = notenitems else {return}
+                    
+                    for i in notenitemsUnwrepped {
+                        if (i as! Notenitem).fachreferat != nil {
+                            fachreferat.append(i as! Notenitem)
+                        }
+                    }
+                    fachreferat[sender.tag - 400].delete()
+                }
             }
+            
         }
         
     }
@@ -391,8 +421,7 @@ extension DetailTV {
         self.scrollView.removeAllSubviews()
         self.einstellungenView.removeAllSubviews()
         self.setzeScrollView(0.3)
-        self.setzeNameLabel()
-        self.setzeNotenLabel(self.currentNotensatz)
+        self.setzeNotenLabel()
         self.setzeEinstellungen(0.3)
         
         

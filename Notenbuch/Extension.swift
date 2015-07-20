@@ -27,9 +27,37 @@ func max(array: [Int]) ->Int {
     
     for i in 0..<array.count - 1 {
         maxValue = max(maxValue, array[i])
-        print(maxValue)
     }
     return maxValue
+}
+func average(nums: [Double]) -> Double {
+    if nums.count == 0 {return 0}
+    var total = 0.0
+    var numsCount = nums.count
+    for vote in nums{
+        if vote == 0 { numsCount -= 1 }
+        total += Double(vote)
+        
+    }
+    if numsCount == 0 { return 0.0 }
+
+    let votesTotal = Double(numsCount)
+    let average = total/votesTotal
+    return average
+}
+func average(nums: [Int]) -> Double {
+    if nums.count == 0 {return 0}
+    var numsCount = nums.count
+    var total = 0
+    for vote in nums{
+        if vote == 0 { numsCount -= 1 }
+        total += vote
+        
+    }
+    if numsCount == 0 { return 0.0 }
+    let votesTotal = Double(numsCount)
+    let average = Double(total)/votesTotal
+    return average
 }
 
 /**
@@ -168,6 +196,10 @@ public extension String {
     func toInt() -> Int? {
         return Int(self)
     }
+    /// `true` iff `self` contains no characters.
+    var isNotEmpty:Bool {
+        return !self.isEmpty
+    }
     /**
     Insert a newString to the current String at the place "atIndex"
     */
@@ -301,6 +333,7 @@ public extension Double {
     Set the lenght of the Number after the Point to the transferred "lenght"
     */
     func setLenghtOfTheNumberAfterPointTo(lenght: Int) ->Double? {
+//        if self == nan { return }
         var geparst = "\(self)".componentsSeparatedByString(".")
         var nachKommaUnbearbeitet = geparst[1]
         if geparst[1].length() <= lenght {
