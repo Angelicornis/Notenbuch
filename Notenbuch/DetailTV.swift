@@ -21,11 +21,17 @@ class DetailTV: UIViewController {
     var currentNotensatz: Notensatz!
     var scrollView = UIScrollView()
     var einstellungenView = UIView()
+    var ubersichtsViewKlein = UIView()
+    var ubersichtsView = UIView()
+    var notenLabelsView = UIView()
     var einstellungSwitchEnabeld = false
     var navigationBar = UINavigationBar()
     var currentNotenitem: Notenitem!
     var nameLabelView: UILabel!
     var arrays:(schulaufgaben: [Int], kurzarbeiten: [Int], extemporalen: [Int], mundlicheNoten: [Int], fachreferat: [Int])! = nil
+    var shortNames = true
+    let recognizer = UIPanGestureRecognizer()
+    var visible = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,20 +43,45 @@ class DetailTV: UIViewController {
         
         arrays = Notenitem.makeArrays(fetchedResultsController)
         start()
+        
+        
         UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "orientationChanged:", name: "UIDeviceOrientationDidChangeNotification", object: nil)
         // this gives you access to notifications about rotations
     }
+    
+    func gestureRecognizer(sender: UIPanGestureRecognizer) {
+        if self.view.frame.height <= einstellungenView.frame.maxY {
+        
+        let translation = sender.translationInView(einstellungenView)
+        var newY = min(92 + self.scrollView.frame.height, einstellungenView.frame.origin.y + translation.y)
+        newY = max(view.frame.height - 203, newY)
+        einstellungenView.frame.origin.y = newY
+        if newY != view.frame.height - 60 { visible = true }
+        sender.setTranslation(CGPointZero, inView: einstellungenView)
+        }
+    }
+    
     func orientationChanged(sender: NSNotification)
     {
+        
+        removeAllViews()
+        start()
+    }
+    func removeAllViews() {
+        self.notenLabelsView.removeAllSubviews()
+        self.ubersichtsViewKlein.removeAllSubviews()
+        self.ubersichtsView.removeAllSubviews()
         self.scrollView.removeAllSubviews()
+        self.notenLabelsView.removeAllSubviews()
         self.einstellungenView.removeAllSubviews()
         self.view.removeAllSubviews()
         
+        notenLabelsView = UIView()
+        ubersichtsViewKlein = UIView()
         scrollView = UIScrollView()
+        ubersichtsView = UIView()
         einstellungenView = UIView()
-
-        start()
     }
     
     
@@ -100,33 +131,49 @@ extension DetailTV {
         setzeScrollView()
         setzeNotenLabel()
         
+        recognizer.addTarget(self, action: "gestureRecognizer:")
+        einstellungenView.addGestureRecognizer(recognizer)
+        
         setzeEinstellungen()
     }
     
     
     private func setzeScrollView(animationDuration: NSTimeInterval = 0) {
         UIView.animateWithDuration(animationDuration) {
+            
+            if self.shortNames { self.notenLabelsView.frame = CGRectMake(0, 72, 45, self.currentNotensatz.getHight() + 30 )
+            } else { self.notenLabelsView.frame = CGRectMake(0, 72, 153, self.currentNotensatz.getHight() + 30 )}
+            self.notenLabelsView.backgroundColor = UIColor.whiteColor()
+            self.view.addSubview(self.notenLabelsView)
 
-            self.scrollView.frame = CGRectMake(CGFloat(0), CGFloat(72), UIScreen.mainScreen().bounds.width, self.currentNotensatz.getHight() + 30 )
-            self.scrollView.backgroundColor = UIColor.lightGrayColor()
-            
-            
+            self.scrollView.frame = CGRectMake(self.notenLabelsView.frame.width, CGFloat(72), UIScreen.mainScreen().bounds.width, self.currentNotensatz.getHight() + 30 )
+//            self.scrollView.backgroundColor = UIColor.darkGrayColor()
             self.scrollView.contentSize.width = CGFloat(1000)
             self.view.addSubview(self.scrollView)
+            
+            self.ubersichtsView.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 67, CGFloat(72), CGFloat(66), self.currentNotensatz.getHight() + 30 )
+            self.ubersichtsView.backgroundColor = UIColor.whiteColor()
+            self.view.addSubview(self.ubersichtsView)
+
+            self.ubersichtsViewKlein.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 116, self.currentNotensatz.getHight() + 52 , 99, 30 )
+//            self.ubersichtsViewKlein.backgroundColor = UIColor.()
+            self.view.addSubview(self.ubersichtsViewKlein)
+        
         }
     }
     
     
     
     private func setzeNotenLabel(animationDuration: NSTimeInterval = 0) {
-        func plaziereNotenLabelPlaziere(TFName: String, zeile: Int) {
+        func plaziereNotenLabelPlaziere(TFName: String, zeile: Int, withTag: Int) {
             struct nameTF {
                 var name: String!
+                var tag: Int!
                 var x: CGFloat!
                 var y: CGFloat!
             }
             
-            var nameTFInstanz = nameTF(name: TFName, x: 8.toCGFloat(), y: nil)
+            var nameTFInstanz = nameTF(name: TFName, tag: withTag, x: 8.toCGFloat(), y: nil)
             switch zeile {
             case 1: nameTFInstanz.y = 20.toCGFloat()
             case 2: nameTFInstanz.y = 49.toCGFloat()
@@ -138,18 +185,21 @@ extension DetailTV {
             }
             nameLabelView = UILabel()
             nameLabelView.text = nameTFInstanz.name
+            nameLabelView.tag = nameTFInstanz.tag
             nameLabelView.layer.borderColor = UIColor.blackColor().CGColor
             nameLabelView.layer.borderWidth = CGFloat(1)
             
             if TFName == "∅" {
-                nameLabelView.frame = CGRect(x: self.scrollView.contentSize.width - 124, y: nameTFInstanz.y + 1, width: 50.toCGFloat(), height: 30.toCGFloat())
+//                nameLabelView.frame = CGRect(x: self.scrollView.contentSize.width - 124, y: nameTFInstanz.y + 1, width: 50.toCGFloat(), height: 30.toCGFloat())
+
+                nameLabelView.frame = CGRect(x: 0, y: 0, width: 50.toCGFloat(), height: 30.toCGFloat())
                 self.nameLabelView.textAlignment = .Center
-                self.scrollView.addSubview(nameLabelView)
+                self.ubersichtsViewKlein.addSubview(nameLabelView)
                 setzteUbersichtCellen(nameLabelView)
                 return
             }
-            nameLabelView.frame = CGRect(x: nameTFInstanz.x, y: nameTFInstanz.y, width: 145.toCGFloat(), height: 30.toCGFloat())
-            self.scrollView.addSubview(nameLabelView)
+            nameLabelView.frame = CGRect(x: nameTFInstanz.x, y: nameTFInstanz.y, width: self.notenLabelsView.frame.width - nameTFInstanz.x, height: 30.toCGFloat())
+            self.notenLabelsView.addSubview(nameLabelView)
             
             setzeNotenCellen(nameLabelView)
             setzteUbersichtCellen(nameLabelView)
@@ -163,15 +213,15 @@ extension DetailTV {
             
             var nameTFViewX = CGFloat(0)
             for i in 0...allNumberOfObjets {
-                nameTFViewX = (firstNameCell.frame.maxX - CGFloat(1)) + CGFloat(i * 50 - i)
+                nameTFViewX = CGFloat(i * 50 - i)
                 let cellTFView = UITextField()
                 
-                switch firstNameCell.text! {
-                case " Schulaufgabe": cellTFView.tag = i;          if i < arrays.schulaufgaben.count { cellTFView.text = arrays.schulaufgaben[i].toString()}
-                case " Kurzarbeiten": cellTFView.tag = 100 + i;    if i < arrays.kurzarbeiten.count { cellTFView.text = arrays.kurzarbeiten[i].toString()}
-                case " Extemporalen": cellTFView.tag = 200 + i ;   if i < arrays.extemporalen.count { cellTFView.text = arrays.extemporalen[i].toString()}
-                case " Mündliche Noten": cellTFView.tag = 300 + i; if i < arrays.mundlicheNoten.count { cellTFView.text = arrays.mundlicheNoten[i].toString()}
-                case " Fachreferat": cellTFView.tag = 400 + i;     if i < arrays.fachreferat.count { cellTFView.text = arrays.fachreferat[i].toString()}
+                switch firstNameCell.tag {
+                case 0: cellTFView.tag = i;          if i < arrays.schulaufgaben.count { cellTFView.text = arrays.schulaufgaben[i].toString()}
+                case 1: cellTFView.tag = 100 + i;    if i < arrays.kurzarbeiten.count { cellTFView.text = arrays.kurzarbeiten[i].toString()}
+                case 2: cellTFView.tag = 200 + i ;   if i < arrays.extemporalen.count { cellTFView.text = arrays.extemporalen[i].toString()}
+                case 3: cellTFView.tag = 300 + i; if i < arrays.mundlicheNoten.count { cellTFView.text = arrays.mundlicheNoten[i].toString()}
+                case 4: cellTFView.tag = 400 + i;     if i < arrays.fachreferat.count { cellTFView.text = arrays.fachreferat[i].toString()}
                 default: break
                 }
                 
@@ -179,21 +229,29 @@ extension DetailTV {
                 cellTFView.addTarget(self, action: Selector("changeNote:"), forControlEvents: UIControlEvents.EditingDidEnd)
                 cellTFView.keyboardType = UIKeyboardType.NumberPad
                 cellTFView.borderStyle = UITextBorderStyle.Line
+                cellTFView.textAlignment = .Center
                 self.scrollView.addSubview(cellTFView)
             }
-            self.scrollView.contentSize.width = nameTFViewX + CGFloat (50 + 8 + 50 + 8 + 8)
+            if shortNames { self.scrollView.contentSize.width = CGFloat( 180 ) + nameTFViewX }
+            else { self.scrollView.contentSize.width = CGFloat( 277 ) + nameTFViewX }
         }
         
         func setzteUbersichtCellen(firstNameCell: UILabel) {
-            let celle = UILabel(frame: CGRect(x: self.scrollView.contentSize.width - 66, y: firstNameCell.frame.minY, width: 50, height: 30))
+            //                nameLabelView.frame = CGRect(x: self.scrollView.contentSize.width - 124, y: nameTFInstanz.y + 1, width: 50.toCGFloat(), height: 30.toCGFloat())
+
+            let celle = UILabel(frame: CGRectMake(CGFloat(0), firstNameCell.frame.minY, CGFloat(50), CGFloat(30)))
             celle.layer.borderColor = UIColor.blackColor().CGColor
-            switch firstNameCell.text! {
-            case " Schulaufgabe": celle.text = average(arrays.schulaufgaben).setLenghtOfTheNumberAfterPointTo(1)!.toString()
-            case " Kurzarbeiten": celle.text = average(arrays.kurzarbeiten).setLenghtOfTheNumberAfterPointTo(1)!.toString()
-            case " Extemporalen": celle.text = average(arrays.extemporalen).setLenghtOfTheNumberAfterPointTo(1)!.toString()
-            case " Mündliche Noten": celle.text = average(arrays.mundlicheNoten).setLenghtOfTheNumberAfterPointTo(1)!.toString()
-            case " Fachreferat": celle.text = average(arrays.fachreferat).setLenghtOfTheNumberAfterPointTo(1)!.toString()
-            case "∅" :
+            celle.textAlignment = .Center
+            celle.layer.borderWidth = CGFloat(1)
+            
+            switch firstNameCell.tag {
+            case 0: celle.text = average(arrays.schulaufgaben).setLenghtOfTheNumberAfterPointTo(1)!.toString()
+            case 1: celle.text = average(arrays.kurzarbeiten).setLenghtOfTheNumberAfterPointTo(1)!.toString()
+            case 2: celle.text = average(arrays.extemporalen).setLenghtOfTheNumberAfterPointTo(1)!.toString()
+            case 3: celle.text = average(arrays.mundlicheNoten).setLenghtOfTheNumberAfterPointTo(1)!.toString()
+            case 4: celle.text = average(arrays.fachreferat).setLenghtOfTheNumberAfterPointTo(1)!.toString()
+            case 5 :
+                celle.frame = CGRectMake(49, 0, 50, 30)
                 var durchschnittMundliche = average([average(arrays.kurzarbeiten), average(arrays.extemporalen), average(arrays.mundlicheNoten)])
                 if arrays.fachreferat.count != 0 {
                     durchschnittMundliche = durchschnittMundliche * 2 + Double(arrays.fachreferat[0]) / 3
@@ -207,37 +265,60 @@ extension DetailTV {
                 else if arrays.schulaufgaben.count < 1 {
                     celle.text = durchschnittMundliche.toString()
                 }
-                
+                self.ubersichtsViewKlein.addSubview(celle)
+                return
             default: break
             }
-            celle.textAlignment = .Center
-            celle.layer.borderWidth = CGFloat(1)
-            self.scrollView.addSubview(celle)
+            self.ubersichtsView.addSubview(celle)
         }
         
+        //MARK: Setze NotenLabel Start
         var zeile = 0
         
+        if shortNames {
+            if currentNotensatz.schulaufgabeEnabeld == true {
+                ++zeile
+                plaziereNotenLabelPlaziere(" SA", zeile: zeile, withTag: 0)
+            }
+            if currentNotensatz.kurzabeitenEnabeld == true {
+                ++zeile
+                plaziereNotenLabelPlaziere(" KA", zeile: zeile, withTag: 1)
+            }
+            if currentNotensatz.extemporaleEnabeld == true {
+                ++zeile
+                plaziereNotenLabelPlaziere(" EX", zeile: zeile, withTag: 2)
+            }
+            if currentNotensatz.mundlicheNotenEnabeld == true {
+                ++zeile
+                plaziereNotenLabelPlaziere(" MN", zeile: zeile, withTag: 3)
+            }
+            if currentNotensatz.fachreferatEnabeld == true {
+                ++zeile
+                plaziereNotenLabelPlaziere(" FR", zeile: zeile, withTag: 4)
+            }
+        } else {
         if currentNotensatz.schulaufgabeEnabeld == true {
             ++zeile
-            plaziereNotenLabelPlaziere(" Schulaufgabe", zeile: zeile)
+            plaziereNotenLabelPlaziere(" Schulaufgabe", zeile: zeile, withTag: 0)
         }
         if currentNotensatz.kurzabeitenEnabeld == true {
             ++zeile
-            plaziereNotenLabelPlaziere(" Kurzarbeiten", zeile: zeile)
+            plaziereNotenLabelPlaziere(" Kurzarbeiten", zeile: zeile, withTag: 1)
         }
         if currentNotensatz.extemporaleEnabeld == true {
             ++zeile
-            plaziereNotenLabelPlaziere(" Extemporalen", zeile: zeile)
+            plaziereNotenLabelPlaziere(" Extemporalen", zeile: zeile, withTag: 0)
         }
         if currentNotensatz.mundlicheNotenEnabeld == true {
             ++zeile
-            plaziereNotenLabelPlaziere(" Mündliche Noten", zeile: zeile)
+            plaziereNotenLabelPlaziere(" Mündliche Noten", zeile: zeile, withTag: 0)
         }
         if currentNotensatz.fachreferatEnabeld == true {
             ++zeile
-            plaziereNotenLabelPlaziere(" Fachreferat", zeile: zeile)
+            plaziereNotenLabelPlaziere(" Fachreferat", zeile: zeile, withTag: 0)
         }
-        plaziereNotenLabelPlaziere("∅", zeile: zeile + 1)
+        }
+        plaziereNotenLabelPlaziere("∅", zeile: zeile + 1, withTag: 5)
     }
     
     func changeNote(sender: UITextField) {
@@ -416,11 +497,16 @@ extension DetailTV {
         if switchState.tag == 3 { currentNotensatz.mundlicheNotenEnabeld = switchState.on }
         if switchState.tag == 4 { currentNotensatz.fachreferatEnabeld = switchState.on }
         
-        
-        self.view.removeAllSubviews()
+        self.notenLabelsView.removeAllSubviews()
+        self.ubersichtsViewKlein.removeAllSubviews()
+        self.ubersichtsView.removeAllSubviews()
         self.scrollView.removeAllSubviews()
+        self.notenLabelsView.removeAllSubviews()
         self.einstellungenView.removeAllSubviews()
-        self.setzeScrollView(0.3)
+        self.view.removeAllSubviews()
+        
+        
+        self.setzeScrollView(0)
         self.setzeNotenLabel()
         self.setzeEinstellungen(0.3)
         
