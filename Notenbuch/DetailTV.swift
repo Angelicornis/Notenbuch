@@ -11,11 +11,11 @@ import CoreData
 
 class DetailTV: UIViewController {
     
-    @IBOutlet weak var schulaufgabeSwitch: UISwitch!
-    @IBOutlet weak var kurzarbeitenSwitch: UISwitch!
-    @IBOutlet weak var extempoaleSwitch: UISwitch!
-    @IBOutlet weak var fachreferatSwitch: UISwitch!
-    @IBOutlet weak var mundlicheNoteSwitch: UISwitch!
+//    @IBOutlet weak var schulaufgabeSwitch: UISwitch!
+//    @IBOutlet weak var kurzarbeitenSwitch: UISwitch!
+//    @IBOutlet weak var extempoaleSwitch: UISwitch!
+//    @IBOutlet weak var fachreferatSwitch: UISwitch!
+//    @IBOutlet weak var mundlicheNoteSwitch: UISwitch!
     
     
     var currentNotensatz: Notensatz!

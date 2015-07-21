@@ -18,6 +18,7 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
     var indexPath = NSIndexPath()
     
     @IBOutlet weak var scrollView: UIScrollView!
+    var currentNotensatz: Notensatz!
     
     
     //MARK: - Obligatorische Funktionen
@@ -63,9 +64,11 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
 //        let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
         visible = false
         if segue.identifier == "calculate" {
-            delayOnMainQueue(1) { Void in
-                self.moveMenu()
-            }
+            (segue.destinationViewController as! CalculateTVC).data = prepareCoreData()
+
+//            (segue.destinationViewController as! CalculateTVC).data = prepareCoreData()
+
+            
         } else if segue.identifier == "detailTV" {
             (segue.destinationViewController as! DetailTV).currentNotensatz = fetchedResultsController.objectAtIndexPath(indexPath) as! Notensatz
         }
@@ -79,6 +82,45 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     
+    func prepareCoreData() ->[[String: String]] {
+        var arrays:(schulaufgaben: [Int], kurzarbeiten: [Int], extemporalen: [Int], mundlicheNoten: [Int], fachreferat: [Int])! = nil
+        var data: [[String: String]] = []
+        guard let sectionCount = fetchedResultsController.sections?.count else { return []}
+        for i in 0..<sectionCount {
+            let notensatzeInSection = (fetchedResultsController.sections![i] as NSFetchedResultsSectionInfo).objects as! [Notensatz]
+            
+            let section = fetchedResultsController.sections![i]
+            let sectionCount = section.numberOfObjects
+            let sectionTitel = fetchedResultsController.sectionIndexTitles[i]
+            
+            if sectionTitel == "H" {
+                for a in 0..<sectionCount {
+                    currentNotensatz = notensatzeInSection[a]
+                    fetchedResultsControllerForNotenitem = nil
+                    arrays = Notenitem.makeArrays(fetchedResultsControllerForNotenitem)
+                    data.append(berechneDurchschnitt(arrays))
+                }
+            }
+        }
+        return data
+    }
+    func berechneDurchschnitt(arrays: (schulaufgaben: [Int], kurzarbeiten: [Int], extemporalen: [Int], mundlicheNoten: [Int], fachreferat: [Int])) ->[String: String] {
+        var ergebnis = ""
+        var durchschnittMundliche = average([average(arrays.kurzarbeiten), average(arrays.extemporalen), average(arrays.mundlicheNoten)])
+        if arrays.fachreferat.count != 0 {
+            durchschnittMundliche = durchschnittMundliche * 2 + Double(arrays.fachreferat[0]) / 3
+        }
+        
+        if arrays.schulaufgaben.count == 1 {
+            ergebnis = average([average(arrays.schulaufgaben), durchschnittMundliche]).setLenghtOfTheNumberAfterPointTo(2)!.toString()
+        } else if arrays.schulaufgaben.count > 1 {
+            ergebnis = ((average(arrays.schulaufgaben) * 2 + durchschnittMundliche) / 3).setLenghtOfTheNumberAfterPointTo(2)!.toString()
+        }
+        else if arrays.schulaufgaben.count < 1 {
+            ergebnis = durchschnittMundliche.toString()
+        }
+        return ["Name": currentNotensatz.name!, "Ergebnis": ergebnis]
+    }
     
     
     
@@ -108,7 +150,7 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
         let cell = tableView.dequeueReusableCellWithIdentifier("notenubersichtCell")! as! notenCell
         let currentNotensatz = fetchedResultsController.objectAtIndexPath(indexPath) as! Notensatz
         cell.currentNotensatz = currentNotensatz
-        cell.indexPath = indexPath
+//        cell.indexPath = indexPath
         return cell
     }
     
@@ -116,7 +158,7 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let currentNotensatz = fetchedResultsController.objectAtIndexPath(indexPath) as! Notensatz
-        return currentNotensatz.getHightWithNameLabel()
+        return currentNotensatz.getHightWithNameLabel() + 30
     }
     func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
@@ -195,7 +237,22 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
         } ()
     
     
-    
+    private lazy var fetchedResultsControllerForNotenitem: NSFetchedResultsController! = {
+        let request = NSFetchRequest(entityName: kNotenitem)
+        request.sortDescriptors = [NSSortDescriptor(key: kOrder, ascending: false)]
+        
+        request.predicate = NSPredicate(format: "notensatz = %@", self.currentNotensatz)
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController.delegate = self
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            //TODO: Errorhandling
+        }
+        
+        return fetchedResultsController
+        } ()
     
     
     

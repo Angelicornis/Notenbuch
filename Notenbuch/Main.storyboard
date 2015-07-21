@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NPY-HN-pPX">
-                                <rect key="frame" x="0.0" y="269" width="600" height="122"/>
+                                <rect key="frame" x="0.0" y="331" width="600" height="122"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Zeugnisspunkte derzeit" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EV1-o3-9I1">
                                         <rect key="frame" x="8" y="8" width="223" height="30"/>
@@ -80,7 +80,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utU-Z2-f9X">
-                                <rect key="frame" x="0.0" y="72" width="600" height="46"/>
+                                <rect key="frame" x="0.0" y="72" width="600" height="108"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Zeugnisspunkte derzeit" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWu-sz-Hih">
                                         <rect key="frame" x="8" y="8" width="223" height="30"/>
@@ -100,17 +100,29 @@
                                             <action selector="jahresfortgangsnoteTF:" destination="dY8-rq-MZY" eventType="editingDidEnd" id="odf-CO-Z0Q"/>
                                         </connections>
                                     </textField>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C8u-zL-oqv">
+                                        <rect key="frame" x="0.0" y="46" width="600" height="54"/>
+                                    </pickerView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="mmr-Jb-5vG" secondAttribute="trailing" constant="8" id="3WT-yD-q9b"/>
                                     <constraint firstAttribute="bottom" secondItem="mmr-Jb-5vG" secondAttribute="bottom" constant="8" id="DD0-Wq-I7N"/>
                                     <constraint firstItem="mmr-Jb-5vG" firstAttribute="top" secondItem="utU-Z2-f9X" secondAttribute="top" constant="8" id="DWp-K1-vqL"/>
-                                    <constraint firstAttribute="height" constant="46" id="bve-sc-jio"/>
+                                    <constraint firstAttribute="bottom" secondItem="C8u-zL-oqv" secondAttribute="bottom" constant="8" id="HIL-0a-8P2"/>
+                                    <constraint firstItem="C8u-zL-oqv" firstAttribute="top" secondItem="mmr-Jb-5vG" secondAttribute="bottom" constant="8" id="NL1-e0-RjS"/>
+                                    <constraint firstAttribute="trailing" secondItem="C8u-zL-oqv" secondAttribute="trailing" id="Ndp-YU-mPi"/>
+                                    <constraint firstAttribute="height" constant="108" id="bve-sc-jio"/>
+                                    <constraint firstItem="C8u-zL-oqv" firstAttribute="leading" secondItem="utU-Z2-f9X" secondAttribute="leading" id="qka-GS-Ih1"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="DD0-Wq-I7N"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EWU-e1-aZk">
-                                <rect key="frame" x="0.0" y="399" width="600" height="84"/>
+                                <rect key="frame" x="0.0" y="461" width="600" height="84"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nächstbessere Punkte" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="msv-gi-AQz">
                                         <rect key="frame" x="8" y="8" width="223" height="30"/>
@@ -163,7 +175,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxh-lc-Xow">
-                                <rect key="frame" x="0.0" y="126" width="600" height="135"/>
+                                <rect key="frame" x="0.0" y="188" width="600" height="135"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Schriftliche Prüfung Derzeit" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xyT-ym-jSJ">
                                         <rect key="frame" x="8" y="59" width="223" height="30"/>
@@ -248,7 +260,7 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MUi-x9-oA0">
-                                <rect key="frame" x="0.0" y="491" width="600" height="84"/>
+                                <rect key="frame" x="0.0" y="553" width="600" height="84"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Übernächste Punkte" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2C-Wf-oVY">
                                         <rect key="frame" x="8" y="8" width="173" height="30"/>
@@ -346,6 +358,7 @@
                         <outlet property="mundlichePrufungDerzeitTF" destination="Onu-sj-L2U" id="0l7-jZ-mhp"/>
                         <outlet property="nachstbesserePunkteTF" destination="XaI-wg-RHc" id="AfB-aP-D6f"/>
                         <outlet property="pflichtMundlichePrufung" destination="kfe-qg-Z7y" id="cZC-Mj-kZh"/>
+                        <outlet property="pickerView" destination="C8u-zL-oqv" id="QF6-Dy-LcB"/>
                         <outlet property="prufungsView" destination="hxh-lc-Xow" id="9E8-cC-oaa"/>
                         <outlet property="schriftlichePrufungDerzeitTF" destination="XFS-Wu-kbL" id="Is5-Bv-mco"/>
                         <outlet property="segueBTN1" destination="CNb-we-UUb" id="Fd7-ZT-gCL"/>
@@ -1086,20 +1099,20 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="219.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BU0-0P-OzK">
-                                                    <rect key="frame" x="8" y="8" width="584" height="203.5"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sd4-m4-8uT">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="219.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="BU0-0P-OzK" firstAttribute="leading" secondItem="rWz-jP-MSM" secondAttribute="leadingMargin" id="0LF-gw-dfp"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="BU0-0P-OzK" secondAttribute="bottom" id="51e-Dk-Bqb"/>
-                                                <constraint firstItem="BU0-0P-OzK" firstAttribute="top" secondItem="rWz-jP-MSM" secondAttribute="topMargin" id="XGL-Yp-LPc"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="BU0-0P-OzK" secondAttribute="trailing" id="lEH-Hm-lug"/>
+                                                <constraint firstItem="sd4-m4-8uT" firstAttribute="leading" secondItem="rWz-jP-MSM" secondAttribute="leadingMargin" constant="-8" id="XiN-pY-I98"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="sd4-m4-8uT" secondAttribute="bottom" constant="-8" id="ZZE-KH-t9j"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="sd4-m4-8uT" secondAttribute="trailing" constant="-8" id="eMt-Np-y26"/>
+                                                <constraint firstItem="sd4-m4-8uT" firstAttribute="top" secondItem="rWz-jP-MSM" secondAttribute="topMargin" constant="-8" id="stf-Qg-5Vl"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="view" destination="BU0-0P-OzK" id="dME-nb-yRh"/>
+                                            <outlet property="view" destination="sd4-m4-8uT" id="uXD-84-pSA"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1122,7 +1135,7 @@
                                             <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="dY8-rq-MZY" kind="show" id="kjZ-Px-fTu"/>
+                                            <segue destination="dY8-rq-MZY" kind="show" identifier="calculate" id="kjZ-Px-fTu"/>
                                         </connections>
                                     </button>
                                 </subviews>
