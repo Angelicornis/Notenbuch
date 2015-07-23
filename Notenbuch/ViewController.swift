@@ -23,18 +23,27 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
     
     //MARK: - Obligatorische Funktionen
     override func viewDidLoad() {
+        NSUserDefaults.standardUserDefaults().setBool(false, forKey: "skipTutorial")
         super.viewDidLoad()
-        //        scrollView.contentSize.width = 600
         let moveMenu = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: "moveMenu")
+        let edit = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: "doEdit:")
         let reload = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "reload")
-        //        let edit = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Organize, target: self, action: editButtonItem())
-        navigationItem.rightBarButtonItems = [moveMenu, editButtonItem(), reload]
+        navigationItem.rightBarButtonItems = [moveMenu, edit, reload]
         //        tableView.tableFooterView = UIView(frame: CGRectZero)
         
         UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "orientationChanged:", name: "UIDeviceOrientationDidChangeNotification", object: nil)
         // this gives you access to notifications about rotations
     }
+    
+    var editingg = true
+    func doEdit(sender: AnyObject) {
+        print(editingg)
+        fetchedResultsController = nil
+        self.tableView.setEditing(editingg, animated: true)
+        editingg = !editingg
+    }
+    
     func orientationChanged(sender: NSNotification)
     {
         tableView.reloadData()
@@ -48,7 +57,8 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
     
     override func viewDidAppear(animated: Bool) {
         tableView.reloadData()
-        fetchedResultsController = nil
+//        moveMenu()
+//        fetchedResultsController = nil
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -165,6 +175,19 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
+    }
+    
+    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        AppDelegate.move(kNotensatz, orderAttributeName: kOrder, source: fetchedResultsController.objectAtIndexPath(sourceIndexPath), toDestination: fetchedResultsController.objectAtIndexPath(destinationIndexPath))
+    }
+    
+    
+//    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+//        return .None
+//    }
+
+    func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
     }
 
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
@@ -328,6 +351,18 @@ extension ViewController: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         tableView.endUpdates()
+    }
+    
+
+    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+        switch type {
+        case .Insert:
+            tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+        case .Delete:
+            tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+        default:
+            return
+        }
     }
 }
 

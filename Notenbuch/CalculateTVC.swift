@@ -27,48 +27,54 @@ class CalculateTVC: UIViewController, NSFetchedResultsControllerDelegate, UIPick
     @IBOutlet weak var ubernachstePunkteTF: UITextField!
     @IBOutlet weak var ubernachstePunkteErreichbarMitTF: UITextField!
     
+    @IBOutlet weak var nachstePunkteView: UIView!
     @IBOutlet weak var ubernachstePunkteView: UIView!
     @IBOutlet weak var prufungsView: UIView!
     
-    @IBOutlet weak var segueBTN1: UIButton!
-    @IBOutlet weak var segueBTN2: UIButton!
-    
     @IBOutlet weak var pickerView: UIPickerView!
-
+    var segueRecognizerNachstePunkte: UITapGestureRecognizer!
+    var segueRecognizerUbernachstePunkte: UITapGestureRecognizer!
     
     var daten:[calculateWithData] = []
     var dataFromHistory: calculateWithData!
     
     var hinzugefugtUm: NSDate!
     var delayIntervall: Double = 20
-    var data: [[String: String]]!
-
+    var data: [[String: String]]! = []
+    var name = ""
     
     
     //MARK: - Obligatorische Funktionen
     override func viewDidLoad() {
 //        self.viewDidLoad()
         pflichtMundlichePrufung.on = false
-        segueBTN1.enabled = false
-        segueBTN2.enabled = false
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Bookmarks, target: self, action: "performSegueToHistoryCalculateTVC")
         
         pickerView.delegate = self
         pickerView.dataSource = self
+        scrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapGestureRecognizer:"))
         
     }
     
     override func viewDidAppear(animated: Bool) {
         berechneDataFromHistory()
         mundlichePrufungEnabled(false)
-        jahresfortgangsnoteTF.text = data[0]["Ergebnis"]
+        if data.count != 0 {
+            name = data[0]["Name"]!
+            jahresfortgangsnoteTF.text = data[0]["Ergebnis"]
+        }
     }
 
     
+    func tapGestureRecognizer(sender: UITapGestureRecognizer) {
+        berechnung()
+        self.view.endEditing(true)
+    }
+    
 
-    
-    
 
-    
+    //MARK: - PickerView
     
     
     func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
@@ -85,12 +91,16 @@ class CalculateTVC: UIViewController, NSFetchedResultsControllerDelegate, UIPick
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return data[row]["Name"]
+        if data.count != 0 {
+            return data[row]["Name"]
+        }
+        return nil
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if data.count != 0 {
             jahresfortgangsnoteTF.text = data[row]["Ergebnis"]
+            name = data[row]["Name"]!
         }
     }
     
@@ -100,7 +110,7 @@ class CalculateTVC: UIViewController, NSFetchedResultsControllerDelegate, UIPick
 
 //MARK: - Segues
 override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "notenUbersichtNachstePunkte" || segue.identifier == "notenUbersichtUbernachstePunkte" {
+    if segue.identifier == "notenUbersichtNachstePunkte" {
         (segue.destinationViewController as! notenUbersicht).jahresfortgangsnote = jahresfortgangsnoteTF.text!.toDouble()! ?? 0
         (segue.destinationViewController as! notenUbersicht).schriftlichePrufung = schriftlichePrufungDerzeitTF.text!.toInt() ?? 0
         (segue.destinationViewController as! notenUbersicht).pflichtMundlichePrufung = mundlichePrufungDerzeitTF.text!.toInt() ?? 0
@@ -109,6 +119,13 @@ override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         (segue.destinationViewController as! historyCalculateTVC).daten = daten.reverse()
     }
 }
+    
+    func performSegueToNotenUbersicht(sender: UIPanGestureRecognizer) {
+        performSegueWithIdentifier("notenUbersichtNachstePunkte", sender: self)
+    }
+    func performSegueToHistoryCalculateTVC() {
+        performSegueWithIdentifier("historySegueCalculate", sender: self)
+    }
 func berechneDataFromHistory() {
     if dataFromHistory != nil {
         jahresfortgangsnoteTF.text = dataFromHistory.jahresfortgangsnote
@@ -129,7 +146,7 @@ func berechneDataFromHistory() {
     }
 }
 func addCurrentDataToHistory() {
-    let newHistory = calculateWithData(name: "", jahresfortgangsnote: jahresfortgangsnoteTF.text!, mitMundlicherPrufung: pflichtMundlichePrufung.on, schriftlichePrufung: schriftlichePrufungDerzeitTF.text!, mundlichePrufung: mundlichePrufungDerzeitTF.text, zeugnisspunkte: zeugnisspunkteDerzeitTF.text!, gerundeteZeugnisspunkte: gerundeteZeugnisspunkteTF.text!, entsprichtNote: entsprichtDieNoteTF.text!, nachstbessereNote: nachstbesserePunkteTF.text!, erreichbarMit: erreichbarMitTF.text!, ubernachstbessereNote: ubernachstePunkteTF.text, ubernachstbessereNoteErreichbarMit: ubernachstePunkteErreichbarMitTF.text)
+    let newHistory = calculateWithData(name: name, jahresfortgangsnote: jahresfortgangsnoteTF.text!, mitMundlicherPrufung: pflichtMundlichePrufung.on, schriftlichePrufung: schriftlichePrufungDerzeitTF.text!, mundlichePrufung: mundlichePrufungDerzeitTF.text, zeugnisspunkte: zeugnisspunkteDerzeitTF.text!, gerundeteZeugnisspunkte: gerundeteZeugnisspunkteTF.text!, entsprichtNote: entsprichtDieNoteTF.text!, nachstbessereNote: nachstbesserePunkteTF.text!, erreichbarMit: erreichbarMitTF.text!, ubernachstbessereNote: ubernachstePunkteTF.text, ubernachstbessereNoteErreichbarMit: ubernachstePunkteErreichbarMitTF.text)
     if daten.count == 0 { daten.append(newHistory); hinzugefugtUm = NSDate() }
     if !contains(daten, this: newHistory) {
         let current = NSDate()
@@ -140,6 +157,7 @@ func addCurrentDataToHistory() {
         
         daten.append(newHistory)
         hinzugefugtUm = NSDate()
+        name = ""
     }
 }
 
@@ -180,12 +198,17 @@ func berechnung() {
         let zweitBesserePunkte = zweitBessereNote(zeugnisspunkteDerzeit)
         ubernachstePunkteErreichbarMitTF.text = zweitBesserePunkte.erreichbarMit.toString()
         ubernachstePunkteTF.text = zweitBesserePunkte.nachstbesserePunkte.toString()
-        segueBTN1.enabled = true
-        segueBTN2.enabled = true
+        
+        segueRecognizerNachstePunkte = UITapGestureRecognizer(target: self, action: "performSegueToNotenUbersicht:")
+        segueRecognizerUbernachstePunkte = UITapGestureRecognizer(target: self, action: "performSegueToNotenUbersicht:")
+        nachstePunkteView.addGestureRecognizer(segueRecognizerNachstePunkte)
+        ubernachstePunkteView.addGestureRecognizer(segueRecognizerUbernachstePunkte)
+        
         addCurrentDataToHistory()
     } else {
-        segueBTN1.enabled = false
-        segueBTN2.enabled = false
+        nachstePunkteView.removeGestureRecognizer(segueRecognizerNachstePunkte)
+        ubernachstePunkteView.removeGestureRecognizer(segueRecognizerUbernachstePunkte)
+
     }
 }
 
@@ -243,6 +266,7 @@ override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 }
 @IBAction func jahresfortgangsnoteTF(sender: UITextField) {
     jahresfortgangsnoteTF.text = jahresfortgangsnoteTF.text!.replace(",", with: ".")
+    name = ""
 }
 
 @IBAction func schriftlichePrufungDerzeitTF(sender: UITextField) {

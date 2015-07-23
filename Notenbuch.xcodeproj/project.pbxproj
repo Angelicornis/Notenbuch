@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E243A12B1B5957A5001ABF54 /* DetailTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E243A12A1B5957A5001ABF54 /* DetailTV.swift */; };
 		E24A7D971B58348900473AD9 /* ToDo.plist in Resources */ = {isa = PBXBuildFile; fileRef = E24A7D961B58348900473AD9 /* ToDo.plist */; };
+		E26C52E51B5ECA9700203563 /* ImpressumTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26C52E41B5ECA9700203563 /* ImpressumTV.swift */; };
 		E27957351B58F68600EB330F /* Notenitem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27957331B58F68600EB330F /* Notenitem+CoreDataProperties.swift */; };
 		E27957361B58F68600EB330F /* Notenitem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27957341B58F68600EB330F /* Notenitem.swift */; };
 		E27957391B58F68700EB330F /* Notensatz+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27957371B58F68700EB330F /* Notensatz+CoreDataProperties.swift */; };
@@ -29,6 +30,14 @@
 		E2AC786A1B4C2AF500CC0406 /* notenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AC78691B4C2AF500CC0406 /* notenCell.swift */; };
 		E2AC78731B4C3ABF00CC0406 /* Konstanten.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AC78721B4C3ABF00CC0406 /* Konstanten.swift */; };
 		E2DDA01B1B49DAC4008839E3 /* AddNewFach.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DDA01A1B49DAC4008839E3 /* AddNewFach.swift */; };
+		E2E8D9CB1B61015A00527481 /* Landing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2E8D9CA1B61015A00527481 /* Landing.storyboard */; };
+		E2E8D9CE1B61018100527481 /* LandingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E8D9CC1B61018100527481 /* LandingPage.swift */; };
+		E2E8D9D11B6101B000527481 /* ContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E8D9D01B6101B000527481 /* ContentVC.swift */; };
+		E2E8D9D81B61023800527481 /* page1.png in Resources */ = {isa = PBXBuildFile; fileRef = E2E8D9D31B61023800527481 /* page1.png */; };
+		E2E8D9D91B61023800527481 /* page2.png in Resources */ = {isa = PBXBuildFile; fileRef = E2E8D9D41B61023800527481 /* page2.png */; };
+		E2E8D9DA1B61023800527481 /* page3.png in Resources */ = {isa = PBXBuildFile; fileRef = E2E8D9D51B61023800527481 /* page3.png */; };
+		E2E8D9DB1B61023800527481 /* page4.png in Resources */ = {isa = PBXBuildFile; fileRef = E2E8D9D61B61023800527481 /* page4.png */; };
+		E2E8D9DC1B61023800527481 /* page5.png in Resources */ = {isa = PBXBuildFile; fileRef = E2E8D9D71B61023800527481 /* page5.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +53,7 @@
 /* Begin PBXFileReference section */
 		E243A12A1B5957A5001ABF54 /* DetailTV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTV.swift; sourceTree = "<group>"; };
 		E24A7D961B58348900473AD9 /* ToDo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ToDo.plist; sourceTree = "<group>"; };
+		E26C52E41B5ECA9700203563 /* ImpressumTV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImpressumTV.swift; sourceTree = "<group>"; };
 		E27957331B58F68600EB330F /* Notenitem+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Notenitem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E27957341B58F68600EB330F /* Notenitem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notenitem.swift; sourceTree = "<group>"; };
 		E27957371B58F68700EB330F /* Notensatz+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Notensatz+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -70,6 +80,14 @@
 		E2AC78691B4C2AF500CC0406 /* notenCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = notenCell.swift; sourceTree = "<group>"; };
 		E2AC78721B4C3ABF00CC0406 /* Konstanten.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Konstanten.swift; sourceTree = "<group>"; };
 		E2DDA01A1B49DAC4008839E3 /* AddNewFach.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewFach.swift; sourceTree = "<group>"; };
+		E2E8D9CA1B61015A00527481 /* Landing.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Landing.storyboard; sourceTree = "<group>"; };
+		E2E8D9CC1B61018100527481 /* LandingPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingPage.swift; sourceTree = "<group>"; };
+		E2E8D9D01B6101B000527481 /* ContentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentVC.swift; sourceTree = "<group>"; };
+		E2E8D9D31B61023800527481 /* page1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page1.png; sourceTree = "<group>"; };
+		E2E8D9D41B61023800527481 /* page2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page2.png; sourceTree = "<group>"; };
+		E2E8D9D51B61023800527481 /* page3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page3.png; sourceTree = "<group>"; };
+		E2E8D9D61B61023800527481 /* page4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page4.png; sourceTree = "<group>"; };
+		E2E8D9D71B61023800527481 /* page5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page5.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +131,9 @@
 			children = (
 				E24A7D961B58348900473AD9 /* ToDo.plist */,
 				E2A6A6F21B46E87200F3BEA8 /* Main.storyboard */,
+				E26C52E41B5ECA9700203563 /* ImpressumTV.swift */,
 				E2A6A6C21B4481EB00F3BEA8 /* ViewController.swift */,
+				E2E8D9D21B6101B900527481 /* Landing */,
 				E2B8548A1B59591900FF8085 /* Aktuelle Noten */,
 				E2AC786F1B4C37DC00CC0406 /* CoreData */,
 				E2AC78681B4C29D300CC0406 /* Calculate */,
@@ -186,6 +206,21 @@
 				E243A12A1B5957A5001ABF54 /* DetailTV.swift */,
 			);
 			name = "Aktuelle Noten";
+			sourceTree = "<group>";
+		};
+		E2E8D9D21B6101B900527481 /* Landing */ = {
+			isa = PBXGroup;
+			children = (
+				E2E8D9CA1B61015A00527481 /* Landing.storyboard */,
+				E2E8D9D01B6101B000527481 /* ContentVC.swift */,
+				E2E8D9CC1B61018100527481 /* LandingPage.swift */,
+				E2E8D9D31B61023800527481 /* page1.png */,
+				E2E8D9D41B61023800527481 /* page2.png */,
+				E2E8D9D51B61023800527481 /* page3.png */,
+				E2E8D9D61B61023800527481 /* page4.png */,
+				E2E8D9D71B61023800527481 /* page5.png */,
+			);
+			name = Landing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,8 +306,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2A6A6CB1B4481EB00F3BEA8 /* LaunchScreen.xib in Resources */,
+				E2E8D9CB1B61015A00527481 /* Landing.storyboard in Resources */,
+				E2E8D9D91B61023800527481 /* page2.png in Resources */,
+				E2E8D9D81B61023800527481 /* page1.png in Resources */,
+				E2E8D9DA1B61023800527481 /* page3.png in Resources */,
+				E2E8D9DB1B61023800527481 /* page4.png in Resources */,
 				E2A6A6C81B4481EB00F3BEA8 /* Images.xcassets in Resources */,
 				E24A7D971B58348900473AD9 /* ToDo.plist in Resources */,
+				E2E8D9DC1B61023800527481 /* page5.png in Resources */,
 				E2A6A6F31B46E87200F3BEA8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,12 +334,15 @@
 			files = (
 				E27957391B58F68700EB330F /* Notensatz+CoreDataProperties.swift in Sources */,
 				E2AC786A1B4C2AF500CC0406 /* notenCell.swift in Sources */,
+				E2E8D9D11B6101B000527481 /* ContentVC.swift in Sources */,
 				E2A6A6F51B46E8A600F3BEA8 /* notenUbersicht.swift in Sources */,
 				E2DDA01B1B49DAC4008839E3 /* AddNewFach.swift in Sources */,
 				E2AC78731B4C3ABF00CC0406 /* Konstanten.swift in Sources */,
+				E26C52E51B5ECA9700203563 /* ImpressumTV.swift in Sources */,
 				E2A6A6E71B46ABF200F3BEA8 /* CalculateTVC.swift in Sources */,
 				E2A6A6FA1B480CEB00F3BEA8 /* KleineFunktionen.swift in Sources */,
 				E243A12B1B5957A5001ABF54 /* DetailTV.swift in Sources */,
+				E2E8D9CE1B61018100527481 /* LandingPage.swift in Sources */,
 				E2A6A6C31B4481EB00F3BEA8 /* ViewController.swift in Sources */,
 				E27957351B58F68600EB330F /* Notenitem+CoreDataProperties.swift in Sources */,
 				E27957361B58F68600EB330F /* Notenitem.swift in Sources */,

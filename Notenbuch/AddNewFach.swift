@@ -9,7 +9,7 @@
 import UIKit
 
 class AddNewFach: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-    @IBOutlet weak var nameButton: UITextField!
+    @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var schulaufgaben: UISwitch!
     @IBOutlet weak var kurzarbeiten: UISwitch!
     @IBOutlet weak var extemporale: UISwitch!
@@ -17,7 +17,7 @@ class AddNewFach: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
     @IBOutlet weak var mundlicheNote: UISwitch!
     @IBOutlet weak var fachart: UIPickerView!
     
-    @IBOutlet weak var FachnameView: UIView!
+//    @IBOutlet weak var FachnameView: UIView!
     
     
     var nameButtonHistory: [String] = ["hi", "superdrouper"]
@@ -32,7 +32,10 @@ class AddNewFach: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: "goBackSenderAddNewFach")
         
-        nameButton.text = "Physik"
+        fachart.delegate = self
+        fachart.dataSource = self
+        
+//        nameTF.text = "Physik"
         fachart.layer.cornerRadius = 10
         //        fachart.rowSizeForComponent(2)
     }
@@ -68,7 +71,7 @@ class AddNewFach: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         let promptController = UIAlertController(title: "Achtung", message: "Eingegebene Daten wurden nicht gesichert.", preferredStyle: .Alert)
         let defaultButton = UIAlertAction(title: "Speichern", style: .Default, handler: { (action) -> Void in
             //            self.nameButtonHistory.append(self.nameButton.text!)
-            Notensatz.addNotensatz(self.nameButton.text!, inFachart: self.currentPicker, schulaufgaben: self.schulaufgaben.on, kurzarbeiten: self.kurzarbeiten.on, extemporalen: self.extemporale.on, mundlicheNoten: self.mundlicheNote.on, fachreferat: self.fachreferat.on)
+            Notensatz.addNotensatz(self.nameTF.text!, inFachart: self.currentPicker, schulaufgaben: self.schulaufgaben.on, kurzarbeiten: self.kurzarbeiten.on, extemporalen: self.extemporale.on, mundlicheNoten: self.mundlicheNote.on, fachreferat: self.fachreferat.on)
             self.navigationController?.popToRootViewControllerAnimated(true)
         })
         let destructiveButton = UIAlertAction(title: "Verwerfen", style: .Destructive) { (action) -> Void in
@@ -83,32 +86,32 @@ class AddNewFach: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         
     }
     
-    func addButtons(thisButtons: [String], inView: UIView) {
-        let button   = UIButton(type: .System)
-        button.frame = CGRectMake(8, 46, 100, 25)
-        button.setTitle("Button", forState: UIControlState.Normal)
-        button.backgroundColor = UIColor.lightGrayColor()
-        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        button.layer.cornerRadius = 5
-        FachnameView.addSubview(button)
-        
-        
-    }
+//    func addButtons(thisButtons: [String], inView: UIView) {
+//        let button   = UIButton(type: .System)
+//        button.frame = CGRectMake(8, 46, 100, 25)
+//        button.setTitle("Button", forState: UIControlState.Normal)
+//        button.backgroundColor = UIColor.lightGrayColor()
+//        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+//        button.layer.cornerRadius = 5
+//        FachnameView.addSubview(button)
+//        
+//        
+//    }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if !nameButton.text!.isEmpty {
-            nameButtonHistory.append(nameButton.text!)
+        if !nameTF.text!.isEmpty {
+            nameButtonHistory.append(nameTF.text!)
         }
         //        if !fachart.text!.isEmpty {
         //            fachartHistory.append(fachart.text!)
         //        }
         
         if sender is UIBarItem {
-            (segue.destinationViewController as! ViewController).newData = (name: nameButton.text!, fachart: currentPicker, schulaufgaben: schulaufgaben.on, kurzarbeiten: kurzarbeiten.on, extemporale: extemporale.on, fachreferat: fachreferat.on, mundlicheNote: mundlicheNote.on)
+            (segue.destinationViewController as! ViewController).newData = (name: nameTF.text!, fachart: currentPicker, schulaufgaben: schulaufgaben.on, kurzarbeiten: kurzarbeiten.on, extemporale: extemporale.on, fachreferat: fachreferat.on, mundlicheNote: mundlicheNote.on)
         }
     }
     @IBAction func nameButtonPressed(sender: UIButton) {

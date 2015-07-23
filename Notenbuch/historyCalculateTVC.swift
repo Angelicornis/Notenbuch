@@ -34,11 +34,23 @@ class historyCalculateTVC: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("historyCell", forIndexPath: indexPath) as UITableViewCell
 
-        cell.textLabel?.text = "Jahresfortgangsnote: " + daten[indexPath.row].jahresfortgangsnote
-        cell.detailTextLabel?.text = "schriftliche Prüfung: " + daten[indexPath.row].schriftlichePrufung
+        if daten[indexPath.row].name.isEmpty {
+           daten[indexPath.row].name = "Eingegebene Daten"
+        }
+        
+        cell.textLabel?.text = daten[indexPath.row].name
+        let jahresfortangsnote =  "Jahresfortgangsnote: " + daten[indexPath.row].jahresfortgangsnote
+        let schriftlichePrufung = "schriftliche Prüfung: " + daten[indexPath.row].schriftlichePrufung
+        cell.detailTextLabel?.text = "\(jahresfortangsnote) \n\(schriftlichePrufung)"
+        cell.detailTextLabel?.numberOfLines = 2
         return cell
     }
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 55
+    }
 
+
+    
     
     // MARK: - Navigation
 
