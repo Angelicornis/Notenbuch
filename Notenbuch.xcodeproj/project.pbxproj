@@ -10,6 +10,7 @@
 		E243A12B1B5957A5001ABF54 /* DetailTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E243A12A1B5957A5001ABF54 /* DetailTV.swift */; };
 		E24A7D971B58348900473AD9 /* ToDo.plist in Resources */ = {isa = PBXBuildFile; fileRef = E24A7D961B58348900473AD9 /* ToDo.plist */; };
 		E26C52E51B5ECA9700203563 /* ImpressumTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26C52E41B5ECA9700203563 /* ImpressumTV.swift */; };
+		E27474871B62561800147853 /* DeviceGuru.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27474861B62561800147853 /* DeviceGuru.swift */; };
 		E27957351B58F68600EB330F /* Notenitem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27957331B58F68600EB330F /* Notenitem+CoreDataProperties.swift */; };
 		E27957361B58F68600EB330F /* Notenitem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27957341B58F68600EB330F /* Notenitem.swift */; };
 		E27957391B58F68700EB330F /* Notensatz+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27957371B58F68700EB330F /* Notensatz+CoreDataProperties.swift */; };
@@ -54,6 +55,7 @@
 		E243A12A1B5957A5001ABF54 /* DetailTV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTV.swift; sourceTree = "<group>"; };
 		E24A7D961B58348900473AD9 /* ToDo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ToDo.plist; sourceTree = "<group>"; };
 		E26C52E41B5ECA9700203563 /* ImpressumTV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImpressumTV.swift; sourceTree = "<group>"; };
+		E27474861B62561800147853 /* DeviceGuru.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceGuru.swift; sourceTree = "<group>"; };
 		E27957331B58F68600EB330F /* Notenitem+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Notenitem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E27957341B58F68600EB330F /* Notenitem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notenitem.swift; sourceTree = "<group>"; };
 		E27957371B58F68700EB330F /* Notensatz+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Notensatz+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 		E2A6A6BB1B4481EB00F3BEA8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E27474861B62561800147853 /* DeviceGuru.swift */,
 				E2A6A6F91B480CEB00F3BEA8 /* KleineFunktionen.swift */,
 				E293608A1B511FA3009077D2 /* Notenbuch-Bridging-Header.h */,
 				E2A6A6BD1B4481EB00F3BEA8 /* AppDelegate.swift */,
@@ -344,6 +347,7 @@
 				E243A12B1B5957A5001ABF54 /* DetailTV.swift in Sources */,
 				E2E8D9CE1B61018100527481 /* LandingPage.swift in Sources */,
 				E2A6A6C31B4481EB00F3BEA8 /* ViewController.swift in Sources */,
+				E27474871B62561800147853 /* DeviceGuru.swift in Sources */,
 				E27957351B58F68600EB330F /* Notenitem+CoreDataProperties.swift in Sources */,
 				E27957361B58F68600EB330F /* Notenitem.swift in Sources */,
 				E2A6A6C11B4481EB00F3BEA8 /* Notenbuch.xcdatamodeld in Sources */,

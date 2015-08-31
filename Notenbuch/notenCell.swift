@@ -128,12 +128,12 @@ extension notenCell {
             self.scrollView.contentSize.width = CGFloat(1000)
             self.view.addSubview(self.scrollView)
             
-            self.ubersichtsView.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 67, 29, CGFloat(66), self.currentNotensatz.getHight() + 30 )
+            self.ubersichtsView.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 67, 29, CGFloat(66), self.currentNotensatz.getHight() - 20 )
             self.ubersichtsView.backgroundColor = UIColor.whiteColor()
             self.view.addSubview(self.ubersichtsView)
             
-            self.ubersichtsViewKlein.frame = CGRectMake(self.ubersichtsView.frame.minX - 49, self.currentNotensatz.getHight() + 8 , 99, 30 )
-            //            self.ubersichtsViewKlein.backgroundColor = UIColor.()
+            self.ubersichtsViewKlein.frame = CGRectMake(self.ubersichtsView.frame.minX - 49, self.ubersichtsView.frame.maxY - 1, 99, 30 )
+//                        self.ubersichtsViewKlein.backgroundColor = UIColor.lightGrayColor()
             self.view.addSubview(self.ubersichtsViewKlein)
             
         }
@@ -197,8 +197,8 @@ extension notenCell {
                 case 0: cellLabelView.tag = i;          if i < arrays.schulaufgaben.count { cellLabelView.text = arrays.schulaufgaben[i].toString()}
                 case 1: cellLabelView.tag = 100 + i;    if i < arrays.kurzarbeiten.count { cellLabelView.text = arrays.kurzarbeiten[i].toString()}
                 case 2: cellLabelView.tag = 200 + i ;   if i < arrays.extemporalen.count { cellLabelView.text = arrays.extemporalen[i].toString()}
-                case 3: cellLabelView.tag = 300 + i; if i < arrays.mundlicheNoten.count { cellLabelView.text = arrays.mundlicheNoten[i].toString()}
-                case 4: cellLabelView.tag = 400 + i;     if i < arrays.fachreferat.count { cellLabelView.text = arrays.fachreferat[i].toString()}
+                case 3: cellLabelView.tag = 300 + i;    if i < arrays.mundlicheNoten.count { cellLabelView.text = arrays.mundlicheNoten[i].toString()}
+                case 4: cellLabelView.tag = 400 + i;    if i < arrays.fachreferat.count { cellLabelView.text = arrays.fachreferat[i].toString()}
                 default: break
                 }
                 

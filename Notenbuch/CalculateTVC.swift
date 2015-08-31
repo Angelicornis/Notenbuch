@@ -40,7 +40,7 @@ class CalculateTVC: UIViewController, NSFetchedResultsControllerDelegate, UIPick
     
     var hinzugefugtUm: NSDate!
     var delayIntervall: Double = 20
-    var data: [[String: String]]! = []
+    var data: [[String: String]] = []
     var name = ""
     
     

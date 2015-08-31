@@ -16,16 +16,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    //        if !NSUserDefaults.standardUserDefaults().boolForKey("skipTutorial") {
-    //            let vc = UIStoryboard(name: "Landing", bundle: nil).instantiateViewControllerWithIdentifier("PageVC") as! LandingPage
-    //            window?.rootViewController = vc
-    //        } else {
-    //            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
-    //            window?.rootViewController = vc
-    //        }
+            if !NSUserDefaults.standardUserDefaults().boolForKey("skipTutorial") {
+                let vc = UIStoryboard(name: "Landing", bundle: nil).instantiateViewControllerWithIdentifier("PageVC") as! LandingPage
+                window?.rootViewController = vc
+            } else {
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
+                window?.rootViewController = vc
+            }
     
-        let vc = UIStoryboard(name: "Landing", bundle: nil).instantiateViewControllerWithIdentifier("PageVC") as! LandingPage
-        window?.rootViewController = vc
+//        let vc = UIStoryboard(name: "Landing", bundle: nil).instantiateViewControllerWithIdentifier("PageVC") as! LandingPage
+//        window?.rootViewController = vc
     return true
 }
 

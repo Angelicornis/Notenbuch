@@ -18,7 +18,11 @@ class DetailTV: UIViewController {
     //    @IBOutlet weak var mundlicheNoteSwitch: UISwitch!
     
     
-    var currentNotensatz: Notensatz!
+    var currentNotensatz: Notensatz! {
+        didSet {
+            currentPicker = currentNotensatz.fachart!
+        }
+    }
     var scrollView = UIScrollView()
     var einstellungenView = UIView()
     var ubersichtsViewKlein = UIView()
@@ -32,6 +36,11 @@ class DetailTV: UIViewController {
     var shortNames = true
     let recognizer = UIPanGestureRecognizer()
     var visible = false
+    var pickerView = UIPickerView()
+    var pickerData = ["Hauptfach", "Nebenfach", "Seminarfach"]
+    var currentPicker = ""
+    var tableView: UITableView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +49,8 @@ class DetailTV: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: "goBack")
         //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "save")
         
-        
+        pickerView.delegate = self
+        pickerView.dataSource = self
         start()
         
         
@@ -61,28 +71,10 @@ class DetailTV: UIViewController {
         }
     }
     
-    func orientationChanged(sender: NSNotification)
-    {
+    func orientationChanged(sender: NSNotification) {
         
         removeAllViews()
         start()
-    }
-    func removeAllViews() {
-        arrays = nil
-        
-        self.notenLabelsView.removeAllSubviews()
-        self.ubersichtsViewKlein.removeAllSubviews()
-        self.ubersichtsView.removeAllSubviews()
-        self.scrollView.removeAllSubviews()
-        self.notenLabelsView.removeAllSubviews()
-        self.einstellungenView.removeAllSubviews()
-        self.view.removeAllSubviews()
-        
-        notenLabelsView = UIView()
-        ubersichtsViewKlein = UIView()
-        scrollView = UIScrollView()
-        ubersichtsView = UIView()
-        einstellungenView = UIView()
     }
     
     
@@ -127,9 +119,9 @@ class DetailTV: UIViewController {
 
 extension DetailTV {
     
-    private func start() {
+    func start() {
         arrays = Notenitem.makeArrays(fetchedResultsController)
-
+        
         setzeScrollView()
         setzeUbersichtsView()
         setzeNotenLabel()
@@ -139,7 +131,23 @@ extension DetailTV {
         
         setzeEinstellungen()
     }
-    
+    func removeAllViews() {
+        arrays = nil
+        
+        self.notenLabelsView.removeAllSubviews()
+        self.ubersichtsViewKlein.removeAllSubviews()
+        self.ubersichtsView.removeAllSubviews()
+        self.scrollView.removeAllSubviews()
+        self.notenLabelsView.removeAllSubviews()
+        self.einstellungenView.removeAllSubviews()
+        self.view.removeAllSubviews()
+        
+        notenLabelsView = UIView()
+        ubersichtsViewKlein = UIView()
+        scrollView = UIScrollView()
+        ubersichtsView = UIView()
+        einstellungenView = UIView()
+    }
     
     private func setzeScrollView(animationDuration: NSTimeInterval = 0) {
         UIView.animateWithDuration(animationDuration) {
@@ -156,7 +164,7 @@ extension DetailTV {
             
         }
     }
-    func setzeUbersichtsView(animationDuration: NSTimeInterval = 0) {
+    private func setzeUbersichtsView(animationDuration: NSTimeInterval = 0) {
         self.ubersichtsView.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 67, CGFloat(72), CGFloat(66), self.currentNotensatz.getHight() + 30 )
         self.ubersichtsView.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(self.ubersichtsView)
@@ -218,7 +226,7 @@ extension DetailTV {
         }
         plaziereNotenLabelPlaziere("∅", zeile: zeile + 1, withTag: 5)
     }
-    func plaziereNotenLabelPlaziere(TFName: String, zeile: Int, withTag: Int) {
+    private func plaziereNotenLabelPlaziere(TFName: String, zeile: Int, withTag: Int) {
         struct nameTF {
             var name: String!
             var tag: Int!
@@ -257,7 +265,7 @@ extension DetailTV {
         setzeNotenCellen(nameLabelView)
         setzteUbersichtCellen(nameLabelView)
     }
-    func setzeNotenCellen(firstNameCell: UILabel) {
+    private func setzeNotenCellen(firstNameCell: UILabel) {
         //            let allNumberOfObjets = ((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).numberOfObjects
         var allNumberOfObjets = 0
         if max([arrays.schulaufgaben.count, arrays.kurzarbeiten.count, arrays.extemporalen.count, arrays.mundlicheNoten.count, arrays.fachreferat.count]) != 0 {
@@ -288,7 +296,7 @@ extension DetailTV {
         if shortNames { self.scrollView.contentSize.width = CGFloat( 180 ) + nameTFViewX }
         else { self.scrollView.contentSize.width = CGFloat( 277 ) + nameTFViewX }
     }
-    func setzteUbersichtCellen(firstNameCell: UILabel) {
+    private func setzteUbersichtCellen(firstNameCell: UILabel) {
         //                nameLabelView.frame = CGRect(x: self.scrollView.contentSize.width - 124, y: nameTFInstanz.y + 1, width: 50.toCGFloat(), height: 30.toCGFloat())
         
         let celle = UILabel(frame: CGRectMake(CGFloat(0), firstNameCell.frame.minY, CGFloat(50), CGFloat(30)))
@@ -325,14 +333,14 @@ extension DetailTV {
     }
     
     
-    func updateScreen() {
+    private func updateScreen() {
         fetchedResultsController = nil
         removeAllViews()
         start()
     }
     
     
-    func changeNote(sender: UITextField) {
+    private func changeNote(sender: UITextField) {
         
         
         if sender.text!.isNotEmpty {
@@ -419,44 +427,62 @@ extension DetailTV {
         
     }
     private func setzeEinstellungen(animationDuration: NSTimeInterval = 0) {
-        UIView.animateWithDuration(animationDuration) {
-            self.einstellungenView.frame = CGRectMake(CGFloat(0), CGFloat(92 + self.scrollView.frame.height), UIScreen.mainScreen().bounds.width, CGFloat(203))
-            self.einstellungenView.backgroundColor = UIColor.darkGrayColor()
-            self.view.addSubview(self.einstellungenView)
+        let labelNamen = ["Schulaufgaben", "Kurzarbeiten", "Extemporalen", "MündlicheNoten", "Fachreferat"]
+        let label = UILabel()
+
+        if false {
+            UIView.animateWithDuration(animationDuration) {
+                self.einstellungenView.frame = CGRectMake(CGFloat(0), CGFloat(92 + self.scrollView.frame.height), UIScreen.mainScreen().bounds.width, CGFloat(265))
+                self.einstellungenView.backgroundColor = UIColor.darkGrayColor()
+                self.view.addSubview(self.einstellungenView)
+            }
+            
+            pickerView.frame = CGRectMake(8, 8, einstellungenView.frame.width - 8, 52)
+            einstellungenView.addSubview(pickerView)
+            
+            
+            label.frame = CGRectMake(8, 70, 140, 31)
+            label.textColor = UIColor.whiteColor()
+            label.textAlignment = NSTextAlignment.Left
+            label.text = labelNamen[0]
+            self.einstellungenView.addSubview(label)
+        } else {
+            UIView.animateWithDuration(animationDuration) {
+                self.einstellungenView.frame = CGRectMake(CGFloat(0), CGFloat(92 + self.scrollView.frame.height), UIScreen.mainScreen().bounds.width, CGFloat(205))
+                self.einstellungenView.backgroundColor = UIColor.darkGrayColor()
+                self.view.addSubview(self.einstellungenView)
+            }
+            
+            label.frame = CGRectMake(8, 8, 140, 31)
+            label.textColor = UIColor.whiteColor()
+            label.textAlignment = NSTextAlignment.Left
+            label.text = labelNamen[0]
+            self.einstellungenView.addSubview(label)
         }
         
-        let labelNamen = ["Schulaufgaben", "Kurzarbeiten", "Extemporalen", "MündlicheNoten", "Fachreferat"]
-        
-        let label = UILabel()
-        label.frame = CGRectMake(8, 8, 140, 31)
-        label.textColor = UIColor.whiteColor()
-        label.textAlignment = NSTextAlignment.Left
-        label.text = labelNamen[0]
-        self.einstellungenView.addSubview(label)
-        
         let label1 = UILabel()
-        label1.frame = CGRectMake(8, 47, 140, 31)
+        label1.frame = CGRectMake(8, label.frame.minY + label.frame.height + 8, 140, 31)
         label1.textColor = UIColor.whiteColor()
         label1.textAlignment = NSTextAlignment.Left
         label1.text = labelNamen[1]
         self.einstellungenView.addSubview(label1)
         
         let label2 = UILabel()
-        label2.frame = CGRectMake(8, 86, 140, 31)
+        label2.frame = CGRectMake(8, label1.frame.minY + label1.frame.height + 8, 140, 31)
         label2.textColor = UIColor.whiteColor()
         label2.textAlignment = NSTextAlignment.Left
         label2.text = labelNamen[2]
         self.einstellungenView.addSubview(label2)
         
         let label3 = UILabel()
-        label3.frame = CGRectMake(8, 125, 140, 31)
+        label3.frame = CGRectMake(8, label2.frame.minY + label2.frame.height + 8, 140, 31)
         label3.textColor = UIColor.whiteColor()
         label3.textAlignment = NSTextAlignment.Left
         label3.text = labelNamen[3]
         self.einstellungenView.addSubview(label3)
         
         let label4 = UILabel()
-        label4.frame = CGRectMake(8, 164, 140, 31)
+        label4.frame = CGRectMake(8, label3.frame.minY + label3.frame.height + 8, 140, 31)
         label4.textColor = UIColor.whiteColor()
         label4.textAlignment = NSTextAlignment.Left
         label4.text = labelNamen[4]
@@ -465,35 +491,35 @@ extension DetailTV {
         
         
         let switch0 = UISwitch()
-        switch0.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 59, 8, 140, 31)
+        switch0.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 59, label.frame.minY, 140, 31)
         switch0.on = (self.currentNotensatz.schulaufgabeEnabeld?.boolValue)!
         switch0.tag = 0
         switch0.addTarget(self, action: Selector("stateChanged:"), forControlEvents: UIControlEvents.ValueChanged)
         self.einstellungenView.addSubview(switch0)
         
         let switch1 = UISwitch()
-        switch1.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 59, 47, 140, 31)
+        switch1.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 59, switch0.frame.maxY + 8, 140, 31)
         switch1.on = (self.currentNotensatz.kurzabeitenEnabeld?.boolValue)!
         switch1.tag = 1
         switch1.addTarget(self, action: Selector("stateChanged:"), forControlEvents: UIControlEvents.ValueChanged)
         self.einstellungenView.addSubview(switch1)
         
         let switch2 = UISwitch()
-        switch2.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 59, 86, 140, 31)
+        switch2.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 59, switch1.frame.maxY + 8, 140, 31)
         switch2.on = (self.currentNotensatz.extemporaleEnabeld?.boolValue)!
         switch2.tag = 2
         switch2.addTarget(self, action: Selector("stateChanged:"), forControlEvents: UIControlEvents.ValueChanged)
         self.einstellungenView.addSubview(switch2)
         
         let switch3 = UISwitch()
-        switch3.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 59, 125, 140, 31)
+        switch3.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 59, switch2.frame.maxY + 8, 140, 31)
         switch3.on = (self.currentNotensatz.mundlicheNotenEnabeld?.boolValue)!
         switch3.tag = 3
         switch3.addTarget(self, action: Selector("stateChanged:"), forControlEvents: UIControlEvents.ValueChanged)
         self.einstellungenView.addSubview(switch3)
         
         let switch4 = UISwitch()
-        switch4.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 59, 164, 140, 31)
+        switch4.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 59, switch3.frame.maxY + 8, 140, 31)
         switch4.on = (self.currentNotensatz.fachreferatEnabeld?.boolValue)!
         switch4.tag = 4
         switch4.addTarget(self, action: Selector("stateChanged:"), forControlEvents: UIControlEvents.ValueChanged)
@@ -524,16 +550,75 @@ extension DetailTV {
     }
 }
 
-
 extension DetailTV: NSFetchedResultsControllerDelegate {
-    // MARK: - CoreData
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: NSManagedObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        switch type {
+        case .Insert:
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: UITableViewRowAnimation.Automatic)
+        case .Delete:
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
+        case .Move:
+            if indexPath != newIndexPath {
+                tableView.moveRowAtIndexPath(indexPath!, toIndexPath: newIndexPath!)
+            }
+        case .Update:
+            tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
+        }
+    }
     
     
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        tableView.beginUpdates()
+    }
     
     
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        tableView.endUpdates()
+    }
     
     
+    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+        switch type {
+        case .Insert:
+            tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+        case .Delete:
+            tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+        default:
+            return
+        }
+    }
 }
 
-
+extension DetailTV: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerData[row]
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        currentNotensatz.fachart = pickerData[row]
+    }
+    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+        let pickerLabel = UILabel()
+        let titleData = pickerData[row]
+        let myTitle = NSAttributedString(string: titleData, attributes: [
+            NSFontAttributeName: UIFont.systemFontOfSize(17.0),
+            NSForegroundColorAttributeName:UIColor.whiteColor()
+            ])
+        pickerLabel.textAlignment = .Center
+        pickerLabel.attributedText = myTitle
+        return pickerLabel
+    }
+    
+}
 

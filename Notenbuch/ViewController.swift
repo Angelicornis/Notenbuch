@@ -23,13 +23,35 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
     
     //MARK: - Obligatorische Funktionen
     override func viewDidLoad() {
-        NSUserDefaults.standardUserDefaults().setBool(false, forKey: "skipTutorial")
+//        NSUserDefaults.standardUserDefaults().setBool(false, forKey: "skipTutorial")
         super.viewDidLoad()
         let moveMenu = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: "moveMenu")
         let edit = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: "doEdit:")
         let reload = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "reload")
         navigationItem.rightBarButtonItems = [moveMenu, edit, reload]
-        //        tableView.tableFooterView = UIView(frame: CGRectZero)
+        
+        
+//        
+//        print("currentDevice\t\t \(UIDevice.currentDevice())")
+//        print("systemName\t\t \(UIDevice.currentDevice().systemName)")
+//        print("systemVersion\t\t \(UIDevice.currentDevice().systemVersion)")
+//        print("name\t\t\t\t \(UIDevice.currentDevice().name)")
+//        print("model\t\t\t \(UIDevice.currentDevice().model)")
+//        print("batterystate\t\t \(UIDevice.currentDevice().batteryState.rawValue)")
+//        print("VersionNumber\t\t \(NSBundle.applicationVersionNumber)")
+//        print("BuildNumber\t\t \(NSBundle.applicationBuildNumber)")
+//        print(UIDevice.currentDevice().userInterfaceIdiom.rawValue)
+
+//        print(hardwareDescription())
+//        print(__FILE__ + " [\(__LINE__)]: " + __FUNCTION__)
+//        print(NSBundle.mainBundle().infoDictionary?["CFBundleName"] as? String)
+        
+        
+        
+        
+        
+        
+        
         
         UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "orientationChanged:", name: "UIDeviceOrientationDidChangeNotification", object: nil)
@@ -81,6 +103,8 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
             
         } else if segue.identifier == "detailTV" {
             (segue.destinationViewController as! DetailTV).currentNotensatz = fetchedResultsController.objectAtIndexPath(indexPath) as! Notensatz
+            (segue.destinationViewController as! DetailTV).tableView = self.tableView
+
         }
     }
     
@@ -329,7 +353,7 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
 
 
 extension ViewController: NSFetchedResultsControllerDelegate {
-    
+
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: NSManagedObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         switch type {
         case .Insert:

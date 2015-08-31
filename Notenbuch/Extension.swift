@@ -418,13 +418,14 @@ extension Array {
     /**
     Returns the first object of the Array. If empty returns nil
     */
-    func first() ->T {return self[0]}
+    func first() ->Element {return self[0]}
     /**
     Returns the last object of the Array. If empty returns nil
     */
-    func last() ->T? {return self[self.count-1]}
+    func last() ->Element? {return self[self.count-1]}
     private func typeIsOptional() -> Bool {
-        return reflect(self[0]).disposition == .Optional
+//        return reflect(self[0]).disposition == .Optional
+        return false
     }
     /**
     Iterates on each element of the array.
@@ -493,14 +494,14 @@ internal extension Range {
     Calls for each value in the range
     */
     func times (function: () -> ()) {
-        each { (current: T) -> () in
+        each { (current: Element) -> () in
             function()
         }
     }
     /**
     Calls for each value in the range
     */
-    func each (function: (T) -> ()) {
+    func each (function: (Element) -> ()) {
         for i in self {
             function(i)
         }
@@ -511,6 +512,24 @@ extension UIView {
     func removeAllSubviews() {
         self.subviews.map({ $0.removeFromSuperview() })
     }
+}
+
+extension NSBundle {
+    
+    class var applicationVersionNumber: String {
+        if let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
+            return version
+        }
+        return "Version Number Not Available"
+    }
+    
+    class var applicationBuildNumber: String {
+        if let build = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as? String {
+            return build
+        }
+        return "Build Number Not Available"
+    }
+    
 }
 
 ////: ### NSDate
