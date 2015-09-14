@@ -20,7 +20,6 @@ class AddNewFach: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
 //    @IBOutlet weak var FachnameView: UIView!
     
     
-    var nameButtonHistory: [String] = ["hi", "superdrouper"]
     var fachartHistory: [String] = []
     var pickerData = ["Hauptfach", "Nebenfach", "Seminarfach"]
     var currentPicker = "Hauptfach"
@@ -30,7 +29,7 @@ class AddNewFach: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: "goBackSenderAddNewFach")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Zurück", style: .Plain, target: self, action: "goBackSenderAddNewFach")
         
         fachart.delegate = self
         fachart.dataSource = self
@@ -103,13 +102,6 @@ class AddNewFach: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if !nameTF.text!.isEmpty {
-            nameButtonHistory.append(nameTF.text!)
-        }
-        //        if !fachart.text!.isEmpty {
-        //            fachartHistory.append(fachart.text!)
-        //        }
-        
         if sender is UIBarItem {
             (segue.destinationViewController as! ViewController).newData = (name: nameTF.text!, fachart: currentPicker, schulaufgaben: schulaufgaben.on, kurzarbeiten: kurzarbeiten.on, extemporale: extemporale.on, fachreferat: fachreferat.on, mundlicheNote: mundlicheNote.on)
         }

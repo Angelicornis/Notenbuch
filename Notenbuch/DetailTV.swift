@@ -608,6 +608,7 @@ extension DetailTV: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         currentNotensatz.fachart = pickerData[row]
     }
+    
     func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
         let pickerLabel = UILabel()
         let titleData = pickerData[row]

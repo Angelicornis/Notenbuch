@@ -103,7 +103,7 @@ extension notenCell {
     
     private func start() {
         
-        setzeScrollView()
+        setzeView()
         setzeNotenLabel()
         
         recognizer.addTarget(self, action: "gestureRecognizer:")
@@ -111,7 +111,7 @@ extension notenCell {
         }
     
     
-    private func setzeScrollView(animationDuration: NSTimeInterval = 0) {
+    private func setzeView(animationDuration: NSTimeInterval = 0) {
         UIView.animateWithDuration(animationDuration) {
             
             let nameLabel = UILabel(frame: CGRectMake(8, 8, self.view.frame.width, 21))
@@ -173,13 +173,13 @@ extension notenCell {
                 self.nameLabelView.textAlignment = .Center
                 self.ubersichtsViewKlein.addSubview(nameLabelView)
                 setzteUbersichtCellen(nameLabelView)
-                return
+            } else {
+                nameLabelView.frame = CGRect(x: nameTFInstanz.x, y: nameTFInstanz.y, width: self.notenLabelsView.frame.width - nameTFInstanz.x, height: 30.toCGFloat())
+                self.notenLabelsView.addSubview(nameLabelView)
+                
+                setzeNotenCellen(nameLabelView)
+                setzteUbersichtCellen(nameLabelView)
             }
-            nameLabelView.frame = CGRect(x: nameTFInstanz.x, y: nameTFInstanz.y, width: self.notenLabelsView.frame.width - nameTFInstanz.x, height: 30.toCGFloat())
-            self.notenLabelsView.addSubview(nameLabelView)
-            
-            setzeNotenCellen(nameLabelView)
-            setzteUbersichtCellen(nameLabelView)
         }
         func setzeNotenCellen(firstNameCell: UILabel) {
             //            let allNumberOfObjets = ((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).numberOfObjects

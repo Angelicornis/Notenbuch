@@ -27,8 +27,8 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
         super.viewDidLoad()
         let moveMenu = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: "moveMenu")
         let edit = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: "doEdit:")
-        let reload = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "reload")
-        navigationItem.rightBarButtonItems = [moveMenu, edit, reload]
+//        let reload = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "reload")
+        navigationItem.rightBarButtonItems = [moveMenu, edit]
         
         
 //        
@@ -96,9 +96,9 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
 //        let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
         visible = false
         if segue.identifier == "calculate" {
-            (segue.destinationViewController as! CalculateTVC).data = prepareCoreData()
-
-//            (segue.destinationViewController as! CalculateTVC).data = prepareCoreData()
+            do {
+                (segue.destinationViewController as! CalculateTVC).data = try prepareCoreData()
+            } catch {}
 
             
         } else if segue.identifier == "detailTV" {
@@ -107,7 +107,9 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
 
         }
     }
-    
+    enum CoreDataError: ErrorType {
+        case PrepareCoreData_NoSectionsInFetchedResultsController
+    }
     
     @IBAction func backToTheStartFromAdd(segue: UIStoryboardSegue) {
         segue.sourceViewController as! AddNewFach
@@ -116,10 +118,12 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     
-    func prepareCoreData() ->[[String: String]] {
+    func prepareCoreData() throws ->[[String: String]] {
         var arrays:(schulaufgaben: [Int], kurzarbeiten: [Int], extemporalen: [Int], mundlicheNoten: [Int], fachreferat: [Int])! = nil
         var data: [[String: String]] = []
-        guard let sectionCount = fetchedResultsController.sections?.count else { return []}
+        guard let sectionCount = fetchedResultsController.sections?.count else {
+            throw CoreDataError.PrepareCoreData_NoSectionsInFetchedResultsController
+        }
         for i in 0..<sectionCount {
             let notensatzeInSection = (fetchedResultsController.sections![i] as NSFetchedResultsSectionInfo).objects as! [Notensatz]
             

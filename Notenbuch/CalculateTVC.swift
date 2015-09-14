@@ -40,7 +40,7 @@ class CalculateTVC: UIViewController, NSFetchedResultsControllerDelegate, UIPick
     
     var hinzugefugtUm: NSDate!
     var delayIntervall: Double = 20
-    var data: [[String: String]] = []
+    var data: [[String: String]]!
     var name = ""
     
     
@@ -60,10 +60,9 @@ class CalculateTVC: UIViewController, NSFetchedResultsControllerDelegate, UIPick
     override func viewDidAppear(animated: Bool) {
         berechneDataFromHistory()
         mundlichePrufungEnabled(false)
-        if data.count != 0 {
-            name = data[0]["Name"]!
-            jahresfortgangsnoteTF.text = data[0]["Ergebnis"]
-        }
+        if data == nil { return }
+        name = data[0]["Name"]!
+        jahresfortgangsnoteTF.text = data[0]["Ergebnis"]
     }
 
     
@@ -87,21 +86,17 @@ class CalculateTVC: UIViewController, NSFetchedResultsControllerDelegate, UIPick
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return data.count
+        return data.count ?? 0
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if data.count != 0 {
-            return data[row]["Name"]
-        }
-        return nil
+        return data[row]["Name"] ?? nil
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if data.count != 0 {
-            jahresfortgangsnoteTF.text = data[row]["Ergebnis"]
-            name = data[row]["Name"]!
-        }
+        guard var dataGuard = data else { return }
+        jahresfortgangsnoteTF.text = dataGuard[row]["Ergebnis"]
+        name = dataGuard[row]["Name"]!
     }
     
 

@@ -490,22 +490,22 @@ public extension Character{
 
 //: ### Range
 internal extension Range {
-    /**
-    Calls for each value in the range
-    */
-    func times (function: () -> ()) {
-        each { (current: Element) -> () in
-            function()
-        }
-    }
-    /**
-    Calls for each value in the range
-    */
-    func each (function: (Element) -> ()) {
-        for i in self {
-            function(i)
-        }
-    }
+//    /**
+//    Calls for each value in the range
+//    */
+//    func times (function: () -> ()) {
+//        each { (current: Element) -> () in
+//            function()
+//        }
+//    }
+//    /**
+//    Calls for each value in the range
+//    */
+//    func each (function: (Element) -> ()) {
+//        for i in self {
+//            function(i)
+//        }
+//    }
 }
 
 extension UIView {

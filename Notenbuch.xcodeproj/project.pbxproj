@@ -134,7 +134,6 @@
 				E24A7D961B58348900473AD9 /* ToDo.plist */,
 				E2A6A6F21B46E87200F3BEA8 /* Main.storyboard */,
 				E26C52E41B5ECA9700203563 /* ImpressumTV.swift */,
-				E2A6A6C21B4481EB00F3BEA8 /* ViewController.swift */,
 				E2E8D9D21B6101B900527481 /* Landing */,
 				E2B8548A1B59591900FF8085 /* Aktuelle Noten */,
 				E2AC786F1B4C37DC00CC0406 /* CoreData */,
@@ -204,6 +203,7 @@
 		E2B8548A1B59591900FF8085 /* Aktuelle Noten */ = {
 			isa = PBXGroup;
 			children = (
+				E2A6A6C21B4481EB00F3BEA8 /* ViewController.swift */,
 				E2AC78691B4C2AF500CC0406 /* notenCell.swift */,
 				E2DDA01A1B49DAC4008839E3 /* AddNewFach.swift */,
 				E243A12A1B5957A5001ABF54 /* DetailTV.swift */,
