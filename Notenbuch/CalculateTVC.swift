@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class CalculateTVC: UIViewController, NSFetchedResultsControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+class CalculateTVC: UIViewController, NSFetchedResultsControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
     
     //MARK: Variablendeklaration
     @IBOutlet weak var scrollView: UIScrollView!
@@ -51,10 +51,17 @@ class CalculateTVC: UIViewController, NSFetchedResultsControllerDelegate, UIPick
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Bookmarks, target: self, action: "performSegueToHistoryCalculateTVC")
         
+        jahresfortgangsnoteTF.delegate = self
+        schriftlichePrufungDerzeitTF.delegate = self
+        mundlichePrufungDerzeitTF.delegate = self
+        
         pickerView.delegate = self
         pickerView.dataSource = self
         scrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapGestureRecognizer:"))
-        
+        segueRecognizerNachstePunkte = UITapGestureRecognizer(target: self, action: "performSegueToNotenUbersicht:")
+        segueRecognizerUbernachstePunkte = UITapGestureRecognizer(target: self, action: "performSegueToNotenUbersicht:")
+        nachstePunkteView.addGestureRecognizer(segueRecognizerNachstePunkte)
+        ubernachstePunkteView.addGestureRecognizer(segueRecognizerUbernachstePunkte)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -71,7 +78,11 @@ class CalculateTVC: UIViewController, NSFetchedResultsControllerDelegate, UIPick
         self.view.endEditing(true)
     }
     
-
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        berechnung()
+        return false
+    }
 
     //MARK: - PickerView
     
@@ -107,8 +118,8 @@ class CalculateTVC: UIViewController, NSFetchedResultsControllerDelegate, UIPick
 override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "notenUbersichtNachstePunkte" {
         (segue.destinationViewController as! notenUbersicht).jahresfortgangsnote = jahresfortgangsnoteTF.text!.toDouble()! ?? 0
-        (segue.destinationViewController as! notenUbersicht).schriftlichePrufung = schriftlichePrufungDerzeitTF.text!.toInt() ?? 0
-        (segue.destinationViewController as! notenUbersicht).pflichtMundlichePrufung = mundlichePrufungDerzeitTF.text!.toInt() ?? 0
+        (segue.destinationViewController as! notenUbersicht).schriftlichePrufung = schriftlichePrufungDerzeitTF.text?.toInt() ?? 0
+        (segue.destinationViewController as! notenUbersicht).pflichtMundlichePrufung = mundlichePrufungDerzeitTF.text?.toInt() ?? 0
         (segue.destinationViewController as! notenUbersicht).zeugnissnote = zeugnisspunkteDerzeitTF.text!.toDouble() ?? 0
     } else if segue.identifier == "historySegueCalculate" {
         (segue.destinationViewController as! historyCalculateTVC).daten = daten.reverse()
@@ -116,7 +127,9 @@ override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 }
     
     func performSegueToNotenUbersicht(sender: UIPanGestureRecognizer) {
-        performSegueWithIdentifier("notenUbersichtNachstePunkte", sender: self)
+        if jahresfortgangsnoteTF.text != "" && schriftlichePrufungDerzeitTF.text != "" && mundlichePrufungDerzeitTF != "" && zeugnisspunkteDerzeitTF != "" {
+            performSegueWithIdentifier("notenUbersichtNachstePunkte", sender: self)
+        }
     }
     func performSegueToHistoryCalculateTVC() {
         performSegueWithIdentifier("historySegueCalculate", sender: self)
@@ -194,16 +207,7 @@ func berechnung() {
         ubernachstePunkteErreichbarMitTF.text = zweitBesserePunkte.erreichbarMit.toString()
         ubernachstePunkteTF.text = zweitBesserePunkte.nachstbesserePunkte.toString()
         
-        segueRecognizerNachstePunkte = UITapGestureRecognizer(target: self, action: "performSegueToNotenUbersicht:")
-        segueRecognizerUbernachstePunkte = UITapGestureRecognizer(target: self, action: "performSegueToNotenUbersicht:")
-        nachstePunkteView.addGestureRecognizer(segueRecognizerNachstePunkte)
-        ubernachstePunkteView.addGestureRecognizer(segueRecognizerUbernachstePunkte)
-        
         addCurrentDataToHistory()
-    } else {
-        nachstePunkteView.removeGestureRecognizer(segueRecognizerNachstePunkte)
-        ubernachstePunkteView.removeGestureRecognizer(segueRecognizerUbernachstePunkte)
-
     }
 }
 

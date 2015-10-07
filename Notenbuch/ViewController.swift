@@ -30,7 +30,6 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
 //        let reload = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "reload")
         navigationItem.rightBarButtonItems = [moveMenu, edit]
         
-        
 //        
 //        print("currentDevice\t\t \(UIDevice.currentDevice())")
 //        print("systemName\t\t \(UIDevice.currentDevice().systemName)")
@@ -78,9 +77,7 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
     
     
     override func viewDidAppear(animated: Bool) {
-        tableView.reloadData()
-//        moveMenu()
-//        fetchedResultsController = nil
+        reload()
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -88,12 +85,10 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
             moveMenu()
         }
     }
-    
+
     
     //MARK: - Segues
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        print(sender)
-//        let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
         visible = false
         if segue.identifier == "calculate" {
             do {
@@ -188,7 +183,8 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
         let cell = tableView.dequeueReusableCellWithIdentifier("notenubersichtCell")! as! notenCell
         let currentNotensatz = fetchedResultsController.objectAtIndexPath(indexPath) as! Notensatz
         cell.currentNotensatz = currentNotensatz
-//        cell.indexPath = indexPath
+//        cell.fetchedResultsController = nil
+//        cell.removeAllViews()
         return cell
     }
     
@@ -256,7 +252,15 @@ class ViewController:  UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     func reload() {
+        fetchedResultsController = nil
+        fetchedResultsControllerForNotenitem = nil
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("notenubersichtCell")! as! notenCell
+        cell.fetchedResultsController = nil
+//        cell.removeAllViews()
+        
         tableView.reloadData()
+
     }
     
     
@@ -363,6 +367,7 @@ extension ViewController: NSFetchedResultsControllerDelegate {
         case .Insert:
             tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: UITableViewRowAnimation.Automatic)
         case .Delete:
+            reload()
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
         case .Move:
             tableView.moveRowAtIndexPath(indexPath!, toIndexPath: newIndexPath!)

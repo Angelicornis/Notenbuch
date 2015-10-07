@@ -24,6 +24,8 @@ class Notenitem: NSManagedObject {
         do {
             try context.save()
         } catch {
+            print("Fehler")
+            print(__FILE__.lastPathComponent + " [\(__LINE__)]: " + __FUNCTION__)
             //TODO: Errorhandling
         }
         return notenitem
@@ -35,6 +37,8 @@ class Notenitem: NSManagedObject {
             try context.save()
         } catch {
             print("Fehler beim löschen von \n \(self)")
+            print("Fehler")
+            print(__FILE__.lastPathComponent + " [\(__LINE__)]: " + __FUNCTION__)
             //TODO: Errorhandling
         }
     }
@@ -47,6 +51,7 @@ class Notenitem: NSManagedObject {
         var fachreferat: [Int] = []
         
         (((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).objects as! [Notenitem]).each { element -> () in
+//            print(element)
             if element.schulaufgaben != nil { schulaufgaben.append(element.schulaufgaben! as Int) }
             if element.kurzarbeiten != nil { kurzarbeiten.append(element.kurzarbeiten! as Int) }
             if element.extemporale != nil { extemporalen.append(element.extemporale! as Int) }
@@ -64,6 +69,8 @@ class Notenitem: NSManagedObject {
         do {
             try context.save()
         } catch {
+            print("Fehler")
+            print(__FILE__.lastPathComponent + " [\(__LINE__)]: " + __FUNCTION__)
             //TODO: Errorhandling
         }
         return notenitem
@@ -77,6 +84,8 @@ class Notenitem: NSManagedObject {
         do {
             try context.save()
         } catch {
+            print("Fehler")
+            print(__FILE__.lastPathComponent + " [\(__LINE__)]: " + __FUNCTION__)
             //TODO: Errorhandling
         }
         return notenitem
@@ -90,6 +99,8 @@ class Notenitem: NSManagedObject {
         do {
             try context.save()
         } catch {
+            print("Fehler")
+            print(__FILE__.lastPathComponent + " [\(__LINE__)]: " + __FUNCTION__)
             //TODO: Errorhandling
         }
         return notenitem
@@ -103,6 +114,8 @@ class Notenitem: NSManagedObject {
         do {
             try context.save()
         } catch {
+            print("Fehler")
+            print(__FILE__.lastPathComponent + " [\(__LINE__)]: " + __FUNCTION__)
             //TODO: Errorhandling
         }
         return notenitem
@@ -116,10 +129,10 @@ class Notenitem: NSManagedObject {
         do {
             try context.save()
         } catch {
+            print("Fehler")
+            print(__FILE__.lastPathComponent + " [\(__LINE__)]: " + __FUNCTION__)
             //TODO: Errorhandling
         }
         return notenitem
     }
-    
-    
 }

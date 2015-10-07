@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddNewFach: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class AddNewFach: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var schulaufgaben: UISwitch!
     @IBOutlet weak var kurzarbeiten: UISwitch!
@@ -33,8 +33,7 @@ class AddNewFach: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         
         fachart.delegate = self
         fachart.dataSource = self
-        
-//        nameTF.text = "Physik"
+        nameTF.delegate = self
         fachart.layer.cornerRadius = 10
         //        fachart.rowSizeForComponent(2)
     }
@@ -96,7 +95,10 @@ class AddNewFach: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
 //        
 //        
 //    }
-    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }

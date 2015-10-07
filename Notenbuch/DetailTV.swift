@@ -56,12 +56,10 @@ class DetailTV: UIViewController {
         
         UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "orientationChanged:", name: "UIDeviceOrientationDidChangeNotification", object: nil)
-        // this gives you access to notifications about rotations
     }
     
     func gestureRecognizer(sender: UIPanGestureRecognizer) {
         if self.view.frame.height <= einstellungenView.frame.maxY {
-            
             let translation = sender.translationInView(einstellungenView)
             var newY = min(92 + self.scrollView.frame.height, einstellungenView.frame.origin.y + translation.y)
             newY = max(view.frame.height - 203, newY)
@@ -72,7 +70,6 @@ class DetailTV: UIViewController {
     }
     
     func orientationChanged(sender: NSNotification) {
-        
         removeAllViews()
         start()
     }
@@ -83,18 +80,18 @@ class DetailTV: UIViewController {
         self.view.endEditing(true)  //Tastatur wird eingefahren
     }
     
-    func save () {
-        let dialog = UIAlertController(title: "Achtung", message: "Eventuell eingegebene Noten werden gelöscht", preferredStyle: UIAlertControllerStyle.Alert)
-        let cancel = UIAlertAction(title: "Abbruch", style: .Cancel, handler: nil)
-        let ok = UIAlertAction(title: "Lösche und Weiter", style: .Default) { (action) -> Void in
-            navigationController?.popToRootViewControllerAnimated(true)
-        }
-        dialog.addAction(cancel)
-        dialog.addAction(ok)
-        presentViewController(dialog, animated: true, completion: nil)
-    }
+//    func save () {
+//        let dialog = UIAlertController(title: "Achtung", message: "Eventuell eingegebene Noten werden gelöscht", preferredStyle: UIAlertControllerStyle.Alert)
+//        let cancel = UIAlertAction(title: "Abbruch", style: .Cancel, handler: nil)
+//        let ok = UIAlertAction(title: "Lösche und Weiter", style: .Default) { (action) -> Void in
+//            navigationController?.popToRootViewControllerAnimated(true)
+//        }
+//        dialog.addAction(cancel)
+//        dialog.addAction(ok)
+//        presentViewController(dialog, animated: true, completion: nil)
+//    }
+    
     func goBack() {
-        //      navigationController?.dismissViewControllerAnimated(true, completion: nil)
         navigationController?.popToRootViewControllerAnimated(true)
     }
     
@@ -110,15 +107,17 @@ class DetailTV: UIViewController {
             try fetchedResultsController.performFetch()
         } catch {
             //TODO: Errorhandling
+            print("Fehler")
+            print(__FILE__.lastPathComponent + " [\(__LINE__)]: " + __FUNCTION__)
         }
         
         return fetchedResultsController
         } ()
-    
 }
 
+
+//MARK: - Funktionen zur Noteneingabe
 extension DetailTV {
-    
     func start() {
         arrays = Notenitem.makeArrays(fetchedResultsController)
         
@@ -148,7 +147,13 @@ extension DetailTV {
         ubersichtsView = UIView()
         einstellungenView = UIView()
     }
+    private func updateScreen() {
+        fetchedResultsController = nil
+        removeAllViews()
+        start()
+    }
     
+    //MARK: Funktion zum plazieren der einzelnen Views
     private func setzeScrollView(animationDuration: NSTimeInterval = 0) {
         UIView.animateWithDuration(animationDuration) {
             
@@ -158,7 +163,6 @@ extension DetailTV {
             self.view.addSubview(self.notenLabelsView)
             
             self.scrollView.frame = CGRectMake(self.notenLabelsView.frame.width, CGFloat(72), UIScreen.mainScreen().bounds.width, self.currentNotensatz.getHight() + 30 )
-            //            self.scrollView.backgroundColor = UIColor.darkGrayColor()
             self.scrollView.contentSize.width = CGFloat(1000)
             self.view.addSubview(self.scrollView)
             
@@ -170,15 +174,12 @@ extension DetailTV {
         self.view.addSubview(self.ubersichtsView)
         
         self.ubersichtsViewKlein.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 116, self.currentNotensatz.getHight() + 52 , 99, 30 )
-        //            self.ubersichtsViewKlein.backgroundColor = UIColor.()
         self.view.addSubview(self.ubersichtsViewKlein)
     }
     
     
-    
+    //MARK: Label für die Namen der einzelnen Noten
     private func setzeNotenLabel(animationDuration: NSTimeInterval = 0) {
-        
-        //MARK: Setze NotenLabel Start
         var zeile = 0
         
         if shortNames {
@@ -251,8 +252,6 @@ extension DetailTV {
         nameLabelView.layer.borderWidth = CGFloat(1)
         
         if TFName == "∅" {
-            //                nameLabelView.frame = CGRect(x: self.scrollView.contentSize.width - 124, y: nameTFInstanz.y + 1, width: 50.toCGFloat(), height: 30.toCGFloat())
-            
             nameLabelView.frame = CGRect(x: 0, y: 0, width: 50.toCGFloat(), height: 30.toCGFloat())
             self.nameLabelView.textAlignment = .Center
             self.ubersichtsViewKlein.addSubview(nameLabelView)
@@ -265,8 +264,9 @@ extension DetailTV {
         setzeNotenCellen(nameLabelView)
         setzteUbersichtCellen(nameLabelView)
     }
+    
+    //MARK: Funktion zum plazieren von den einzelnen Cellen zum eingeben der Noten
     private func setzeNotenCellen(firstNameCell: UILabel) {
-        //            let allNumberOfObjets = ((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).numberOfObjects
         var allNumberOfObjets = 0
         if max([arrays.schulaufgaben.count, arrays.kurzarbeiten.count, arrays.extemporalen.count, arrays.mundlicheNoten.count, arrays.fachreferat.count]) != 0 {
             allNumberOfObjets = max([arrays.schulaufgaben.count, arrays.kurzarbeiten.count, arrays.extemporalen.count, arrays.mundlicheNoten.count, arrays.fachreferat.count])
@@ -280,25 +280,26 @@ extension DetailTV {
             switch firstNameCell.tag {
             case 0: cellTFView.tag = i;          if i < arrays.schulaufgaben.count { cellTFView.text = arrays.schulaufgaben[i].toString()}
             case 1: cellTFView.tag = 100 + i;    if i < arrays.kurzarbeiten.count { cellTFView.text = arrays.kurzarbeiten[i].toString()}
-            case 2: cellTFView.tag = 200 + i ;   if i < arrays.extemporalen.count { cellTFView.text = arrays.extemporalen[i].toString()}
-            case 3: cellTFView.tag = 300 + i; if i < arrays.mundlicheNoten.count { cellTFView.text = arrays.mundlicheNoten[i].toString()}
-            case 4: cellTFView.tag = 400 + i;     if i < arrays.fachreferat.count { cellTFView.text = arrays.fachreferat[i].toString()}
+            case 2: cellTFView.tag = 200 + i;    if i < arrays.extemporalen.count { cellTFView.text = arrays.extemporalen[i].toString()}
+            case 3: cellTFView.tag = 300 + i;    if i < arrays.mundlicheNoten.count { cellTFView.text = arrays.mundlicheNoten[i].toString()}
+            case 4: cellTFView.tag = 400 + i;    if i < arrays.fachreferat.count { cellTFView.text = arrays.fachreferat[i].toString()}
             default: break
             }
-            
+
             cellTFView.frame = CGRect(x: nameTFViewX , y: firstNameCell.frame.minY, width: 50.toCGFloat(), height: 30.toCGFloat())
             cellTFView.addTarget(self, action: Selector("changeNote:"), forControlEvents: UIControlEvents.EditingDidEnd)
             cellTFView.keyboardType = UIKeyboardType.NumberPad
             cellTFView.borderStyle = UITextBorderStyle.Line
             cellTFView.textAlignment = .Center
+            cellTFView.delegate = self
             self.scrollView.addSubview(cellTFView)
         }
         if shortNames { self.scrollView.contentSize.width = CGFloat( 180 ) + nameTFViewX }
         else { self.scrollView.contentSize.width = CGFloat( 277 ) + nameTFViewX }
     }
+    
+    //MARK: Funktion zum plazieren der Gesamtnoten
     private func setzteUbersichtCellen(firstNameCell: UILabel) {
-        //                nameLabelView.frame = CGRect(x: self.scrollView.contentSize.width - 124, y: nameTFInstanz.y + 1, width: 50.toCGFloat(), height: 30.toCGFloat())
-        
         let celle = UILabel(frame: CGRectMake(CGFloat(0), firstNameCell.frame.minY, CGFloat(50), CGFloat(30)))
         celle.layer.borderColor = UIColor.blackColor().CGColor
         celle.textAlignment = .Center
@@ -315,8 +316,7 @@ extension DetailTV {
             var durchschnittMundliche = average([average(arrays.kurzarbeiten), average(arrays.extemporalen), average(arrays.mundlicheNoten)])
             if arrays.fachreferat.count != 0 {
                 durchschnittMundliche = durchschnittMundliche * 2 + Double(arrays.fachreferat[0]) / 3
-            }
-            
+            }            
             if arrays.schulaufgaben.count == 1 {
                 celle.text = average([average(arrays.schulaufgaben), durchschnittMundliche]).setLenghtOfTheNumberAfterPointTo(2)!.toString()
             } else if arrays.schulaufgaben.count > 1 {
@@ -333,27 +333,66 @@ extension DetailTV {
     }
     
     
-    private func updateScreen() {
-        fetchedResultsController = nil
-        removeAllViews()
-        start()
-    }
-    
-    
-    private func changeNote(sender: UITextField) {
-        
-        
+//MARK: Funktionen zum speichern und verändern der Einzelnen Noten
+    func changeNote(sender: UITextField) {
         if sender.text!.isNotEmpty {
-            if sender.tag<100 { Notenitem.addNotenitemSchulaufgabe(currentNotensatz, schulaufgabe: sender.text!.toInt()!) }
-            else if sender.tag<200 { Notenitem.addNotenitemKurzarbeit(currentNotensatz, kurzarbeit: sender.text!.toInt()!) }
-            else if sender.tag<300 { Notenitem.addNotenitemExtemporale(currentNotensatz, extemporale: sender.text!.toInt()!) }
-            else if sender.tag<400 { Notenitem.addNotenitemMundlicheNote(currentNotensatz, mundlicheNote: sender.text!.toInt()!) }
-            else if sender.tag<500 { Notenitem.addNotenitemFachreferat(currentNotensatz, fachreferat: sender.text!.toInt()!) }
+            
+            
+            if sender.tag<100 {
+                if sender.tag <= arrays.schulaufgaben.count {
+                    (((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).objects as! [Notenitem])[sender.tag].schulaufgaben = sender.text!.toInt()!
+                    do {
+                        try context.save()
+                    } catch _ { }
+                } else {
+                    Notenitem.addNotenitemSchulaufgabe(currentNotensatz, schulaufgabe: sender.text!.toInt()!)
+                }
+            }
+            else if sender.tag<200 {
+                if sender.tag <= arrays.schulaufgaben.count {
+                    (((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).objects as! [Notenitem])[sender.tag].kurzarbeiten = sender.text!.toInt()!
+                do {
+                    try context.save()
+                } catch _ { }
+            } else {
+                Notenitem.addNotenitemKurzarbeit(currentNotensatz, kurzarbeit: sender.text!.toInt()!)
+                }
+            }
+            else if sender.tag<300 {
+                if sender.tag <= arrays.schulaufgaben.count {
+                    (((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).objects as! [Notenitem])[sender.tag].extemporale = sender.text!.toInt()!
+                    do {
+                        try context.save()
+                    } catch _ { }
+                } else {
+                    Notenitem.addNotenitemExtemporale(currentNotensatz, extemporale: sender.text!.toInt()!)
+                }
+            }
+            else if sender.tag<400 {
+                if sender.tag <= arrays.schulaufgaben.count {
+                    (((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).objects as! [Notenitem])[sender.tag].mundlicheNote = sender.text!.toInt()!
+                    do {
+                        try context.save()
+                    } catch _ { }
+                } else {
+                    Notenitem.addNotenitemMundlicheNote(currentNotensatz, mundlicheNote: sender.text!.toInt()!)
+                }
+            }
+            else if sender.tag<500 {
+                if sender.tag <= arrays.schulaufgaben.count {
+                    (((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).objects as! [Notenitem])[sender.tag].schulaufgaben = sender.text!.toInt()!
+                    do {
+                        try context.save()
+                    } catch _ { }
+                } else {
+                    Notenitem.addNotenitemFachreferat(currentNotensatz, fachreferat: sender.text!.toInt()!)
+                }
+            }
         }
+            
+            
+            
         else {
-            
-            
-            
             let notenitems = ((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).objects
             
             if sender.tag<100 {
@@ -366,25 +405,24 @@ extension DetailTV {
                             schulaufgabe.append(i as! Notenitem)
                         }
                     }
-                    
                     schulaufgabe[sender.tag].delete()
                 }
-            } else if sender.tag<200 {
+            }
+            
+            else if sender.tag<200 {
                 if arrays.kurzarbeiten.count - 1 >= sender.tag - 100 {
-                    
                     var kurzarbeiten: [Notenitem] = []
                     guard let notenitemsUnwrepped = notenitems else {return}
-                    
                     for i in notenitemsUnwrepped {
                         if (i as! Notenitem).kurzarbeiten != nil {
                             kurzarbeiten.append(i as! Notenitem)
                         }
                     }
                     kurzarbeiten[sender.tag - 100].delete()
-                    
                 }
-            } else if sender.tag<300 {
-                
+            }
+            
+            else if sender.tag<300 {
                 if arrays.extemporalen.count - 1 >= sender.tag - 200 {
                     var extemporalen: [Notenitem] = []
                     guard let notenitemsUnwrepped = notenitems else {return}
@@ -396,7 +434,9 @@ extension DetailTV {
                     }
                     extemporalen[sender.tag - 200].delete()
                 }
-            } else if sender.tag<400 {
+            }
+            
+            else if sender.tag<400 {
                 if arrays.mundlicheNoten.count - 1 >= sender.tag - 300 {
                     var mundlicheNoten: [Notenitem] = []
                     guard let notenitemsUnwrepped = notenitems else {return}
@@ -408,7 +448,9 @@ extension DetailTV {
                     }
                     mundlicheNoten[sender.tag - 300].delete()
                 }
-            } else if sender.tag<500 {
+            }
+            
+            else if sender.tag<500 {
                 if arrays.fachreferat.count - 1 >= sender.tag - 400 {
                     var fachreferat: [Notenitem] = []
                     guard let notenitemsUnwrepped = notenitems else {return}
@@ -421,16 +463,16 @@ extension DetailTV {
                     fachreferat[sender.tag - 400].delete()
                 }
             }
-            
         }
         updateScreen()
-        
     }
+    
+    //MARK: Funktionen zum verändern des Faches
     private func setzeEinstellungen(animationDuration: NSTimeInterval = 0) {
         let labelNamen = ["Schulaufgaben", "Kurzarbeiten", "Extemporalen", "MündlicheNoten", "Fachreferat"]
         let label = UILabel()
 
-        if false {
+ /*       if false {
             UIView.animateWithDuration(animationDuration) {
                 self.einstellungenView.frame = CGRectMake(CGFloat(0), CGFloat(92 + self.scrollView.frame.height), UIScreen.mainScreen().bounds.width, CGFloat(265))
                 self.einstellungenView.backgroundColor = UIColor.darkGrayColor()
@@ -458,7 +500,19 @@ extension DetailTV {
             label.textAlignment = NSTextAlignment.Left
             label.text = labelNamen[0]
             self.einstellungenView.addSubview(label)
+        }*/
+        UIView.animateWithDuration(animationDuration) {
+            self.einstellungenView.frame = CGRectMake(CGFloat(0), CGFloat(92 + self.scrollView.frame.height), UIScreen.mainScreen().bounds.width, CGFloat(205))
+            self.einstellungenView.backgroundColor = UIColor.darkGrayColor()
+            self.view.addSubview(self.einstellungenView)
         }
+        
+        label.frame = CGRectMake(8, 8, 140, 31)
+        label.textColor = UIColor.whiteColor()
+        label.textAlignment = NSTextAlignment.Left
+        label.text = labelNamen[0]
+        self.einstellungenView.addSubview(label)
+        
         
         let label1 = UILabel()
         label1.frame = CGRectMake(8, label.frame.minY + label.frame.height + 8, 140, 31)
@@ -541,55 +595,57 @@ extension DetailTV {
         self.einstellungenView.removeAllSubviews()
         self.view.removeAllSubviews()
         
-        
         self.setzeScrollView(0)
         self.setzeNotenLabel()
         self.setzeEinstellungen(0.3)
-        
-        
     }
 }
 
+//MARK: - Funktionen für Delegates
+//MARK: Funktionen für CoreData Delegate
 extension DetailTV: NSFetchedResultsControllerDelegate {
-    
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: NSManagedObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-        switch type {
-        case .Insert:
-            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: UITableViewRowAnimation.Automatic)
-        case .Delete:
-            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
-        case .Move:
-            if indexPath != newIndexPath {
-                tableView.moveRowAtIndexPath(indexPath!, toIndexPath: newIndexPath!)
-            }
-        case .Update:
-            tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
-        }
-    }
-    
-    
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
-        tableView.beginUpdates()
-    }
-    
-    
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        tableView.endUpdates()
-    }
-    
-    
-    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
-        switch type {
-        case .Insert:
-            tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
-        case .Delete:
-            tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
-        default:
-            return
-        }
-    }
+//
+//    func controller(controller: NSFetchedResultsController, didChangeObject anObject: NSManagedObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+//        switch type {
+////        case .Insert:
+//            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: UITableViewRowAnimation.Automatic)
+//        case .Delete:
+//            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
+//        case .Move:
+//            if indexPath != newIndexPath {
+//                tableView.moveRowAtIndexPath(indexPath!, toIndexPath: newIndexPath!)
+//            }
+//        case .Update:
+//            print("update")
+//            tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
+//        default: return
+//        }
+//    }
+//    
+//    
+//    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+//        tableView.beginUpdates()
+//    }
+//    
+//    
+//    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+//        tableView.endUpdates()
+//    }
+//
+//    
+//    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+//        switch type {
+//        case .Insert:
+//            tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+//        case .Delete:
+//            tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+//        default:
+//            return
+//        }
+//    }
 }
 
+//MARK: Funktionen für den PickerView
 extension DetailTV: UIPickerViewDelegate, UIPickerViewDataSource {
     
     
@@ -622,4 +678,13 @@ extension DetailTV: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
 }
+
+//MARK: Tastatur
+extension DetailTV: UITextFieldDelegate {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+}
+
 

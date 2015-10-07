@@ -32,13 +32,17 @@ class notenCell: UITableViewCell, NSFetchedResultsControllerDelegate {
     var shortNames = true
     let recognizer = UIPanGestureRecognizer()
     var visible = false
+//    var firstStart = true
     
     func cellDidLoad() {
 //        self.title = currentNotensatz.name
-        
+//        if !firstStart {
+//            firstStart = false
+            removeAllViews()
+//        }
         arrays = Notenitem.makeArrays(fetchedResultsController)
         start()
-        
+//        print(firstStart)
         
         UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "orientationChanged:", name: "UIDeviceOrientationDidChangeNotification", object: nil)
@@ -59,7 +63,6 @@ class notenCell: UITableViewCell, NSFetchedResultsControllerDelegate {
     
     func orientationChanged(sender: NSNotification)
     {
-        
         removeAllViews()
         start()
     }
@@ -80,7 +83,7 @@ class notenCell: UITableViewCell, NSFetchedResultsControllerDelegate {
     }
     
     
-    private lazy var fetchedResultsController: NSFetchedResultsController! = {
+    lazy var fetchedResultsController: NSFetchedResultsController! = {
         let request = NSFetchRequest(entityName: kNotenitem)
         request.sortDescriptors = [NSSortDescriptor(key: kOrder, ascending: false)]
         
@@ -167,7 +170,8 @@ extension notenCell {
             nameLabelView.layer.borderWidth = CGFloat(1)
             
             if TFName == "∅" {
-                //                nameLabelView.frame = CGRect(x: self.scrollView.contentSize.width - 124, y: nameTFInstanz.y + 1, width: 50.toCGFloat(), height: 30.toCGFloat())
+//                nameLabelView.text = "\(NSDate())"
+//                nameLabelView.frame = CGRect(x: -300, y: 0, width: 300.toCGFloat(), height: 30.toCGFloat())
                 
                 nameLabelView.frame = CGRect(x: 0, y: 0, width: 50.toCGFloat(), height: 30.toCGFloat())
                 self.nameLabelView.textAlignment = .Center
