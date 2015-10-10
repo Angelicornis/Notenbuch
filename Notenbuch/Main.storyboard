@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8121.17" systemVersion="15A262e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="lfV-vh-pMO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9058" systemVersion="15A262e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="lfV-vh-pMO">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9048"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -1197,11 +1197,11 @@ Haben Sie einen Fehler gefunden? Oder eine Idee was verbessert werden könnte. O
                         <viewControllerLayoutGuide type="bottom" id="jtZ-t5-wQN"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="993-8v-yUs">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="569"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="seV-zt-lQV">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="569"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kU9-FY-w0r">
                                         <rect key="frame" x="0.0" y="20" width="600" height="46"/>
@@ -1310,7 +1310,7 @@ Haben Sie einen Fehler gefunden? Oder eine Idee was verbessert werden könnte. O
                                         </variation>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qxf-y3-hUd">
-                                        <rect key="frame" x="0.0" y="190" width="600" height="203"/>
+                                        <rect key="frame" x="0.0" y="190" width="600" height="371"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Schulaufgaben" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wnP-Wj-oJ6">
                                                 <rect key="frame" x="16" y="8" width="130" height="30"/>
@@ -1371,18 +1371,68 @@ Haben Sie einen Fehler gefunden? Oder eine Idee was verbessert werden könnte. O
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Verhältnis Schulaufgaben - Mündlich" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V8y-v0-oDn">
+                                                <rect key="frame" x="16" y="217" width="576" height="30"/>
+                                                <animations/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5cI-RE-G8e">
+                                                <rect key="frame" x="308" y="247" width="50" height="30"/>
+                                                <animations/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="duj-c3-unZ" id="ahw-q0-WMv"/>
+                                                </connections>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Verhältnis Kurzarbeiten - Exen/Mündlich" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XAm-Ze-dAJ">
+                                                <rect key="frame" x="16" y="291" width="576" height="30"/>
+                                                <animations/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3So-bb-q6A">
+                                                <rect key="frame" x="250" y="321" width="50" height="30"/>
+                                                <animations/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="duj-c3-unZ" id="EgF-ib-dkB"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ObM-OL-jkp">
+                                                <rect key="frame" x="308" y="321" width="50" height="30"/>
+                                                <animations/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="duj-c3-unZ" id="gS8-4Q-ZeN"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yYh-b7-Nm2">
+                                                <rect key="frame" x="250" y="247" width="50" height="30"/>
+                                                <animations/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="duj-c3-unZ" id="wJF-AI-3BW"/>
+                                                </connections>
+                                            </textField>
                                         </subviews>
                                         <animations/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="300" id="2dm-Gs-reG"/>
                                             <constraint firstItem="NZH-7G-NTo" firstAttribute="centerX" secondItem="gh9-W4-gNU" secondAttribute="centerX" id="2eV-5g-Wbk"/>
+                                            <constraint firstAttribute="height" constant="371" id="7ym-HB-v6W"/>
                                             <constraint firstItem="dPr-J3-mhp" firstAttribute="centerX" secondItem="gh9-W4-gNU" secondAttribute="centerX" id="Boj-2y-ld9"/>
                                             <constraint firstItem="tw6-Qf-35f" firstAttribute="centerX" secondItem="dPr-J3-mhp" secondAttribute="centerX" id="CAa-tn-36n"/>
                                             <constraint firstItem="Yd1-3f-RuF" firstAttribute="centerY" secondItem="dPr-J3-mhp" secondAttribute="centerY" id="DMT-q9-UaT"/>
                                             <constraint firstItem="NZH-7G-NTo" firstAttribute="height" secondItem="gh9-W4-gNU" secondAttribute="height" id="Fie-HV-lx4"/>
                                             <constraint firstItem="dPr-J3-mhp" firstAttribute="top" secondItem="gh9-W4-gNU" secondAttribute="bottom" constant="8" id="HQf-Yh-Gkg"/>
-                                            <constraint firstAttribute="bottom" secondItem="GuB-Gh-XAo" secondAttribute="bottom" constant="8" id="I5T-8s-dE3"/>
                                             <constraint firstItem="omF-Wh-e75" firstAttribute="centerY" secondItem="tw6-Qf-35f" secondAttribute="centerY" id="I5m-1c-Z0X"/>
                                             <constraint firstItem="4hc-Kh-7MU" firstAttribute="centerY" secondItem="NZH-7G-NTo" secondAttribute="centerY" id="IBI-RU-SZ7"/>
                                             <constraint firstItem="tw6-Qf-35f" firstAttribute="width" secondItem="dPr-J3-mhp" secondAttribute="width" id="S2E-hU-23M"/>
@@ -1471,12 +1521,12 @@ Haben Sie einen Fehler gefunden? Oder eine Idee was verbessert werden könnte. O
                     <navigationItem key="navigationItem" id="idB-sJ-5hZ">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="wck-mX-J76">
                             <connections>
-                                <segue destination="T6Y-ls-tTx" kind="unwind" unwindAction="backToTheStartFromAdd:" id="Uim-iV-Gv3"/>
+                                <action selector="saveButtonPressed:" destination="duj-c3-unZ" id="iQy-Mz-BHG"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="600" height="400"/>
+                    <size key="freeformSize" width="600" height="569"/>
                     <connections>
                         <outlet property="extemporale" destination="tw6-Qf-35f" id="Ejl-5P-rEP"/>
                         <outlet property="fachart" destination="Me9-jn-ini" id="pA6-ql-vdQ"/>
@@ -1485,12 +1535,15 @@ Haben Sie einen Fehler gefunden? Oder eine Idee was verbessert werden könnte. O
                         <outlet property="mundlicheNote" destination="NZH-7G-NTo" id="V4i-qX-RLf"/>
                         <outlet property="nameTF" destination="OV2-pW-q6l" id="Nd1-cq-ADi"/>
                         <outlet property="schulaufgaben" destination="gh9-W4-gNU" id="a9Y-Mu-YZo"/>
+                        <outlet property="verhaltnis_Kurzarbeit_Exen_Exen" destination="ObM-OL-jkp" id="1GX-2u-xCr"/>
+                        <outlet property="verhaltnis_Kurzarbeit_Exen_Kurzarbeit" destination="3So-bb-q6A" id="ai4-pr-a6o"/>
+                        <outlet property="verhaltnis_Schulaufgaben_Mundlich_Mundlich" destination="5cI-RE-G8e" id="3Tk-db-PSc"/>
+                        <outlet property="verhältnis_SchulaufgabenMündlich_Schulaufgaben" destination="yYh-b7-Nm2" id="eRp-mY-mAY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yOV-Ad-O0Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="T6Y-ls-tTx" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1861" y="495"/>
+            <point key="canvasLocation" x="1861" y="361"/>
         </scene>
     </scenes>
 </document>

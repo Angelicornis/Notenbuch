@@ -25,7 +25,7 @@ class Notenitem: NSManagedObject {
             try context.save()
         } catch {
             print("Fehler")
-            print(__FILE__.lastPathComponent + " [\(__LINE__)]: " + __FUNCTION__)
+            print(NSURL(fileURLWithPath: __FILE__).lastPathComponent! + " [\(__LINE__)]: " + __FUNCTION__)
             //TODO: Errorhandling
         }
         return notenitem
@@ -38,7 +38,7 @@ class Notenitem: NSManagedObject {
         } catch {
             print("Fehler beim löschen von \n \(self)")
             print("Fehler")
-            print(__FILE__.lastPathComponent + " [\(__LINE__)]: " + __FUNCTION__)
+            print(NSURL(fileURLWithPath: __FILE__).lastPathComponent! + " [\(__LINE__)]: " + __FUNCTION__)
             //TODO: Errorhandling
         }
     }
@@ -69,8 +69,8 @@ class Notenitem: NSManagedObject {
         do {
             try context.save()
         } catch {
-            print("Fehler")
-            print(__FILE__.lastPathComponent + " [\(__LINE__)]: " + __FUNCTION__)
+            NSLog("Fehler: %@ Class: %@ func: %@ line: %@", "\n", NSURL(fileURLWithPath: __FILE__).lastPathComponent!, __FUNCTION__, __FUNCTION__)
+
             //TODO: Errorhandling
         }
         return notenitem
@@ -84,8 +84,7 @@ class Notenitem: NSManagedObject {
         do {
             try context.save()
         } catch {
-            print("Fehler")
-            print(__FILE__.lastPathComponent + " [\(__LINE__)]: " + __FUNCTION__)
+            NSLog("Fehler: %@ Class: %@ func: %@ line: %@", "\n", NSURL(fileURLWithPath: __FILE__).lastPathComponent!, __FUNCTION__, __FUNCTION__)
             //TODO: Errorhandling
         }
         return notenitem
@@ -99,8 +98,7 @@ class Notenitem: NSManagedObject {
         do {
             try context.save()
         } catch {
-            print("Fehler")
-            print(__FILE__.lastPathComponent + " [\(__LINE__)]: " + __FUNCTION__)
+            NSLog("Fehler: %@ Class: %@ func: %@ line: %@", "\n", NSURL(fileURLWithPath: __FILE__).lastPathComponent!, __FUNCTION__, __FUNCTION__)
             //TODO: Errorhandling
         }
         return notenitem
@@ -114,8 +112,7 @@ class Notenitem: NSManagedObject {
         do {
             try context.save()
         } catch {
-            print("Fehler")
-            print(__FILE__.lastPathComponent + " [\(__LINE__)]: " + __FUNCTION__)
+            NSLog("Fehler: %@ Class: %@ func: %@ line: %@", "\n", NSURL(fileURLWithPath: __FILE__).lastPathComponent!, __FUNCTION__, __FUNCTION__)
             //TODO: Errorhandling
         }
         return notenitem
@@ -129,8 +126,7 @@ class Notenitem: NSManagedObject {
         do {
             try context.save()
         } catch {
-            print("Fehler")
-            print(__FILE__.lastPathComponent + " [\(__LINE__)]: " + __FUNCTION__)
+            NSLog("Fehler: %@ Class: %@ func: %@ line: %@", "\n", NSURL(fileURLWithPath: __FILE__).lastPathComponent!, __FUNCTION__, __FUNCTION__)
             //TODO: Errorhandling
         }
         return notenitem

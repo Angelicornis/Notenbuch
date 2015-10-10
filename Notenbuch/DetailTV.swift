@@ -28,26 +28,42 @@ class DetailTV: UIViewController {
     var ubersichtsViewKlein = UIView()
     var ubersichtsView = UIView()
     var notenLabelsView = UIView()
-    var einstellungSwitchEnabeld = false
-    var navigationBar = UINavigationBar()
     var currentNotenitem: Notenitem!
     var nameLabelView: UILabel!
     var arrays:(schulaufgaben: [Int], kurzarbeiten: [Int], extemporalen: [Int], mundlicheNoten: [Int], fachreferat: [Int])! = nil
     var shortNames = true
     let recognizer = UIPanGestureRecognizer()
-    var visible = false
+    var isEinstellungenViewVisible = false
     var pickerView = UIPickerView()
     var pickerData = ["Hauptfach", "Nebenfach", "Seminarfach"]
     var currentPicker = ""
-    var tableView: UITableView!
-    
-    
+    private lazy var fetchedResultsController: NSFetchedResultsController! = {
+        let request = NSFetchRequest(entityName: kNotenitem)
+        request.sortDescriptors = [NSSortDescriptor(key: kOrder, ascending: false)]
+        
+        request.predicate = NSPredicate(format: "notensatz = %@", self.currentNotensatz)
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController.delegate = self
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            //TODO: Errorhandling
+            //???: Errorhandling
+            NSLog("Fehler: %@ Class: %@ func: %@ line: %@", "\n", NSURL(fileURLWithPath: __FILE__).lastPathComponent!, __FUNCTION__, __FUNCTION__)
+        }
+        
+        return fetchedResultsController
+    } ()
+}
+
+extension DetailTV {
+    //MARK: - Obligatorische Funktionen
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = currentNotensatz.name
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: "goBack")
-        //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "save")
         
         pickerView.delegate = self
         pickerView.dataSource = self
@@ -62,9 +78,9 @@ class DetailTV: UIViewController {
         if self.view.frame.height <= einstellungenView.frame.maxY {
             let translation = sender.translationInView(einstellungenView)
             var newY = min(92 + self.scrollView.frame.height, einstellungenView.frame.origin.y + translation.y)
-            newY = max(view.frame.height - 203, newY)
+            newY = max(view.frame.height - 393, newY)
             einstellungenView.frame.origin.y = newY
-            if newY != view.frame.height - 60 { visible = true }
+            if newY != view.frame.height - 60 { isEinstellungenViewVisible = true }
             sender.setTranslation(CGPointZero, inView: einstellungenView)
         }
     }
@@ -75,44 +91,13 @@ class DetailTV: UIViewController {
     }
     
     
-    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)  //Tastatur wird eingefahren
     }
     
-//    func save () {
-//        let dialog = UIAlertController(title: "Achtung", message: "Eventuell eingegebene Noten werden gelöscht", preferredStyle: UIAlertControllerStyle.Alert)
-//        let cancel = UIAlertAction(title: "Abbruch", style: .Cancel, handler: nil)
-//        let ok = UIAlertAction(title: "Lösche und Weiter", style: .Default) { (action) -> Void in
-//            navigationController?.popToRootViewControllerAnimated(true)
-//        }
-//        dialog.addAction(cancel)
-//        dialog.addAction(ok)
-//        presentViewController(dialog, animated: true, completion: nil)
-//    }
-    
     func goBack() {
         navigationController?.popToRootViewControllerAnimated(true)
     }
-    
-    private lazy var fetchedResultsController: NSFetchedResultsController! = {
-        let request = NSFetchRequest(entityName: kNotenitem)
-        request.sortDescriptors = [NSSortDescriptor(key: kOrder, ascending: false)]
-        
-        request.predicate = NSPredicate(format: "notensatz = %@", self.currentNotensatz)
-        
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        fetchedResultsController.delegate = self
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            //TODO: Errorhandling
-            print("Fehler")
-            print(__FILE__.lastPathComponent + " [\(__LINE__)]: " + __FUNCTION__)
-        }
-        
-        return fetchedResultsController
-        } ()
 }
 
 
@@ -313,17 +298,28 @@ extension DetailTV {
         case 4: celle.text = average(arrays.fachreferat).setLenghtOfTheNumberAfterPointTo(1)!.toString()
         case 5 :
             celle.frame = CGRectMake(49, 0, 50, 30)
-            var durchschnittMundliche = average([average(arrays.kurzarbeiten), average(arrays.extemporalen), average(arrays.mundlicheNoten)])
-            if arrays.fachreferat.count != 0 {
-                durchschnittMundliche = durchschnittMundliche * 2 + Double(arrays.fachreferat[0]) / 3
-            }            
-            if arrays.schulaufgaben.count == 1 {
-                celle.text = average([average(arrays.schulaufgaben), durchschnittMundliche]).setLenghtOfTheNumberAfterPointTo(2)!.toString()
-            } else if arrays.schulaufgaben.count > 1 {
-                celle.text = ((average(arrays.schulaufgaben) * 2 + durchschnittMundliche) / 3).setLenghtOfTheNumberAfterPointTo(2)!.toString()
+            let durchschnittMundliche_Extemporalen_MundlicheNoten = average([average(arrays.extemporalen), average(arrays.mundlicheNoten)])
+            let durchschnittKurzarbeiten = average(self.arrays.kurzarbeiten)
+            var durchschnittMundliche = 0.0
+            if currentNotensatz.verhaltnis_Kurzarbeit_Exen_Kurzarbeit != nil && currentNotensatz.verhaltnis_Kurzarbeit_Exen_Exen != nil {
+                if (currentNotensatz.verhaltnis_Kurzarbeit_Exen_Kurzarbeit == NSNumber(short: 2)) && (currentNotensatz.verhaltnis_Kurzarbeit_Exen_Exen == NSNumber(short: 1)) {
+                    durchschnittMundliche = (2 * durchschnittKurzarbeiten + durchschnittMundliche_Extemporalen_MundlicheNoten) / 3
+                } else if (currentNotensatz.verhaltnis_Kurzarbeit_Exen_Kurzarbeit == NSNumber(short: 1)) && (currentNotensatz.verhaltnis_Kurzarbeit_Exen_Exen == NSNumber(short: 1)) {
+                    durchschnittMundliche = (durchschnittKurzarbeiten + durchschnittMundliche_Extemporalen_MundlicheNoten) / 2
+                }
             }
-            else if arrays.schulaufgaben.count < 1 {
+            if arrays.fachreferat.count != 0 {
+                durchschnittMundliche = (durchschnittMundliche * 2 + Double(arrays.fachreferat[0])) / 3
+            }
+            
+            if arrays.schulaufgaben.count < 1 {
                 celle.text = durchschnittMundliche.toString()
+            } else if currentNotensatz.verhaltnis_Schulaufgaben_Mundlich_Schulaufgaben != nil && currentNotensatz.verhaltnis_Schulaufgaben_Mundlich_Mundlich != nil {
+                if currentNotensatz.verhaltnis_Schulaufgaben_Mundlich_Schulaufgaben == NSNumber(short: 2) && currentNotensatz.verhaltnis_Schulaufgaben_Mundlich_Mundlich == NSNumber(short: 1) {
+                    celle.text = ((average(arrays.schulaufgaben) * 2 + durchschnittMundliche) / 3).setLenghtOfTheNumberAfterPointTo(2)!.toString()
+                } else if currentNotensatz.verhaltnis_Schulaufgaben_Mundlich_Schulaufgaben == NSNumber(short: 2) && currentNotensatz.verhaltnis_Schulaufgaben_Mundlich_Mundlich == NSNumber(short: 1) {
+                    celle.text = average([average(arrays.schulaufgaben), durchschnittMundliche]).setLenghtOfTheNumberAfterPointTo(2)!.toString()
+                }
             }
             self.ubersichtsViewKlein.addSubview(celle)
             return
@@ -337,9 +333,8 @@ extension DetailTV {
     func changeNote(sender: UITextField) {
         if sender.text!.isNotEmpty {
             
-            
             if sender.tag<100 {
-                if sender.tag <= arrays.schulaufgaben.count {
+                if sender.tag < arrays.schulaufgaben.count {
                     (((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).objects as! [Notenitem])[sender.tag].schulaufgaben = sender.text!.toInt()!
                     do {
                         try context.save()
@@ -349,7 +344,7 @@ extension DetailTV {
                 }
             }
             else if sender.tag<200 {
-                if sender.tag <= arrays.schulaufgaben.count {
+                if sender.tag < arrays.schulaufgaben.count {
                     (((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).objects as! [Notenitem])[sender.tag].kurzarbeiten = sender.text!.toInt()!
                 do {
                     try context.save()
@@ -359,7 +354,7 @@ extension DetailTV {
                 }
             }
             else if sender.tag<300 {
-                if sender.tag <= arrays.schulaufgaben.count {
+                if sender.tag < arrays.schulaufgaben.count {
                     (((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).objects as! [Notenitem])[sender.tag].extemporale = sender.text!.toInt()!
                     do {
                         try context.save()
@@ -369,7 +364,7 @@ extension DetailTV {
                 }
             }
             else if sender.tag<400 {
-                if sender.tag <= arrays.schulaufgaben.count {
+                if sender.tag < arrays.schulaufgaben.count {
                     (((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).objects as! [Notenitem])[sender.tag].mundlicheNote = sender.text!.toInt()!
                     do {
                         try context.save()
@@ -379,7 +374,7 @@ extension DetailTV {
                 }
             }
             else if sender.tag<500 {
-                if sender.tag <= arrays.schulaufgaben.count {
+                if sender.tag < arrays.schulaufgaben.count {
                     (((fetchedResultsController.sections?[0])! as NSFetchedResultsSectionInfo).objects as! [Notenitem])[sender.tag].schulaufgaben = sender.text!.toInt()!
                     do {
                         try context.save()
@@ -469,7 +464,7 @@ extension DetailTV {
     
     //MARK: Funktionen zum verändern des Faches
     private func setzeEinstellungen(animationDuration: NSTimeInterval = 0) {
-        let labelNamen = ["Schulaufgaben", "Kurzarbeiten", "Extemporalen", "MündlicheNoten", "Fachreferat"]
+        let labelNamen = ["Schulaufgaben", "Kurzarbeiten", "Extemporalen", "MündlicheNoten", "Fachreferat", "Verhältnis: Schulaufgaben - Mündlich", "Verhältnis: Kurzarbeit - Exen"]
         let label = UILabel()
 
  /*       if false {
@@ -501,11 +496,10 @@ extension DetailTV {
             label.text = labelNamen[0]
             self.einstellungenView.addSubview(label)
         }*/
-        UIView.animateWithDuration(animationDuration) {
-            self.einstellungenView.frame = CGRectMake(CGFloat(0), CGFloat(92 + self.scrollView.frame.height), UIScreen.mainScreen().bounds.width, CGFloat(205))
+            self.einstellungenView.frame = CGRectMake(CGFloat(0), CGFloat(92 + self.scrollView.frame.height), UIScreen.mainScreen().bounds.width, CGFloat(393))
             self.einstellungenView.backgroundColor = UIColor.darkGrayColor()
             self.view.addSubview(self.einstellungenView)
-        }
+        
         
         label.frame = CGRectMake(8, 8, 140, 31)
         label.textColor = UIColor.whiteColor()
@@ -578,15 +572,91 @@ extension DetailTV {
         switch4.tag = 4
         switch4.addTarget(self, action: Selector("stateChanged:"), forControlEvents: UIControlEvents.ValueChanged)
         self.einstellungenView.addSubview(switch4)
+    
         
+        let schulaufgabenMündlichVerhältnisLabel = UILabel()
+        schulaufgabenMündlichVerhältnisLabel.frame = CGRectMake(8, label4.frame.minY + label4.frame.height + 24, self.einstellungenView.frame.width, 31)
+        schulaufgabenMündlichVerhältnisLabel.textColor = UIColor.whiteColor()
+        schulaufgabenMündlichVerhältnisLabel.textAlignment = NSTextAlignment.Left
+        schulaufgabenMündlichVerhältnisLabel.text = labelNamen[5]
+        schulaufgabenMündlichVerhältnisLabel.tag = 1
+        self.einstellungenView.addSubview(schulaufgabenMündlichVerhältnisLabel)
+        
+        let notenMündlichVerhältnisTextField_Schulaufgaben = UITextField()
+        notenMündlichVerhältnisTextField_Schulaufgaben.frame = CGRect(x: self.einstellungenView.frame.width / 2 - 58, y: schulaufgabenMündlichVerhältnisLabel.frame.maxY + 8, width: 50.toCGFloat(), height: 30.toCGFloat())
+        notenMündlichVerhältnisTextField_Schulaufgaben.addTarget(self, action: Selector("changeNote:"), forControlEvents: UIControlEvents.EditingDidEnd)
+        notenMündlichVerhältnisTextField_Schulaufgaben.keyboardType = UIKeyboardType.NumberPad
+        notenMündlichVerhältnisTextField_Schulaufgaben.borderStyle = UITextBorderStyle.RoundedRect
+        notenMündlichVerhältnisTextField_Schulaufgaben.backgroundColor = UIColor.whiteColor()
+        notenMündlichVerhältnisTextField_Schulaufgaben.textAlignment = .Center
+        notenMündlichVerhältnisTextField_Schulaufgaben.text = String((currentNotensatz.verhaltnis_Schulaufgaben_Mundlich_Schulaufgaben != nil) ? (currentNotensatz.verhaltnis_Schulaufgaben_Mundlich_Schulaufgaben!) : "")
+        notenMündlichVerhältnisTextField_Schulaufgaben.delegate = self
+        notenMündlichVerhältnisTextField_Schulaufgaben.tag = 1
+        self.einstellungenView.addSubview(notenMündlichVerhältnisTextField_Schulaufgaben)
+
+        let notenMündlichVerhältnisTextField_Mündlich = UITextField()
+        notenMündlichVerhältnisTextField_Mündlich.frame = CGRect(x: self.einstellungenView.frame.width / 2 + 8, y: schulaufgabenMündlichVerhältnisLabel.frame.maxY + 8, width: 50.toCGFloat(), height: 30.toCGFloat())
+        notenMündlichVerhältnisTextField_Mündlich.addTarget(self, action: Selector("changeNote:"), forControlEvents: UIControlEvents.EditingDidEnd)
+        notenMündlichVerhältnisTextField_Mündlich.keyboardType = UIKeyboardType.NumberPad
+        notenMündlichVerhältnisTextField_Mündlich.borderStyle = UITextBorderStyle.RoundedRect //None
+        notenMündlichVerhältnisTextField_Mündlich.backgroundColor = UIColor.whiteColor()
+        notenMündlichVerhältnisTextField_Mündlich.textAlignment = .Center
+        notenMündlichVerhältnisTextField_Mündlich.text = String((currentNotensatz.verhaltnis_Schulaufgaben_Mundlich_Mundlich != nil) ? (currentNotensatz.verhaltnis_Schulaufgaben_Mundlich_Mundlich!) : "")
+        notenMündlichVerhältnisTextField_Mündlich.delegate = self
+        notenMündlichVerhältnisTextField_Mündlich.tag = 2
+        self.einstellungenView.addSubview(notenMündlichVerhältnisTextField_Mündlich)
+        
+        let mündlichKurzarbeitenVerhältnisLabel = UILabel()
+        mündlichKurzarbeitenVerhältnisLabel.frame = CGRectMake(8, notenMündlichVerhältnisTextField_Mündlich.frame.maxY + 16, self.einstellungenView.frame.width, 31)
+        mündlichKurzarbeitenVerhältnisLabel.textColor = UIColor.whiteColor()
+        mündlichKurzarbeitenVerhältnisLabel.textAlignment = NSTextAlignment.Left
+        mündlichKurzarbeitenVerhältnisLabel.text = labelNamen[6]
+        mündlichKurzarbeitenVerhältnisLabel.tag = 2
+        self.einstellungenView.addSubview(mündlichKurzarbeitenVerhältnisLabel)
+        
+        let notenMündlichVerhältnisTextField_Kurzarbeit = UITextField()
+        notenMündlichVerhältnisTextField_Kurzarbeit.frame = CGRect(x: self.einstellungenView.frame.width / 2 - 58, y: mündlichKurzarbeitenVerhältnisLabel.frame.maxY + 8, width: 50.toCGFloat(), height: 30.toCGFloat())
+        notenMündlichVerhältnisTextField_Kurzarbeit.addTarget(self, action: Selector("changeNote:"), forControlEvents: UIControlEvents.EditingDidEnd)
+        notenMündlichVerhältnisTextField_Kurzarbeit.keyboardType = UIKeyboardType.NumberPad
+        notenMündlichVerhältnisTextField_Kurzarbeit.borderStyle = UITextBorderStyle.RoundedRect //None
+        notenMündlichVerhältnisTextField_Kurzarbeit.backgroundColor = UIColor.whiteColor()
+        notenMündlichVerhältnisTextField_Kurzarbeit.textAlignment = .Center
+        notenMündlichVerhältnisTextField_Kurzarbeit.delegate = self
+        notenMündlichVerhältnisTextField_Kurzarbeit.text = String((currentNotensatz.verhaltnis_Kurzarbeit_Exen_Kurzarbeit != nil) ? (currentNotensatz.verhaltnis_Kurzarbeit_Exen_Kurzarbeit!) : "")
+        notenMündlichVerhältnisTextField_Kurzarbeit.tag = 3
+        self.einstellungenView.addSubview(notenMündlichVerhältnisTextField_Kurzarbeit)
+        
+        let notenMündlichVerhältnisTextField_mündlichII = UITextField()
+        notenMündlichVerhältnisTextField_mündlichII.frame = CGRect(x: self.einstellungenView.frame.width / 2 + 8, y: mündlichKurzarbeitenVerhältnisLabel.frame.maxY + 8, width: 50.toCGFloat(), height: 30.toCGFloat())
+        notenMündlichVerhältnisTextField_mündlichII.addTarget(self, action: Selector("changeNote:"), forControlEvents: UIControlEvents.EditingDidEnd)
+        notenMündlichVerhältnisTextField_mündlichII.keyboardType = UIKeyboardType.NumberPad
+        notenMündlichVerhältnisTextField_mündlichII.borderStyle = UITextBorderStyle.RoundedRect
+        notenMündlichVerhältnisTextField_mündlichII.backgroundColor = UIColor.whiteColor()
+        notenMündlichVerhältnisTextField_mündlichII.textAlignment = .Center
+        notenMündlichVerhältnisTextField_mündlichII.delegate = self
+        notenMündlichVerhältnisTextField_mündlichII.text = String((currentNotensatz.verhaltnis_Kurzarbeit_Exen_Exen != nil) ? (currentNotensatz.verhaltnis_Kurzarbeit_Exen_Exen!) : "")
+        notenMündlichVerhältnisTextField_mündlichII.tag = 4
+        self.einstellungenView.addSubview(notenMündlichVerhältnisTextField_mündlichII)
     }
-    func stateChanged(switchState: UISwitch) {
-        if switchState.tag == 0 { currentNotensatz.schulaufgabeEnabeld = switchState.on }
-        if switchState.tag == 1 { currentNotensatz.kurzabeitenEnabeld = switchState.on }
-        if switchState.tag == 2 { currentNotensatz.extemporaleEnabeld = switchState.on }
-        if switchState.tag == 3 { currentNotensatz.mundlicheNotenEnabeld = switchState.on }
-        if switchState.tag == 4 { currentNotensatz.fachreferatEnabeld = switchState.on }
-        
+    func stateChanged(state: AnyObject) {
+        if state is UISwitch {
+            if state.tag == 0 { currentNotensatz.schulaufgabeEnabeld      = (state as! UISwitch).on }
+            if state.tag == 1 { currentNotensatz.kurzabeitenEnabeld       = (state as! UISwitch).on }
+            if state.tag == 2 { currentNotensatz.extemporaleEnabeld       = (state as! UISwitch).on }
+            if state.tag == 3 { currentNotensatz.mundlicheNotenEnabeld    = (state as! UISwitch).on }
+            if state.tag == 4 { currentNotensatz.fachreferatEnabeld       = (state as! UISwitch).on }
+        } else if state is UITextField {
+            let text: Int? = ((state as! UITextField).text!.toInt() != nil) ? ((state as! UITextField).text!.toInt()!) : nil
+            
+            if state.tag == 1 { currentNotensatz.verhaltnis_Schulaufgaben_Mundlich_Schulaufgaben = text }
+            if state.tag == 2 { currentNotensatz.verhaltnis_Schulaufgaben_Mundlich_Mundlich = text }
+            if state.tag == 3 { currentNotensatz.verhaltnis_Kurzarbeit_Exen_Exen = text }
+            if state.tag == 4 { currentNotensatz.verhaltnis_Kurzarbeit_Exen_Kurzarbeit = text }
+        }
+        do {
+            try context.save()
+        } catch _ { }
+
         self.notenLabelsView.removeAllSubviews()
         self.ubersichtsViewKlein.removeAllSubviews()
         self.ubersichtsView.removeAllSubviews()
@@ -686,5 +756,13 @@ extension DetailTV: UITextFieldDelegate {
         return false
     }
 }
+
+
+
+
+
+
+
+
 
 

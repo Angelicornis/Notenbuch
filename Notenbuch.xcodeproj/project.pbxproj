@@ -16,12 +16,12 @@
 		E27957391B58F68700EB330F /* Notensatz+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27957371B58F68700EB330F /* Notensatz+CoreDataProperties.swift */; };
 		E279573A1B58F68700EB330F /* Notensatz.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27957381B58F68700EB330F /* Notensatz.swift */; };
 		E29360891B511EA7009077D2 /* CustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29360881B511EA7009077D2 /* CustomSegue.swift */; };
+		E2A3302C1BC6CA8100EBB363 /* NSLogExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3302B1BC6CA8100EBB363 /* NSLogExtension.swift */; };
 		E2A6A6BE1B4481EB00F3BEA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6A6BD1B4481EB00F3BEA8 /* AppDelegate.swift */; };
 		E2A6A6C11B4481EB00F3BEA8 /* Notenbuch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E2A6A6BF1B4481EB00F3BEA8 /* Notenbuch.xcdatamodeld */; };
 		E2A6A6C31B4481EB00F3BEA8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6A6C21B4481EB00F3BEA8 /* ViewController.swift */; };
 		E2A6A6C81B4481EB00F3BEA8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2A6A6C71B4481EB00F3BEA8 /* Images.xcassets */; };
 		E2A6A6CB1B4481EB00F3BEA8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2A6A6C91B4481EB00F3BEA8 /* LaunchScreen.xib */; };
-		E2A6A6D71B4481EB00F3BEA8 /* NotenbuchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6A6D61B4481EB00F3BEA8 /* NotenbuchTests.swift */; };
 		E2A6A6E51B455AB700F3BEA8 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6A6E41B455AB700F3BEA8 /* Extension.swift */; };
 		E2A6A6E71B46ABF200F3BEA8 /* CalculateTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6A6E61B46ABF200F3BEA8 /* CalculateTVC.swift */; };
 		E2A6A6F31B46E87200F3BEA8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2A6A6F21B46E87200F3BEA8 /* Main.storyboard */; };
@@ -41,16 +41,6 @@
 		E2E8D9DC1B61023800527481 /* page5.png in Resources */ = {isa = PBXBuildFile; fileRef = E2E8D9D71B61023800527481 /* page5.png */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		E2A6A6D11B4481EB00F3BEA8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E2A6A6B01B4481EB00F3BEA8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E2A6A6B71B4481EB00F3BEA8;
-			remoteInfo = Notenbuch;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		E243A12A1B5957A5001ABF54 /* DetailTV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTV.swift; sourceTree = "<group>"; };
 		E24A7D961B58348900473AD9 /* ToDo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ToDo.plist; sourceTree = "<group>"; };
@@ -62,6 +52,7 @@
 		E27957381B58F68700EB330F /* Notensatz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notensatz.swift; sourceTree = "<group>"; };
 		E29360881B511EA7009077D2 /* CustomSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSegue.swift; sourceTree = "<group>"; };
 		E293608A1B511FA3009077D2 /* Notenbuch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Notenbuch-Bridging-Header.h"; sourceTree = "<group>"; };
+		E2A3302B1BC6CA8100EBB363 /* NSLogExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSLogExtension.swift; path = ../../../../NSLogExtension.swift; sourceTree = "<group>"; };
 		E2A6A6B81B4481EB00F3BEA8 /* Notenbuch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notenbuch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2A6A6BC1B4481EB00F3BEA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E2A6A6BD1B4481EB00F3BEA8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -69,9 +60,6 @@
 		E2A6A6C21B4481EB00F3BEA8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E2A6A6C71B4481EB00F3BEA8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E2A6A6CA1B4481EB00F3BEA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		E2A6A6D01B4481EB00F3BEA8 /* NotenbuchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotenbuchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E2A6A6D51B4481EB00F3BEA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E2A6A6D61B4481EB00F3BEA8 /* NotenbuchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotenbuchTests.swift; sourceTree = "<group>"; };
 		E2A6A6E41B455AB700F3BEA8 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		E2A6A6E61B46ABF200F3BEA8 /* CalculateTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculateTVC.swift; sourceTree = "<group>"; };
 		E2A6A6F21B46E87200F3BEA8 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -100,13 +88,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E2A6A6CD1B4481EB00F3BEA8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -114,7 +95,6 @@
 			isa = PBXGroup;
 			children = (
 				E2A6A6BA1B4481EB00F3BEA8 /* Notenbuch */,
-				E2A6A6D31B4481EB00F3BEA8 /* NotenbuchTests */,
 				E2A6A6B91B4481EB00F3BEA8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -123,7 +103,6 @@
 			isa = PBXGroup;
 			children = (
 				E2A6A6B81B4481EB00F3BEA8 /* Notenbuch.app */,
-				E2A6A6D01B4481EB00F3BEA8 /* NotenbuchTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -157,23 +136,7 @@
 				E2A6A6BF1B4481EB00F3BEA8 /* Notenbuch.xcdatamodeld */,
 				E2A6A6BC1B4481EB00F3BEA8 /* Info.plist */,
 				E29360881B511EA7009077D2 /* CustomSegue.swift */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		E2A6A6D31B4481EB00F3BEA8 /* NotenbuchTests */ = {
-			isa = PBXGroup;
-			children = (
-				E2A6A6D61B4481EB00F3BEA8 /* NotenbuchTests.swift */,
-				E2A6A6D41B4481EB00F3BEA8 /* Supporting Files */,
-			);
-			path = NotenbuchTests;
-			sourceTree = "<group>";
-		};
-		E2A6A6D41B4481EB00F3BEA8 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				E2A6A6D51B4481EB00F3BEA8 /* Info.plist */,
+				E2A3302B1BC6CA8100EBB363 /* NSLogExtension.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -246,24 +209,6 @@
 			productReference = E2A6A6B81B4481EB00F3BEA8 /* Notenbuch.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E2A6A6CF1B4481EB00F3BEA8 /* NotenbuchTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E2A6A6DD1B4481EB00F3BEA8 /* Build configuration list for PBXNativeTarget "NotenbuchTests" */;
-			buildPhases = (
-				E2A6A6CC1B4481EB00F3BEA8 /* Sources */,
-				E2A6A6CD1B4481EB00F3BEA8 /* Frameworks */,
-				E2A6A6CE1B4481EB00F3BEA8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				E2A6A6D21B4481EB00F3BEA8 /* PBXTargetDependency */,
-			);
-			name = NotenbuchTests;
-			productName = NotenbuchTests;
-			productReference = E2A6A6D01B4481EB00F3BEA8 /* NotenbuchTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -277,10 +222,6 @@
 					E2A6A6B71B4481EB00F3BEA8 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = 8P6KQLE9GC;
-					};
-					E2A6A6CF1B4481EB00F3BEA8 = {
-						CreatedOnToolsVersion = 6.4;
-						TestTargetID = E2A6A6B71B4481EB00F3BEA8;
 					};
 				};
 			};
@@ -298,7 +239,6 @@
 			projectRoot = "";
 			targets = (
 				E2A6A6B71B4481EB00F3BEA8 /* Notenbuch */,
-				E2A6A6CF1B4481EB00F3BEA8 /* NotenbuchTests */,
 			);
 		};
 /* End PBXProject section */
@@ -318,13 +258,6 @@
 				E24A7D971B58348900473AD9 /* ToDo.plist in Resources */,
 				E2E8D9DC1B61023800527481 /* page5.png in Resources */,
 				E2A6A6F31B46E87200F3BEA8 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E2A6A6CE1B4481EB00F3BEA8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,6 +281,7 @@
 				E2E8D9CE1B61018100527481 /* LandingPage.swift in Sources */,
 				E2A6A6C31B4481EB00F3BEA8 /* ViewController.swift in Sources */,
 				E27474871B62561800147853 /* DeviceGuru.swift in Sources */,
+				E2A3302C1BC6CA8100EBB363 /* NSLogExtension.swift in Sources */,
 				E27957351B58F68600EB330F /* Notenitem+CoreDataProperties.swift in Sources */,
 				E27957361B58F68600EB330F /* Notenitem.swift in Sources */,
 				E2A6A6C11B4481EB00F3BEA8 /* Notenbuch.xcdatamodeld in Sources */,
@@ -359,23 +293,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E2A6A6CC1B4481EB00F3BEA8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E2A6A6D71B4481EB00F3BEA8 /* NotenbuchTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		E2A6A6D21B4481EB00F3BEA8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E2A6A6B71B4481EB00F3BEA8 /* Notenbuch */;
-			targetProxy = E2A6A6D11B4481EB00F3BEA8 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		E2A6A6C91B4481EB00F3BEA8 /* LaunchScreen.xib */ = {
@@ -506,42 +424,6 @@
 			};
 			name = Release;
 		};
-		E2A6A6DE1B4481EB00F3BEA8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = NotenbuchTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "me.angelicornis.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Notenbuch.app/Notenbuch";
-			};
-			name = Debug;
-		};
-		E2A6A6DF1B4481EB00F3BEA8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = NotenbuchTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "me.angelicornis.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Notenbuch.app/Notenbuch";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -559,15 +441,6 @@
 			buildConfigurations = (
 				E2A6A6DB1B4481EB00F3BEA8 /* Debug */,
 				E2A6A6DC1B4481EB00F3BEA8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E2A6A6DD1B4481EB00F3BEA8 /* Build configuration list for PBXNativeTarget "NotenbuchTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E2A6A6DE1B4481EB00F3BEA8 /* Debug */,
-				E2A6A6DF1B4481EB00F3BEA8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -149,10 +149,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 request.predicate = NSPredicate(format: "\(orderAttributeName) > \(sourceOrder) AND \(orderAttributeName) <= \(destinationOrder)")
                 do {
                     if let resultArray = try context.executeFetchRequest(request) as? [NSManagedObject] {
-                        resultArray.map({ (object) -> NSManagedObject in
-                            print(object)
-                            object.setValue(object.valueForKey(orderAttributeName)!.integerValue - 1, forKey: orderAttributeName)
-                            return object
+                        resultArray.each(element: { (element) -> () in
+                            print(element)
+                            element.setValue(element.valueForKey(orderAttributeName)!.integerValue - 1, forKey: orderAttributeName)
                         })
                     }
                 } catch {
@@ -164,10 +163,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 request.predicate = NSPredicate(format: "\(orderAttributeName) >= \(destinationOrder) AND \(orderAttributeName) < \(sourceOrder)")
                 do {
                     if let resultArray = try context.executeFetchRequest(request) as? [NSManagedObject] {
-                        resultArray.map({ (object) -> NSManagedObject in
-                            print(object)
-                            object.setValue(object.valueForKey(orderAttributeName)!.integerValue + 1, forKey: orderAttributeName)
-                            return object
+                        resultArray.each(element: { (element) -> () in
+                            print(element)
+                            element.setValue(element.valueForKey(orderAttributeName)!.integerValue + 1, forKey: orderAttributeName)
                         })
                     }
                 } catch {

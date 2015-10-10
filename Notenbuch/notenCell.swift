@@ -35,18 +35,12 @@ class notenCell: UITableViewCell, NSFetchedResultsControllerDelegate {
 //    var firstStart = true
     
     func cellDidLoad() {
-//        self.title = currentNotensatz.name
-//        if !firstStart {
-//            firstStart = false
-            removeAllViews()
-//        }
+        removeAllViews()
         arrays = Notenitem.makeArrays(fetchedResultsController)
         start()
-//        print(firstStart)
         
         UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "orientationChanged:", name: "UIDeviceOrientationDidChangeNotification", object: nil)
-        // this gives you access to notifications about rotations
     }
     
     func gestureRecognizer(sender: UIPanGestureRecognizer) {

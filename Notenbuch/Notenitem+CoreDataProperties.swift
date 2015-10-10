@@ -2,11 +2,11 @@
 //  Notenitem+CoreDataProperties.swift
 //  Notenbuch
 //
-//  Created by Tom Kumschier on 17.07.15.
+//  Created by Tom Kumschier on 09.10.15.
 //  Copyright © 2015 Tom Kumschier. All rights reserved.
 //
-//  Delete this file and regenerate it using "Create NSManagedObject Subclass…"
-//  to keep your implementation up to date with your model.
+//  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
+//  to delete and recreate this implementation file for your updated model.
 //
 
 import Foundation

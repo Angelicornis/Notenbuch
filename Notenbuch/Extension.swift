@@ -20,6 +20,27 @@ func delayOnMainQueue(time: NSTimeInterval, closure: () ->Void) {
     delayOnQueue(time, queue: dispatch_get_main_queue(), closure: closure)
 }
 
+func NSLogMessage(file: String, line: Int, functionName: String) {
+    let date = NSDate()
+    let calendar = NSCalendar.currentCalendar()
+    let components = calendar.components([.Year, .Month, .Day] , fromDate: date)
+    let gregorian:NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+    let unit: NSCalendarUnit = [.Hour, .Minute]
+    let comps:NSDateComponents = gregorian.components(unit, fromDate: date)
+    
+    comps.setValue(components.day, forComponent:.Day)
+    comps.setValue(components.month, forComponent:.Month)
+    comps.setValue(components.year, forComponent:.Year)
+    comps.setValue(comps.hour, forComponent:.Hour)
+    comps.setValue(comps.minute, forComponent:.Minute)
+    let dateFormater : NSDateFormatter = NSDateFormatter()
+    dateFormater.dateFormat = "yyyy-MM-dd hh-mm-ss-"
+    let NewFiredate = dateFormater.stringFromDate(gregorian.dateFromComponents(comps)!)
+    
+    let message = "\(NewFiredate)\n >> \(NSURL(fileURLWithPath: file).lastPathComponent!) > \(functionName)[\(line)]"
+    print("\n\u{001b}[fg219,44,56;\(message)\u{001b}[;")
+}
+
 func max(array: [Int]) ->Int {
     
     var maxValue = 0
@@ -120,24 +141,20 @@ public extension String {
         if range.startIndex < 0 || range.endIndex > self.length() {
             return nil
         }
-        let range = Range(start: advance(startIndex, range.startIndex), end: advance(startIndex, range.endIndex))
-        return self[range]
+        return self.substringWithRange(Range<String.Index>(start: self.startIndex.advancedBy(range.startIndex), end: self.endIndex.advancedBy(range.endIndex))) //"llo, playgroun"
     }
     subscript (range: Int) -> String? {
-        let range = Range(start: advance(startIndex, range), end: advance(startIndex, range+1))
-        return self[range]
+        return self.substringWithRange(Range<String.Index>(start: self.startIndex.advancedBy(range), end: self.endIndex.advancedBy(range+1))) //"llo, playgroun"
     }
     /**
     Returns a Optional String, with contains the elements in the range
     */
+
     public func gibStringZurück (range range: Range<Int>) -> String? {
         if range.startIndex < 0 || range.endIndex > self.length() {
             return nil
         }
-        
-        let range = Range(start: advance(startIndex, range.startIndex), end: advance(startIndex, range.endIndex))
-        
-        return self[range]
+        return self.substringWithRange(Range<String.Index>(start: self.startIndex.advancedBy(range.startIndex), end: self.endIndex.advancedBy(range.endIndex))) //"llo, playgroun"
     }
     /**
     Create a Range<String.Index> from the startvalue and endvalue
@@ -153,14 +170,16 @@ public extension String {
                 return nil
             }
         }
-        return Range<String.Index>(start: advance(self.startIndex, startwert), end: advance(self.endIndex, endwert))
+        return Range<String.Index>(start: self.startIndex.advancedBy(startwert), end: self.endIndex.advancedBy(endwert))
     }
     /**
     Create a Range<String.Index> from a Range<Int>
     */
     public func createRange(range range: Range<Int>) -> Range<String.Index> {
-        return Range<String.Index>(start: (advance(self.startIndex, range.startIndex)), end: (advance(startIndex, range.endIndex - range.startIndex)))
+        return Range<String.Index>(start: self.startIndex.advancedBy(range.startIndex), end: self.endIndex.advancedBy(range.endIndex))
     }
+ 
+    
     /**
     Replace the 'thisChar' Elements with 'with'
     */
@@ -334,44 +353,46 @@ public extension Double {
     */
     func setLenghtOfTheNumberAfterPointTo(lenght: Int) ->Double? {
 //        if self == nan { return }
-        var geparst = "\(self)".componentsSeparatedByString(".")
-        var nachKommaUnbearbeitet = geparst[1]
-        if geparst[1].length() <= lenght {
-            let ergebnis = geparst[0] + "." + geparst[1]
-            return ergebnis.toDouble()
-        }
-        
-        var nachKomma = ""
-        let
-        
-        nachKommaUnbearbeitetLänge = nachKommaUnbearbeitet.gibStringZurück(range: lenght...lenght)!
-        if nachKommaUnbearbeitetLänge == "9" {
-            var nachKommaGültigeZiffern = nachKommaUnbearbeitet[0..<lenght]!.toInt()!
-            let längeVorInterrieren = nachKommaGültigeZiffern.lenght()
-            ++nachKommaGültigeZiffern
-            let längeNachInterrieren = nachKommaGültigeZiffern.lenght()
-            if längeNachInterrieren > längeVorInterrieren {
-                geparst[0] = "\(geparst[0].toInt()! + 1)"
-                nachKomma = 0.toString()
-            } else {
-                nachKomma = nachKommaGültigeZiffern.toString()
-            }
-        } else if nachKommaUnbearbeitetLänge.toInt()! == 0 {
-            nachKomma = geparst[1]
-        } else if nachKommaUnbearbeitetLänge.toInt()! > 4 {
-            let range = 0..<lenght-1
-            let lenghtMinus1 = lenght-1
-            let nachKommaUnbearbeitetLängeMinus1 = "\(nachKommaUnbearbeitet.gibStringZurück(range: lenghtMinus1...lenghtMinus1)!)"
-            let nachKommaTeil1 = nachKommaUnbearbeitet[range]
-            let nachKommaTeil2 = nachKommaUnbearbeitetLängeMinus1.toInt()! + 1
-            nachKomma = nachKommaTeil1! + "\(nachKommaTeil2)"
-        } else {
-            let range = 0..<lenght
-            nachKomma = nachKommaUnbearbeitet[range]!
-        }
-        
-        let ergebnis = geparst[0] + "." + nachKomma
-        return ergebnis.toDouble()
+//        var geparst = "\(self)".componentsSeparatedByString(".")
+//        let nachKommaUnbearbeitet = geparst[1]
+//        if geparst[1].length() <= lenght {
+//            let ergebnis = geparst[0] + "." + geparst[1]
+//            return ergebnis.toDouble()
+//        }
+//        
+//        var nachKomma = ""
+//        let
+//        
+//        nachKommaUnbearbeitetLänge = nachKommaUnbearbeitet.gibStringZurück(range: lenght...lenght)!
+//        if nachKommaUnbearbeitetLänge == "9" {
+//            var nachKommaGültigeZiffern = nachKommaUnbearbeitet[0..<lenght]!.toInt()!
+//            let längeVorInterrieren = nachKommaGültigeZiffern.lenght()
+//            ++nachKommaGültigeZiffern
+//            let längeNachInterrieren = nachKommaGültigeZiffern.lenght()
+//            if längeNachInterrieren > längeVorInterrieren {
+//                geparst[0] = "\(geparst[0].toInt()! + 1)"
+//                nachKomma = 0.toString()
+//            } else {
+//                nachKomma = nachKommaGültigeZiffern.toString()
+//            }
+//        } else if nachKommaUnbearbeitetLänge.toInt()! == 0 {
+//            nachKomma = geparst[1]
+//        } else if nachKommaUnbearbeitetLänge.toInt()! > 4 {
+//            let range = 0..<lenght-1
+//            let lenghtMinus1 = lenght-1
+//            let nachKommaUnbearbeitetLängeMinus1 = "\(nachKommaUnbearbeitet.gibStringZurück(range: lenghtMinus1...lenghtMinus1)!)"
+//            let nachKommaTeil1 = nachKommaUnbearbeitet[range]
+//            let nachKommaTeil2 = nachKommaUnbearbeitetLängeMinus1.toInt()! + 1
+//            nachKomma = nachKommaTeil1! + "\(nachKommaTeil2)"
+//        } else {
+//            let range = 0..<lenght
+//            nachKomma = nachKommaUnbearbeitet[range]!
+//        }
+//        
+//        let ergebnis = geparst[0] + "." + nachKomma
+//        return ergebnis.toDouble()
+
+    return self
     }
     
     mutating func mmInCm(){self = self/10}
@@ -510,7 +531,9 @@ internal extension Range {
 
 extension UIView {
     func removeAllSubviews() {
-        self.subviews.map({ $0.removeFromSuperview() })
+        self.subviews.each { (element) -> () in
+            element.removeFromSuperview()
+        }
     }
 }
 

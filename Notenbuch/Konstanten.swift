@@ -24,7 +24,7 @@ var kFachart = "fachart"
 var kOrder = "order"
 var kNotensatz = "Notensatz"
 
-class Helper {
+/*class Helper {
     static func checkCircle (checked: Bool, radius: CGFloat, lineWidth: CGFloat = 1, uncheckedBackgroundColor: UIColor = UIColor.redColor(), checkedBackgroundColor: UIColor = UIColor.greenColor(), strockeColor: UIColor = UIColor.blackColor()) -> UIImage {
         
         let center = CGPointMake(radius, radius)
@@ -75,5 +75,5 @@ class Helper {
         return image
     }
 }
-
+*/
 

@@ -12,7 +12,7 @@ import CoreData
 @objc(Notensatz)
 class Notensatz: NSManagedObject {
     
-    static func addNotensatz(name: String, inFachart: String, schulaufgaben: Bool, kurzarbeiten: Bool, extemporalen: Bool, mundlicheNoten: Bool, fachreferat: Bool) -> Notensatz {
+    static func addNotensatz(name: String, inFachart: String, schulaufgaben: Bool, kurzarbeiten: Bool, extemporalen: Bool, mundlicheNoten: Bool, fachreferat: Bool, verhältnis_SchulaufgabenMündlich_Schulaufgaben: Int?, verhältnis_SchulaufgabenMündlich_Mündlich: Int?, verhaltnis_Kurzarbeit_Exen_Kurzarbeit: Int?, verhaltnis_Kurzarbeit_Exen_Exen: Int?) -> Notensatz {
         let notensatz = NSEntityDescription.insertNewObjectForEntityForName(kNotensatz, inManagedObjectContext: context) as! Notensatz
         notensatz.name = name
         notensatz.fachart = inFachart
@@ -21,6 +21,10 @@ class Notensatz: NSManagedObject {
         notensatz.extemporaleEnabeld = extemporalen
         notensatz.mundlicheNotenEnabeld = mundlicheNoten
         notensatz.fachreferatEnabeld = fachreferat
+        notensatz.verhaltnis_Schulaufgaben_Mundlich_Schulaufgaben = verhältnis_SchulaufgabenMündlich_Schulaufgaben
+        notensatz.verhaltnis_Schulaufgaben_Mundlich_Mundlich = verhältnis_SchulaufgabenMündlich_Mündlich
+        notensatz.verhaltnis_Kurzarbeit_Exen_Kurzarbeit = verhaltnis_Kurzarbeit_Exen_Kurzarbeit
+        notensatz.verhaltnis_Kurzarbeit_Exen_Exen = verhaltnis_Kurzarbeit_Exen_Exen
         notensatz.order = AppDelegate.minIntegerValueForEntitiy(kNotensatz, attributeName: kOrder) - 1
         do {
             try context.save()
@@ -35,7 +39,7 @@ class Notensatz: NSManagedObject {
         do {
             try context.save()
         } catch {
-            print("Fehler beim löschen von \n \(self.name)")
+            NSLog("Fehler beim löschen von: %@ _: %@ Class: %@ func: %@ line: %@", "\n", self.name! , NSURL(fileURLWithPath: __FILE__).lastPathComponent!, __FUNCTION__, __FUNCTION__)
             //TODO: Errorhandling
         }
     }
