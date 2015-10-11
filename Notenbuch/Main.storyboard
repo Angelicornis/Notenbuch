@@ -1197,11 +1197,11 @@ Haben Sie einen Fehler gefunden? Oder eine Idee was verbessert werden könnte. O
                         <viewControllerLayoutGuide type="bottom" id="jtZ-t5-wQN"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="993-8v-yUs">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="569"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="561"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="seV-zt-lQV">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="569"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="561"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kU9-FY-w0r">
                                         <rect key="frame" x="0.0" y="20" width="600" height="46"/>
@@ -1347,10 +1347,16 @@ Haben Sie einen Fehler gefunden? Oder eine Idee was verbessert werden könnte. O
                                                     <constraint firstAttribute="width" constant="49" id="Uel-zR-EpH"/>
                                                     <constraint firstAttribute="height" constant="31" id="ZoL-nn-vD9"/>
                                                 </constraints>
+                                                <connections>
+                                                    <action selector="verhaltnis_Schulaufgaben_Mundlich:" destination="duj-c3-unZ" eventType="valueChanged" id="uIs-Gm-z5q"/>
+                                                </connections>
                                             </switch>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dPr-J3-mhp">
                                                 <rect key="frame" x="543" y="47" width="51" height="31"/>
                                                 <animations/>
+                                                <connections>
+                                                    <action selector="verhaltnis_Kurzarbeiten_Exen:" destination="duj-c3-unZ" eventType="valueChanged" id="AeE-AN-myf"/>
+                                                </connections>
                                             </switch>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tw6-Qf-35f">
                                                 <rect key="frame" x="543" y="86" width="51" height="31"/>
@@ -1371,63 +1377,65 @@ Haben Sie einen Fehler gefunden? Oder eine Idee was verbessert werden könnte. O
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Verhältnis Schulaufgaben - Mündlich" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V8y-v0-oDn">
-                                                <rect key="frame" x="16" y="217" width="576" height="30"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verhältnis Schulaufgaben - Mündlich" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V8y-v0-oDn">
+                                                <rect key="frame" x="16" y="217" width="576" height="20.5"/>
                                                 <animations/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="FN1-yR-64P"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5cI-RE-G8e">
-                                                <rect key="frame" x="308" y="247" width="50" height="30"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qr3-ez-VCu">
+                                                <rect key="frame" x="246" y="245" width="108" height="30"/>
+                                                <subviews>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5cI-RE-G8e">
+                                                        <rect key="frame" x="58" y="0.0" width="50" height="30"/>
+                                                        <animations/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="duj-c3-unZ" id="ahw-q0-WMv"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yYh-b7-Nm2">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
+                                                        <animations/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="duj-c3-unZ" id="wJF-AI-3BW"/>
+                                                        </connections>
+                                                    </textField>
+                                                </subviews>
                                                 <animations/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
-                                                <connections>
-                                                    <outlet property="delegate" destination="duj-c3-unZ" id="ahw-q0-WMv"/>
-                                                </connections>
-                                            </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Verhältnis Kurzarbeiten - Exen/Mündlich" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XAm-Ze-dAJ">
-                                                <rect key="frame" x="16" y="291" width="576" height="30"/>
+                                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="108" id="Ncd-1g-qxa"/>
+                                                    <constraint firstAttribute="height" constant="30" id="hro-Zt-LFO"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verhältnis Kurzarbeiten - Exen/Mündlich" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XAm-Ze-dAJ">
+                                                <rect key="frame" x="16" y="291" width="576" height="20.5"/>
                                                 <animations/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20.5" id="w9b-43-NbE"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3So-bb-q6A">
-                                                <rect key="frame" x="250" y="321" width="50" height="30"/>
-                                                <animations/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
-                                                <connections>
-                                                    <outlet property="delegate" destination="duj-c3-unZ" id="EgF-ib-dkB"/>
-                                                </connections>
-                                            </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ObM-OL-jkp">
-                                                <rect key="frame" x="308" y="321" width="50" height="30"/>
-                                                <animations/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
-                                                <connections>
-                                                    <outlet property="delegate" destination="duj-c3-unZ" id="gS8-4Q-ZeN"/>
-                                                </connections>
-                                            </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yYh-b7-Nm2">
-                                                <rect key="frame" x="250" y="247" width="50" height="30"/>
-                                                <animations/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
-                                                <connections>
-                                                    <outlet property="delegate" destination="duj-c3-unZ" id="wJF-AI-3BW"/>
-                                                </connections>
-                                            </textField>
                                         </subviews>
                                         <animations/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="300" id="2dm-Gs-reG"/>
                                             <constraint firstItem="NZH-7G-NTo" firstAttribute="centerX" secondItem="gh9-W4-gNU" secondAttribute="centerX" id="2eV-5g-Wbk"/>
+                                            <constraint firstAttribute="trailing" secondItem="XAm-Ze-dAJ" secondAttribute="trailing" constant="8" id="4MN-sx-cRS"/>
                                             <constraint firstAttribute="height" constant="371" id="7ym-HB-v6W"/>
+                                            <constraint firstItem="qr3-ez-VCu" firstAttribute="centerX" secondItem="Qxf-y3-hUd" secondAttribute="centerX" id="8Ep-0Z-AA5"/>
+                                            <constraint firstItem="V8y-v0-oDn" firstAttribute="top" secondItem="Dr8-Cg-ShE" secondAttribute="bottom" constant="22" id="AKF-nP-PcO"/>
                                             <constraint firstItem="dPr-J3-mhp" firstAttribute="centerX" secondItem="gh9-W4-gNU" secondAttribute="centerX" id="Boj-2y-ld9"/>
                                             <constraint firstItem="tw6-Qf-35f" firstAttribute="centerX" secondItem="dPr-J3-mhp" secondAttribute="centerX" id="CAa-tn-36n"/>
                                             <constraint firstItem="Yd1-3f-RuF" firstAttribute="centerY" secondItem="dPr-J3-mhp" secondAttribute="centerY" id="DMT-q9-UaT"/>
@@ -1435,20 +1443,25 @@ Haben Sie einen Fehler gefunden? Oder eine Idee was verbessert werden könnte. O
                                             <constraint firstItem="dPr-J3-mhp" firstAttribute="top" secondItem="gh9-W4-gNU" secondAttribute="bottom" constant="8" id="HQf-Yh-Gkg"/>
                                             <constraint firstItem="omF-Wh-e75" firstAttribute="centerY" secondItem="tw6-Qf-35f" secondAttribute="centerY" id="I5m-1c-Z0X"/>
                                             <constraint firstItem="4hc-Kh-7MU" firstAttribute="centerY" secondItem="NZH-7G-NTo" secondAttribute="centerY" id="IBI-RU-SZ7"/>
+                                            <constraint firstItem="qr3-ez-VCu" firstAttribute="top" secondItem="V8y-v0-oDn" secondAttribute="bottom" constant="8" id="JKe-12-1xi"/>
+                                            <constraint firstItem="XAm-Ze-dAJ" firstAttribute="top" secondItem="qr3-ez-VCu" secondAttribute="bottom" constant="16" id="P8y-K0-aoi"/>
                                             <constraint firstItem="tw6-Qf-35f" firstAttribute="width" secondItem="dPr-J3-mhp" secondAttribute="width" id="S2E-hU-23M"/>
                                             <constraint firstItem="NZH-7G-NTo" firstAttribute="top" secondItem="tw6-Qf-35f" secondAttribute="bottom" constant="8" id="SX7-XH-xzW"/>
                                             <constraint firstItem="dPr-J3-mhp" firstAttribute="height" secondItem="gh9-W4-gNU" secondAttribute="height" id="Urm-hG-EUh"/>
                                             <constraint firstItem="Dr8-Cg-ShE" firstAttribute="centerY" secondItem="GuB-Gh-XAo" secondAttribute="centerY" id="VUK-eR-aep"/>
                                             <constraint firstItem="tw6-Qf-35f" firstAttribute="height" secondItem="dPr-J3-mhp" secondAttribute="height" id="Y2K-Gd-OD9"/>
+                                            <constraint firstAttribute="trailing" secondItem="V8y-v0-oDn" secondAttribute="trailing" constant="8" id="YEO-zo-R1P"/>
                                             <constraint firstItem="GuB-Gh-XAo" firstAttribute="centerX" secondItem="gh9-W4-gNU" secondAttribute="centerX" id="bcC-aC-53q"/>
                                             <constraint firstItem="wnP-Wj-oJ6" firstAttribute="centerY" secondItem="gh9-W4-gNU" secondAttribute="centerY" id="c8z-xA-m5L"/>
                                             <constraint firstItem="NZH-7G-NTo" firstAttribute="width" secondItem="gh9-W4-gNU" secondAttribute="width" id="ccl-yb-fAE"/>
                                             <constraint firstItem="4hc-Kh-7MU" firstAttribute="centerY" secondItem="NZH-7G-NTo" secondAttribute="centerY" id="eFM-fo-XMe"/>
                                             <constraint firstItem="GuB-Gh-XAo" firstAttribute="top" secondItem="NZH-7G-NTo" secondAttribute="bottom" constant="8" id="hRW-zQ-Khf"/>
+                                            <constraint firstItem="V8y-v0-oDn" firstAttribute="leading" secondItem="Qxf-y3-hUd" secondAttribute="leading" constant="16" id="j61-BY-8q9"/>
                                             <constraint firstItem="wnP-Wj-oJ6" firstAttribute="centerX" secondItem="gh9-W4-gNU" secondAttribute="centerX" id="k4I-GG-8fJ"/>
                                             <constraint firstItem="gh9-W4-gNU" firstAttribute="top" secondItem="Qxf-y3-hUd" secondAttribute="top" constant="8" id="kEI-50-ht2"/>
                                             <constraint firstAttribute="trailing" secondItem="gh9-W4-gNU" secondAttribute="trailing" constant="8" id="lJi-wO-D1N"/>
                                             <constraint firstItem="GuB-Gh-XAo" firstAttribute="height" secondItem="gh9-W4-gNU" secondAttribute="height" id="m79-zx-Axl"/>
+                                            <constraint firstItem="XAm-Ze-dAJ" firstAttribute="leading" secondItem="Qxf-y3-hUd" secondAttribute="leading" constant="16" id="ps1-Li-Jxs"/>
                                             <constraint firstItem="GuB-Gh-XAo" firstAttribute="width" secondItem="gh9-W4-gNU" secondAttribute="width" id="rvg-eR-hoR"/>
                                             <constraint firstItem="tw6-Qf-35f" firstAttribute="top" secondItem="dPr-J3-mhp" secondAttribute="bottom" constant="8" id="v0e-cH-WgQ"/>
                                             <constraint firstItem="dPr-J3-mhp" firstAttribute="width" secondItem="gh9-W4-gNU" secondAttribute="width" id="xsc-7b-Vea"/>
@@ -1461,6 +1474,35 @@ Haben Sie einen Fehler gefunden? Oder eine Idee was verbessert werden könnte. O
                                             </mask>
                                         </variation>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GVc-ll-Xkx">
+                                        <rect key="frame" x="246" y="508" width="108" height="30"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3So-bb-q6A">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
+                                                <animations/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="duj-c3-unZ" id="EgF-ib-dkB"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ObM-OL-jkp">
+                                                <rect key="frame" x="58" y="0.0" width="50" height="30"/>
+                                                <animations/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="duj-c3-unZ" id="gS8-4Q-ZeN"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="7tb-We-ZB2"/>
+                                            <constraint firstAttribute="width" constant="108" id="S6D-t7-3dd"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <animations/>
                                 <constraints>
@@ -1468,6 +1510,7 @@ Haben Sie einen Fehler gefunden? Oder eine Idee was verbessert werden könnte. O
                                     <constraint firstAttribute="trailing" secondItem="kU9-FY-w0r" secondAttribute="trailing" id="7A9-47-7Mf"/>
                                     <constraint firstItem="omF-Wh-e75" firstAttribute="width" secondItem="69t-zO-7vv" secondAttribute="width" id="88k-My-ztT"/>
                                     <constraint firstItem="4hc-Kh-7MU" firstAttribute="width" secondItem="69t-zO-7vv" secondAttribute="width" id="8w0-19-jDc"/>
+                                    <constraint firstAttribute="bottom" secondItem="GVc-ll-Xkx" secondAttribute="bottom" constant="23" id="9to-kc-Tn1"/>
                                     <constraint firstItem="ScZ-pG-Zp8" firstAttribute="width" secondItem="69t-zO-7vv" secondAttribute="width" id="JJQ-4F-tWa"/>
                                     <constraint firstAttribute="bottom" secondItem="Qxf-y3-hUd" secondAttribute="bottom" constant="8" id="LS6-Tp-86f"/>
                                     <constraint firstItem="4hc-Kh-7MU" firstAttribute="centerX" secondItem="69t-zO-7vv" secondAttribute="centerX" id="MKf-fM-CDV"/>
@@ -1480,6 +1523,7 @@ Haben Sie einen Fehler gefunden? Oder eine Idee was verbessert werden könnte. O
                                     <constraint firstItem="Qxf-y3-hUd" firstAttribute="top" secondItem="5gc-ZX-Dl7" secondAttribute="bottom" constant="8" symbolic="YES" id="Weu-Vs-r8G"/>
                                     <constraint firstItem="Yd1-3f-RuF" firstAttribute="centerX" secondItem="69t-zO-7vv" secondAttribute="centerX" id="X6R-ri-TNz"/>
                                     <constraint firstItem="omF-Wh-e75" firstAttribute="height" secondItem="69t-zO-7vv" secondAttribute="height" id="Xcq-I2-8Jb"/>
+                                    <constraint firstItem="GVc-ll-Xkx" firstAttribute="centerX" secondItem="Qxf-y3-hUd" secondAttribute="centerX" id="ZFs-fR-QFw"/>
                                     <constraint firstItem="Qxf-y3-hUd" firstAttribute="leading" secondItem="kU9-FY-w0r" secondAttribute="leading" id="dVz-nI-l3N"/>
                                     <constraint firstItem="Qxf-y3-hUd" firstAttribute="top" secondItem="5gc-ZX-Dl7" secondAttribute="bottom" constant="8" id="e6u-VS-ReS"/>
                                     <constraint firstItem="wnP-Wj-oJ6" firstAttribute="centerY" secondItem="69t-zO-7vv" secondAttribute="centerY" id="efE-dh-IBP"/>
@@ -1493,6 +1537,7 @@ Haben Sie einen Fehler gefunden? Oder eine Idee was verbessert werden könnte. O
                                     <constraint firstItem="Qxf-y3-hUd" firstAttribute="leading" secondItem="5gc-ZX-Dl7" secondAttribute="leading" id="leu-wB-qMJ"/>
                                     <constraint firstItem="5gc-ZX-Dl7" firstAttribute="top" secondItem="kU9-FY-w0r" secondAttribute="bottom" constant="8" id="mlJ-yC-uFh"/>
                                     <constraint firstItem="Dr8-Cg-ShE" firstAttribute="width" secondItem="69t-zO-7vv" secondAttribute="width" id="oj5-rb-aRk"/>
+                                    <constraint firstAttribute="bottom" secondItem="GVc-ll-Xkx" secondAttribute="bottom" constant="31" id="pVI-bu-bVF"/>
                                     <constraint firstItem="Yd1-3f-RuF" firstAttribute="height" secondItem="69t-zO-7vv" secondAttribute="height" id="qf3-0k-3ou"/>
                                     <constraint firstItem="Qxf-y3-hUd" firstAttribute="trailing" secondItem="kU9-FY-w0r" secondAttribute="trailing" id="t6G-K8-Q5v"/>
                                     <constraint firstItem="4hc-Kh-7MU" firstAttribute="height" secondItem="69t-zO-7vv" secondAttribute="height" id="uHC-zN-4Oo"/>
@@ -1504,6 +1549,7 @@ Haben Sie einen Fehler gefunden? Oder eine Idee was verbessert werden könnte. O
                                         <exclude reference="QOZ-7r-88U"/>
                                         <exclude reference="efE-dh-IBP"/>
                                         <exclude reference="y3U-6w-9mi"/>
+                                        <exclude reference="9to-kc-Tn1"/>
                                     </mask>
                                 </variation>
                             </scrollView>
@@ -1526,8 +1572,9 @@ Haben Sie einen Fehler gefunden? Oder eine Idee was verbessert werden könnte. O
                         </barButtonItem>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="600" height="569"/>
+                    <size key="freeformSize" width="600" height="561"/>
                     <connections>
+                        <outlet property="einstellungenView" destination="Qxf-y3-hUd" id="Nz3-vA-6bH"/>
                         <outlet property="extemporale" destination="tw6-Qf-35f" id="Ejl-5P-rEP"/>
                         <outlet property="fachart" destination="Me9-jn-ini" id="pA6-ql-vdQ"/>
                         <outlet property="fachreferat" destination="GuB-Gh-XAo" id="glr-Cm-2m4"/>
@@ -1537,13 +1584,15 @@ Haben Sie einen Fehler gefunden? Oder eine Idee was verbessert werden könnte. O
                         <outlet property="schulaufgaben" destination="gh9-W4-gNU" id="a9Y-Mu-YZo"/>
                         <outlet property="verhaltnis_Kurzarbeit_Exen_Exen" destination="ObM-OL-jkp" id="1GX-2u-xCr"/>
                         <outlet property="verhaltnis_Kurzarbeit_Exen_Kurzarbeit" destination="3So-bb-q6A" id="ai4-pr-a6o"/>
+                        <outlet property="verhaltnis_Kurzarbeiten_Exen" destination="XAm-Ze-dAJ" id="lJp-C1-KRv"/>
+                        <outlet property="verhaltnis_SchulaufgabenMundlich_Label" destination="V8y-v0-oDn" id="wv3-tu-fI3"/>
+                        <outlet property="verhaltnis_SchulaufgabenMundlich_Schulaufgaben" destination="yYh-b7-Nm2" id="AZY-SW-8US"/>
                         <outlet property="verhaltnis_Schulaufgaben_Mundlich_Mundlich" destination="5cI-RE-G8e" id="3Tk-db-PSc"/>
-                        <outlet property="verhältnis_SchulaufgabenMündlich_Schulaufgaben" destination="yYh-b7-Nm2" id="eRp-mY-mAY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yOV-Ad-O0Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1861" y="361"/>
+            <point key="canvasLocation" x="1861" y="360.5"/>
         </scene>
     </scenes>
 </document>
